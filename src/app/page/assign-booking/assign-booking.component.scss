@@ -1,0 +1,168 @@
+.content_box table{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.content_box table tr th, .content_box table tr td{
+    border: 1px solid #ccc;
+    padding: 10px 10px;
+    text-align: center;
+    font-size: 15px;
+}
+
+.option_b{
+    position: relative;
+    width: auto;
+    display: inline-block;
+}
+.option_btn{
+    padding: 5px 15px;
+    border-radius: 4px;
+    background: #012a7a;
+    color: #fff;
+    font-size: 14px;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    margin: 0;
+}
+.option_btn:hover{
+    color: #fff;
+    text-decoration: none;
+}
+.option_btn:disabled{
+    color: #fff;
+    text-decoration: none;
+}
+.dropdown_a{
+    display: none;
+    width: auto;
+    position: absolute;
+    right: -25px;
+    top: 36;
+    background: #012a7a;
+    z-index: 99;
+    width: 120px;
+    border-radius: 4px;
+    overflow: hidden;
+
+}
+.dropdown_a ul{
+    margin: 0;
+    padding: 0;
+}
+.dropdown_a ul li{
+    list-style-type: none;
+    margin: 0;
+    display: block;
+    color: #fff;
+    font-size: 14px;
+    padding: 7px 15px;
+    cursor: pointer;
+
+}
+.dropdown_a ul li:hover{
+    background: #012a7a;
+}
+.option_b:hover .dropdown_a{
+    display: block;
+}
+.job_logo img{
+    width: 80px;
+    max-width: 100%;
+}
+.status_active{
+    color: #45b70a;
+    font-weight: 600
+}
+.status_inactive{
+    color:#f00c0c;
+    font-weight: 600
+
+}
+.catgopt{
+  background: #E4F8F7;
+    display: inline-block;
+    padding: 10px;
+    border-radius: 32px;
+    position: relative;
+    color: #718687;
+    margin-right: 12px;
+    display: flex;
+    margin-bottom: 12px;
+}
+.select_info_catg {
+  display: flex;
+  flex-wrap: wrap;
+}
+.workingTimebg {
+  border-radius: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
+}
+.radioInn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 15px;
+}
+.rateListCheck {
+  padding-left: 30px;
+}
+.hourDay label {
+  font-size: 20px;
+  line-height: 22px;
+  font-weight: 400;
+  color: #0E6060;
+}
+.formTobg {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.formCount {
+  width: 45%;
+}
+.formCount p {
+  font-size: 20px;
+  font-weight: 400;
+  color: #7A7A7A;
+  margin: 0;
+  padding-bottom: 6px;
+}
+.formMain {
+  display: flex;
+  justify-content: space-between;
+}
+.formMain input {
+  border: 1px solid #E4E4E4;
+  border-radius: 10px;
+  padding: 8px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 400;
+  color: #769292;
+  width: 70px;
+}
+.ampmBg {
+  display: flex;
+  border: 1px solid #E4E4E4;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.ampmBg span {
+  font-size: 16px;
+  font-weight: 400;
+  color: #769292;
+  display: flex;
+  align-items: center;
+  text-transform: uppercase;
+  padding: 6px 8px;
+  border-radius: 10px;
+  cursor: default;
+}
+.btnActv {
+  background: #0E6060;
+  color: #fff !important;
+}

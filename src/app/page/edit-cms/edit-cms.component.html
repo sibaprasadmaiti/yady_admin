@@ -1,0 +1,47 @@
+<div class="content_box">    
+    <div  class="card">
+      <div  class="card-header card-header-danger">
+        <h4  class="card-title ">Content Management</h4>
+        <p  class="card-category">
+          Edit Content
+        </p>
+      </div>
+      <div  class="card-body">  
+    <div class="edit_form">
+      <form class="inner_form"  [formGroup]="updateContentForm" (ngSubmit)="updatejobData()">
+      <mat-form-field>
+        <input matInput type="text" placeholder="Title" formControlName="title">
+        <mat-error *ngIf="updateContentForm.controls['title'].hasError('required') && updateContentForm.controls['title'].touched">
+            Please enter a title.
+          </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+      <textarea hidden matInput placeholder="Content description" formControlName="description"></textarea>
+      <angular-editor formControlName="description"[config]="config"></angular-editor>
+      <mat-error *ngIf="updateContentForm.controls['description'].hasError('required') && updateContentForm.controls['description'].touched">
+          Please enter job description.
+        </mat-error>
+    </mat-form-field>
+     
+    <mat-form-field>
+      <mat-select formControlName="language">
+        <mat-option value="E">Englist</mat-option>
+        <mat-option value="D">Dutch</mat-option>
+      </mat-select>
+    </mat-form-field> 
+        
+      <mat-form-field>
+          <mat-select formControlName="status">
+            <mat-option value="Y">Active</mat-option>
+            <mat-option value="N">Inactive</mat-option>
+          </mat-select>
+        </mat-form-field>  
+  
+  
+    <button mat-button class="option_btn" [disabled]="updateContentForm.invalid">Update Content</button>
+      
+    </form>
+  
+    </div>
+  </div>
+  </div>

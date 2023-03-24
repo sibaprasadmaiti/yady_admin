@@ -1,0 +1,333 @@
+<div class="content_box">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="inner_main_content">
+        <h3 class="innerHdn">Service Provider Working Hours</h3>
+        <div *ngIf="workingHourList">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="serviceToggle" *ngIf="workingHourList?.emergency_service_status">Emergency Service <button type="button"
+                  class="btn btn-xs btn-secondary btn-toggle active" data-toggle="button" aria-pressed="true"
+                  autocomplete="off">
+                  <div class="handle"></div>
+                </button>
+              </div>
+              <div class="serviceToggle" *ngIf="!workingHourList?.emergency_service_status">Emergency Service <button type="button"
+                class="btn btn-xs btn-secondary btn-toggle" data-toggle="button" aria-pressed="true"
+                autocomplete="off">
+                <div class="handle"></div>
+              </button>
+            </div>
+            </div>
+            <div class="col-md-6">
+              <div class="serviceToggle" *ngIf="onlineStatus">Online <button type="button" class="btn btn-xs btn-secondary btn-toggle active"
+                  data-toggle="button" aria-pressed="true" autocomplete="off">
+                  <div class="handle"></div>
+                </button>
+              </div>
+              <div class="serviceToggle" *ngIf="!onlineStatus">Online <button type="button" class="btn btn-xs btn-secondary btn-toggle"
+                data-toggle="button" aria-pressed="true" autocomplete="off">
+                <div class="handle"></div>
+              </button>
+            </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6" *ngIf="workingHourList?.monday">
+              <div class="workingTimebg">
+                <div class="radioInn hourDay">
+                  <div class="custom-checkbox">
+                    <label>Monday</label>
+                  </div>
+                </div>
+
+                <div class="formTobg">
+                  <div class="formCount">
+                    <p>From</p>
+                    <div class="formMain">
+                      <input type="text" value="{{workingHourList.monday_from_hour}}" readonly />
+                      <div class="ampmBg" *ngIf="workingHourList.monday_from_hour_unit == 'AM'">
+                        <span class="btnActv">AM</span>
+                        <span>PM</span>
+                      </div>
+                      <div class="ampmBg" *ngIf="workingHourList.monday_from_hour_unit == 'PM'">
+                        <span>AM</span>
+                        <span class="btnActv">PM</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="formCount">
+                    <p>To</p>
+                    <div class="formMain">
+                      <input type="text" value="{{workingHourList.monday_to_hour}}" readonly />
+                      <div class="ampmBg" *ngIf="workingHourList.monday_to_hour_unit == 'AM'">
+                        <span class="btnActv">AM</span>
+                        <span>PM</span>
+                      </div>
+                      <div class="ampmBg" *ngIf="workingHourList.monday_to_hour_unit == 'PM'">
+                        <span>AM</span>
+                        <span class="btnActv">PM</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6" *ngIf="workingHourList?.tuesday">
+              <div class="workingTimebg">
+                <div class="radioInn hourDay">
+                  <div class="custom-checkbox">
+                    <label>Tuesday</label>
+                  </div>
+                </div>
+
+                <div class="formTobg">
+                  <div class="formCount">
+                    <p>From</p>
+                    <div class="formMain">
+                      <input type="text" value="{{workingHourList.tuesday_from_hour}}" readonly />
+                      <div class="ampmBg" *ngIf="workingHourList.tuesday_from_hour_unit == 'AM'">
+                        <span class="btnActv">AM</span>
+                        <span>PM</span>
+                      </div>
+                      <div class="ampmBg" *ngIf="workingHourList.tuesday_from_hour_unit == 'PM'">
+                        <span>AM</span>
+                        <span class="btnActv">PM</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="formCount">
+                    <p>To</p>
+                    <div class="formMain">
+                      <input type="text" value="{{workingHourList.tuesday_to_hour}}" readonly />
+                      <div class="ampmBg" *ngIf="workingHourList.tuesday_to_hour_unit == 'AM'">
+                        <span class="btnActv">AM</span>
+                        <span>PM</span>
+                      </div>
+                      <div class="ampmBg" *ngIf="workingHourList.tuesday_to_hour_unit == 'PM'">
+                        <span>AM</span>
+                        <span class="btnActv">PM</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6" *ngIf="workingHourList?.wednesday">
+              <div class="workingTimebg">
+                <div class="radioInn hourDay">
+                  <div class="custom-checkbox">
+                    <label>Wednesday</label>
+                  </div>
+                </div>
+
+                <div class="formTobg">
+                  <div class="formCount">
+                    <p>From</p>
+                    <div class="formMain">
+                      <input type="text" value="{{workingHourList.wednesday_from_hour}}" readonly />
+                      <div class="ampmBg" *ngIf="workingHourList.wednesday_from_hour_unit == 'AM'">
+                        <span class="btnActv">AM</span>
+                        <span>PM</span>
+                      </div>
+                      <div class="ampmBg" *ngIf="workingHourList.wednesday_from_hour_unit == 'PM'">
+                        <span>AM</span>
+                        <span class="btnActv">PM</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="formCount">
+                    <p>To</p>
+                    <div class="formMain">
+                      <input type="text" value="{{workingHourList.wednesday_to_hour}}" readonly />
+                      <div class="ampmBg" *ngIf="workingHourList.wednesday_to_hour_unit == 'AM'">
+                        <span class="btnActv">AM</span>
+                        <span>PM</span>
+                      </div>
+                      <div class="ampmBg" *ngIf="workingHourList.wednesday_to_hour_unit == 'PM'">
+                        <span>AM</span>
+                        <span class="btnActv">PM</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6" *ngIf="workingHourList?.thursday">
+              <div class="workingTimebg">
+                <div class="radioInn hourDay">
+                  <div class="custom-checkbox">
+                    <label>Thursday</label>
+                  </div>
+                </div>
+
+                <div class="formTobg">
+                  <div class="formCount">
+                    <p>From</p>
+                    <div class="formMain">
+                      <input type="text" value="{{workingHourList.thursday_from_hour}}" readonly />
+                      <div class="ampmBg" *ngIf="workingHourList.thursday_from_hour_unit == 'AM'">
+                        <span class="btnActv">AM</span>
+                        <span>PM</span>
+                      </div>
+                      <div class="ampmBg" *ngIf="workingHourList.thursday_from_hour_unit == 'PM'">
+                        <span>AM</span>
+                        <span class="btnActv">PM</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="formCount">
+                    <p>To</p>
+                    <div class="formMain">
+                      <input type="text" value="{{workingHourList.thursday_to_hour}}" readonly />
+                      <div class="ampmBg" *ngIf="workingHourList.thursday_to_hour_unit == 'AM'">
+                        <span class="btnActv">AM</span>
+                        <span>PM</span>
+                      </div>
+                      <div class="ampmBg" *ngIf="workingHourList.thursday_to_hour_unit == 'PM'">
+                        <span>AM</span>
+                        <span class="btnActv">PM</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6" *ngIf="workingHourList?.friday">
+              <div class="workingTimebg">
+                <div class="radioInn hourDay">
+                  <div class="custom-checkbox">
+                    <label>Friday</label>
+                  </div>
+                </div>
+
+                <div class="formTobg">
+                  <div class="formCount">
+                    <p>From</p>
+                    <div class="formMain">
+                      <input type="text" value="{{workingHourList.friday_from_hour}}" readonly />
+                      <div class="ampmBg" *ngIf="workingHourList.friday_from_hour_unit == 'AM'">
+                        <span class="btnActv">AM</span>
+                        <span>PM</span>
+                      </div>
+                      <div class="ampmBg" *ngIf="workingHourList.friday_from_hour_unit == 'PM'">
+                        <span>AM</span>
+                        <span class="btnActv">PM</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="formCount">
+                    <p>To</p>
+                    <div class="formMain">
+                      <input type="text" value="{{workingHourList.friday_to_hour}}" readonly />
+                      <div class="ampmBg" *ngIf="workingHourList.friday_to_hour_unit == 'AM'">
+                        <span class="btnActv">AM</span>
+                        <span>PM</span>
+                      </div>
+                      <div class="ampmBg" *ngIf="workingHourList.friday_to_hour_unit == 'PM'">
+                        <span>AM</span>
+                        <span class="btnActv">PM</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6" *ngIf="workingHourList?.saturday">
+              <div class="workingTimebg">
+                <div class="radioInn hourDay">
+                  <div class="custom-checkbox">
+                    <label>Saturday</label>
+                  </div>
+                </div>
+
+                <div class="formTobg">
+                  <div class="formCount">
+                    <p>From</p>
+                    <div class="formMain">
+                      <input type="text" value="{{workingHourList.saturday_from_hour}}" readonly />
+                      <div class="ampmBg" *ngIf="workingHourList.saturday_from_hour_unit == 'AM'">
+                        <span class="btnActv">AM</span>
+                        <span>PM</span>
+                      </div>
+                      <div class="ampmBg" *ngIf="workingHourList.saturday_from_hour_unit == 'PM'">
+                        <span>AM</span>
+                        <span class="btnActv">PM</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="formCount">
+                    <p>To</p>
+                    <div class="formMain">
+                      <input type="text" value="{{workingHourList.saturday_to_hour}}" readonly />
+                      <div class="ampmBg" *ngIf="workingHourList.saturday_to_hour_unit == 'AM'">
+                        <span class="btnActv">AM</span>
+                        <span>PM</span>
+                      </div>
+                      <div class="ampmBg" *ngIf="workingHourList.saturday_to_hour_unit == 'PM'">
+                        <span>AM</span>
+                        <span class="btnActv">PM</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6" *ngIf="workingHourList?.sunday">
+              <div class="workingTimebg">
+                <div class="radioInn hourDay">
+                  <div class="custom-checkbox">
+                    <label>Sunday</label>
+                  </div>
+                </div>
+
+                <div class="formTobg">
+                  <div class="formCount">
+                    <p>From</p>
+                    <div class="formMain">
+                      <input type="text" value="{{workingHourList.sunday_from_hour}}" readonly />
+                      <div class="ampmBg" *ngIf="workingHourList.sunday_from_hour_unit == 'AM'">
+                        <span class="btnActv">AM</span>
+                        <span>PM</span>
+                      </div>
+                      <div class="ampmBg" *ngIf="workingHourList.sunday_from_hour_unit == 'PM'">
+                        <span>AM</span>
+                        <span class="btnActv">PM</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="formCount">
+                    <p>To</p>
+                    <div class="formMain">
+                      <input type="text" value="{{workingHourList.sunday_to_hour}}" readonly />
+                      <div class="ampmBg" *ngIf="workingHourList.sunday_to_hour_unit == 'AM'">
+                        <span class="btnActv">AM</span>
+                        <span>PM</span>
+                      </div>
+                      <div class="ampmBg" *ngIf="workingHourList.sunday_to_hour_unit == 'PM'">
+                        <span>AM</span>
+                        <span class="btnActv">PM</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div *ngIf="!workingHourList">
+          <p>No working hours found</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,195 @@
+<div class="content_box">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header card-header-danger">
+                <!-- <div class="card-icon">
+                    <i class="material-icons">assignment</i>
+                </div>
+                <h4 class="card-title"> Regular Table with Colors</h4> -->
+                <!-- 1->Active | normal ,2->Process table-info,0->In active | table-warning,3->Completed | table-success,4->cancel by buyer | table-danger        -->
+        <h4  class="card-title ">Seller Transaction History Management</h4>
+          <p  class="card-category">
+           Customer  Payemnt  list details 
+          </p>
+            </div>
+            <div class="card-body table-full-width">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>
+                            ID
+                        </th>
+                        <th>
+                            Seller 
+                        </th>
+                        <th>
+                            Product Name
+                        </th>
+                        <th>
+                             Type
+                        </th>
+                       
+                        <th>
+                            Purchase Buyer
+                        </th>
+                        <th>
+                            Amount
+                        </th>
+                        <th>
+                            Purchase On
+                        </th>
+                        <th>Status</th>
+                        <!---->
+                    </tr>
+                    </thead>
+                    <tbody  *ngIf="sellerPaymentListData?.length==0">
+                        <tr><td colspan="8" style="text-align: center;">No record found</td></tr>
+                    </tbody>
+                    <tbody *ngIf="sellerPaymentListData?.length>0">
+                    <tr class="" *ngFor="let sellerPayment of sellerPaymentListData  | paginate: { itemsPerPage: 8, currentPage: page } ;let i = index" 
+                    [ngClass]="{'': sellerPayment.isPaid==3,'table-info': sellerPayment.isPaid==2,'table-warning': sellerPayment.isPaid==0,'table-success': sellerPayment.isPaid==1,'table-danger': sellerPayment.isPaid==4}" 
+                    
+                    >
+                        <td>
+                            {{i+1}}
+                        </td>
+                        <td>                            
+                            {{sellerPayment.Seller}}
+                        </td>
+                        <td>
+                            {{sellerPayment.pname}}
+                        </td>
+                        <td *ngIf="sellerPayment.type=='auction'">Bid</td>
+                        <td *ngIf="sellerPayment.type=='direct_offer'">Offer</td>
+                        
+                        <td>
+                            {{sellerPayment.Buyer}}
+                        </td>
+                        <td>
+                            ${{sellerPayment.price}}
+                        </td>
+                        <td>{{sellerPayment.created_on|date:'medium'}}</td>
+                        <td *ngIf="sellerPayment.isPaid==1">Payment Completed</td>
+                        <td *ngIf="sellerPayment.isPaid==0"> <button mat-button class="option_btn" (click)="paynow()">Pay Now</button></td>
+                        
+                        <!---->
+                    </tr>
+                    <!-- <tr>
+                        <td>
+                            2
+                        </td>
+                        <td>
+                            Minerva Hooper
+                        </td>
+                        <td>
+                            $23,789
+                        </td>
+                        <td>
+                            Curaçao
+                        </td>
+                        <td>
+                            Sinaai-Waas
+                        </td>
+                        
+                    </tr>
+                    <tr class="table-info">
+                        <td>
+                            3
+                        </td>
+                        <td>
+                            Sage Rodriguez (Info)
+                        </td>
+                        <td>
+                            $56,142
+                        </td>
+                        <td>
+                            Netherlands
+                        </td>
+                        <td>
+                            Baileux
+                        </td>
+                        
+                    </tr>
+                    <tr>
+                        <td>
+                            4
+                        </td>
+                        <td>
+                            Philip Chaney
+                        </td>
+                        <td>
+                            $38,735
+                        </td>
+                        <td>
+                            Korea, South
+                        </td>
+                        <td>
+                            Overland Park
+                        </td>
+                        
+                    </tr>
+                    <tr class="table-danger">
+                        <td>
+                            5
+                        </td>
+                        <td>
+                            Doris Greene (Danger)
+                        </td>
+                        <td>
+                            $63,542
+                        </td>
+                        <td>
+                            Malawi
+                        </td>
+                        <td>
+                            Feldkirchen in Kärnten
+                        </td>
+                        
+                    </tr>
+                    <tr>
+                        <td>
+                            6
+                        </td>
+                        <td>
+                            Mason Porter
+                        </td>
+                        <td>
+                            $78,615
+                        </td>
+                        <td>
+                            Chile
+                        </td>
+                        <td>
+                            Gloucester
+                        </td>
+                        
+                    </tr>
+                    <tr class="table-warning">
+                        <td>
+                            7
+                        </td>
+                        <td>
+                            Mike Chaney (Warning)
+                        </td>
+                        <td>
+                            $38,735
+                        </td>
+                        <td>
+                            Romania
+                        </td>
+                        <td>
+                            Bucharest
+                        </td>
+                        
+                    </tr> -->
+                    </tbody>
+                    </table>
+                    <div class="has-text-centered"  *ngIf="sellerPaymentListData?.length>0">
+                        <pagination-controls (pageChange)="page = $event"></pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>

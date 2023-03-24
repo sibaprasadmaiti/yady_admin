@@ -1,0 +1,58 @@
+<div class="content_box">
+    
+    <div  class="card">
+      <div  class="card-header card-header-danger">
+        <h4  class="card-title ">FAQ Management</h4>
+        <p  class="card-category">
+          Edit FAQ
+        </p>
+      </div>
+      <div  class="card-body">  
+    <div class="edit_form">
+      <form class="inner_form"  [formGroup]="updateFaqForm" (ngSubmit)="updatefaqData()">
+        
+        <mat-form-field>
+        <input matInput type="text" placeholder="Title" formControlName="title">
+        <mat-error *ngIf="updateFaqForm.controls['title'].hasError('required') && updateFaqForm.controls['title'].touched">
+            Please enter a title.
+          </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+      <textarea hidden matInput placeholder="" formControlName="content"></textarea>
+      <angular-editor formControlName="content"[config]="config"></angular-editor>
+      <mat-error *ngIf="updateFaqForm.controls['content'].hasError('required') && updateFaqForm.controls['content'].touched">
+          Please enter  description.
+        </mat-error>
+    </mat-form-field>
+    <!-- <div class="mb-3">        
+        <select id="category" [(ngModel)]="category" formControlName="category"> 
+          <option value="0">--Select Category--</option>
+          <option *ngFor="let addfaqcategory of addfaqcategory" value={{addfaqcategory.id}}>
+            {{addfaqcategory.name}}
+          </option>
+        </select>
+      </div> -->
+      <mat-form-field>
+        <mat-select formControlName="language">
+          <mat-option value="E">Englist</mat-option>
+          <mat-option value="D">Dutch</mat-option>
+        </mat-select>
+      </mat-form-field>
+      
+        <mat-form-field>
+            <mat-select formControlName="status">
+              <mat-option value="Y">Active</mat-option>
+              <mat-option value="N">Inactive</mat-option>
+            </mat-select>
+          </mat-form-field>
+      
+        
+  
+  
+    <button mat-button class="update_btn" [disabled]="updateFaqForm.invalid">Update Content</button>
+      
+    </form>
+  
+    </div>
+  </div>
+  </div>

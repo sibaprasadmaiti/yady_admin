@@ -1,0 +1,158 @@
+
+    <!-- <h2>User list details</h2>
+   <table>
+     <tr>
+       <th>Name</th>
+       <th>Email</th>
+       <th>Contact No</th>      
+       <th>Account Type</th>
+       <th>Status</th>
+       <th>Action</th>
+
+     </tr>
+     <tr *ngFor="let user of userList" [ngClass]="{'content_box_seller': user.type==1, 'content_box_buy':user.type==2}">
+       <td>{{user.name}}</td>
+       <td>{{user.email}}</td>
+       <td>{{user.mobile_number}}</td>      
+       <!- <td *ngIf="user.account_type==0">Both</td> ->
+       <td *ngIf="user.type==1">Sellers</td>
+       <td *ngIf="user.type==2">Buyers</td>
+       <td *ngIf="user.status==1" [ngClass]="{'status_active': user.status==1}">Active</td>
+       <td *ngIf="user.status==0" [ngClass]="{'status_inactive': user.status==0}">Inactive</td>
+       <td>
+        <div class="option_b">
+          <p href="#" class="option_btn">Option</p>
+          <div class="dropdown_a">
+              <!-<ul>
+                  <li [routerLink]="['/main/edit-user', user.id]">Edit</li>
+                  <li>Remove</li>
+              </ul> ->
+          </div>
+      </div>
+       </td>
+     </tr>
+   </table> -->
+   <div class="content_box">
+   <div  class="card">
+    <div  class="card-header card-header-danger">
+      <h4  class="card-title ">User Management</h4>
+      <p  class="card-category">
+        User list details
+      </p>
+    </div>
+    <div  class="card-body">
+      <div  class="table-responsive">
+        <table  class="table">
+        <thead  class=" text-primary">
+          
+          <th>Name</th>
+          <th>Email</th>
+          <th>Contact No</th>      
+          <th>Account Type</th>
+          <th>Status</th>
+          <th>Action</th>
+          <th>AAAAA</th>
+        </thead>
+        <tbody >
+          <tr *ngFor="let user of userList  | paginate: { itemsPerPage: 5, currentPage: page } ;let i = index" [ngClass]="{'content_box_seller': user.type==1, 'content_box_buy':user.type==2}" [ngClass]="{'brown':showColor}">
+           
+            <td>{{user.name}}{{i}}</td>
+            <td>{{user.email}}</td>
+            <td>{{user.mobile_number}}</td>      
+            <!-- <!- <td *ngIf="user.account_type==0">Both</td> -> -->
+            <td *ngIf="user.type==1">Sellers</td>
+            <td *ngIf="user.type==2">Buyers</td>
+            <td *ngIf="user.status==1" [ngClass]="{'status_active': user.status==1}">Active</td>
+            <td *ngIf="user.status==0" [ngClass]="{'status_inactive': user.status==0}">Inactive</td>
+            <td>
+             <!-- <div class="option_b">
+               <p href="#" class="option_btn">Option</p>
+               <div class="dropdown_a">
+                   <ul>
+                       <li [routerLink]="['/main/edit-user', user.id]">Edit</li>
+                       <li>Remove</li>
+                   </ul> 
+               </div>
+           </div> -->
+           <button _ngcontent-eva-c5="" class="btn btn-primary btn-link btn-sm btn-just-icon mat-raised-button" mat-raised-button="" mattooltip="Edit user" type="button" aria-describedby="cdk-describedby-message-2" cdk-describedby-host="">
+            <span class="mat-button-wrapper" >
+                <i _ngcontent-eva-c5="" class="material-icons" (click)="viewtuser(user.id)">
+                  details
+                </i>
+            </span>
+        <div class="mat-button-ripple mat-ripple" matripple="">
+        </div>
+        <div class="mat-button-focus-overlay">
+        </div>
+        </button>
+        <button _ngcontent-eva-c5="" class="btn btn-danger btn-link btn-sm btn-just-icon mat-raised-button" mat-raised-button="" mattooltip="Remove" type="button" aria-describedby="cdk-describedby-message-3" cdk-describedby-host=""><span class="mat-button-wrapper">
+          <i _ngcontent-eva-c5="" class="material-icons" (click)="openModal(user.id)">email</i></span>
+          <div class="mat-button-ripple mat-ripple" matripple="">
+          </div>
+          <div class="mat-button-focus-overlay">
+          </div>
+          </button>
+          <button _ngcontent-eva-c5="" class="btn btn-danger btn-link btn-sm btn-just-icon mat-raised-button" mat-raised-button="" mattooltip="Remove" type="button" aria-describedby="cdk-describedby-message-3" cdk-describedby-host=""><span class="mat-button-wrapper">
+            <i _ngcontent-eva-c5="" class="material-icons" (click)="viewNotification(user.id)">view_list</i></span>
+            <div class="mat-button-ripple mat-ripple" matripple="">
+            </div>
+            <div class="mat-button-focus-overlay">
+            </div>
+            </button>
+            <button _ngcontent-eva-c5="" class="btn btn-danger btn-link btn-sm btn-just-icon mat-raised-button" mat-raised-button="" mattooltip="Remove" type="button" aria-describedby="cdk-describedby-message-3" cdk-describedby-host=""><span class="mat-button-wrapper">
+              <i _ngcontent-eva-c5="" class="material-icons" (click)="viewContactNotification()">contact_mail</i></span>
+              <div class="mat-button-ripple mat-ripple" matripple="">
+              </div>
+              <div class="mat-button-focus-overlay">
+              </div>
+              </button>
+          
+        <!-- <button _ngcontent-eva-c5="" class="btn btn-danger btn-link btn-sm btn-just-icon mat-raised-button" mat-raised-button="" mattooltip="Remove" type="button" aria-describedby="cdk-describedby-message-3" cdk-describedby-host=""><span class="mat-button-wrapper"><i _ngcontent-eva-c5="" class="material-icons">close</i></span>
+        <div class="mat-button-ripple mat-ripple" matripple="">
+        </div>
+        <div class="mat-button-focus-overlay">
+        </div>
+        </button> -->
+            </td>
+            <td *ngIf="user.status==1">
+              <!-- <div>  
+                <h3>This is a Attribute Directives</h3>  
+                <span [class.red]="true">Attribute Change</span><br />  
+                <span [ngClass]="{'blue':true}">Attribute Change by Using NgClass</span><br />  
+                <span [ngStyle]="{'font-size':'14px','color':'green'}">Attribute Change by Using NgStyle</span>  
+                <br /><br />  
+                <span [class.cyan]="showColor">Attribute Change</span><br />  
+                <span [ngClass]="{'brown':showColor}">Attribute Change by Using NgClass</span><br />  
+                <input type="button" value="Change Color" (click)="changeColor()" />  
+                <br /><br />  
+                <span [class.cyan]="showColor">Attribute Change</span><br />  
+                <span [ngClass]="{'cyan':showColor, 'red' : !showColor}">Attribute Change by Using NgClass</span><br />  
+                <br />  
+            </div>   -->
+            <div>  
+              <input  type="button"   (click)="changeData(user.status)"/>  
+              
+              <br />  
+              <!-- <h2 *ngIf="showInfo"><span>Demonstrate of Structural Directives - *ngIf</span></h2>   -->
+          </div> 
+
+            </td>
+            <td *ngIf="user.status==0">              
+            <div>  
+              <input  type="button" value="{{caption}}" (click)="changeData(user.status)"/>  
+                         
+          </div> 
+
+            </td>
+          </tr>
+        </tbody>
+        </table>
+        <div class="has-text-centered">
+          <pagination-controls (pageChange)="page = $event"></pagination-controls>
+      </div>
+      </div>
+    </div>
+  </div>
+
+
+  </div>

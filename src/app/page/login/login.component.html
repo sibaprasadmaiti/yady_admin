@@ -1,0 +1,47 @@
+<!-- <ngx-spinner></ngx-spinner> -->
+<div class="login_box_outer">
+    <div class="login_box">
+      <h2>Yady Admin</h2>
+      <p></p>
+      <form [formGroup]="loginForm" (ngSubmit)="loginData()">
+    <!-- <mat-form-field>
+      <input matInput type="text" placeholder="username" formControlName="loginid">
+      <mat-error *ngIf="loginForm.controls['loginid'].hasError('required') && loginForm.controls['loginid'].touched">
+          Please enter a valid username.
+        </mat-error>
+      <mat-error *ngIf="loginForm.controls['loginid'].hasError('pattern') && loginForm.controls['loginid'].touched">
+          Please enter a valid username.
+        </mat-error>
+
+    </mat-form-field> -->
+    <mat-form-field>
+      <input matInput type="text" placeholder="email" formControlName="email">
+      <mat-error *ngIf="loginForm.controls['email'].hasError('required') && loginForm.controls['email'].touched">
+          Please enter a valid email.
+        </mat-error>
+      <mat-error *ngIf="loginForm.controls['email'].hasError('pattern') && loginForm.controls['email'].touched">
+          Please enter a valid email.
+        </mat-error>
+
+    </mat-form-field>
+
+    <mat-form-field class="field">
+      <input matInput type="password" placeholder="Password" formControlName="password">
+        <mat-error *ngIf="loginForm.controls['password'].hasError('required') && loginForm.controls['password'].touched">
+            Please enter password.
+        </mat-error>
+        <mat-error *ngIf="loginForm.controls['password'].hasError('minlength') && loginForm.controls['password'].touched">
+          Invalid password.
+        </mat-error>
+      <mat-error *ngIf="loginForm.controls['password'].hasError('maxlength') && loginForm.controls['password'].touched">
+            Invalid password.
+      </mat-error>
+    </mat-form-field>
+
+   <p class="forgot_pass" (click)="openDialog()">Forgot Password?</p>
+    <button mat-raised-button class="login_btn" [disabled]="loginForm.invalid">Login</button>
+  </form>
+  </div>
+
+  </div>
+

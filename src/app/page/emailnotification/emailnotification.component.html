@@ -1,0 +1,39 @@
+<div class="content_box">
+    
+    <div  class="card">
+      <div  class="card-header card-header-danger">
+        <h4  class="card-title ">Email Notification Management</h4>
+        <p  class="card-category">
+          View Email Notification list
+        </p>
+      </div>
+      <div  class="card-body">  
+    <div class="edit_form">
+        <div  class="table-responsive">
+            <table  class="table">
+            <thead  class=" text-primary">
+              <th>Name</th>
+              <th>Email</th>
+              <th>Subject</th>      
+              <th>Message</th>
+              <th>Date</th>
+              
+            </thead>
+            <tbody >
+              <tr *ngFor="let messagelist of messagelist" > 
+                  <td *ngIf="messagelist.length == 0" colspan="5"> No record</td>              
+                <td>{{messagelist.name}}</td>
+                <td>{{messagelist.emailTo}}</td>
+                <td>{{messagelist.emailSubject}}</td>      
+                <!-- <!- <td *ngIf="user.account_type==0">Both</td> -> -->
+                <td>{{messagelist.description}}</td>
+                <td>{{messagelist.created|date:'medium'}}</td>
+              </tr>
+            </tbody>
+            </table>
+            <!-- <div><button mat-button class="option_btn" (click)="back()">Back</button></div> -->
+        </div>
+  
+    </div>
+  </div>
+  </div>

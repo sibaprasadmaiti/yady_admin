@@ -1,0 +1,63 @@
+   <div class="content_box">
+    <div class="card">
+     <div class="card-header card-header-danger">
+       <h4 class="card-title">Question Management</h4>
+       <p class="card-category">
+         Question List
+       </p>
+       <div>
+			<button *ngIf="adminType != 3" (click)="addNew()" class="option_btn">Add Question</button>&nbsp;
+			<button mat-raised-button color="primary" *ngIf="back_param === 'category'" (click)="backtolist()"> Back To Category List </button>
+			<button mat-raised-button color="primary" *ngIf="back_param === 'subcategory'" (click)="backtosublist(sub_cat_id)"> Back To Subcategory List </button>
+	   </div>
+     </div>
+     <div  class="card-body">
+       <div  class="table-responsive">
+         <table  class="table">
+         <thead  class=" text-primary">
+			<th>Category/Sub Category</th>
+			<th>Question</th>
+			<th>Answers</th>
+			<th>Status</th>
+			<th>Action</th>
+         </thead>
+         <tbody >
+           <tr *ngFor="let question of questionData  | paginate: { itemsPerPage: 5, currentPage: page } ;let i = index" [ngClass]="{'brown':showColor}">
+
+             <td>{{question.cat_subcat_name}} ({{question.question_added_from}})</td>
+             <td>{{question.question}}</td>
+             <td><button mat-raised-button (click)="openAnswers(question._id)">View</button></td>
+             <td style="cursor:pointer" *ngIf="question.status == 1" (click)="changeStatus(i,question._id,question.status)" [ngClass]="{'status_active': question.status==1}">Active</td>
+             <td style="cursor:pointer" *ngIf="question.status == 0" (click)="changeStatus(i,question._id,question.status)" [ngClass]="{'status_inactive': question.status==0}">Inactive</td>
+
+             <td>
+				<button *ngIf="adminType != 3" _ngcontent-eva-c5="" class="btn btn-primary btn-link btn-sm btn-just-icon mat-raised-button" mat-raised-button="" mattooltip="Edit driver" type="button" aria-describedby="cdk-describedby-message-2" cdk-describedby-host="">
+					<span class="mat-button-wrapper" >
+					<i _ngcontent-eva-c5="" class="material-icons" (click)="editMenu(question._id)">
+					edit
+					</i>
+					</span>
+				</button>
+				<!--<div *ngIf="question.status==1" >
+					<img src="./assets/tick.png" (click)="changeStatus(i,question._id,question.status)">
+				</div>
+				<div *ngIf="question.status==0">
+					<img src="./assets/cross.png" (click)="changeStatus(i,question._id,question.status)">
+				</div>-->
+            </td>
+
+           </tr>
+           <tr *ngIf="questionData?.length == 0">
+               <td text-align="center" colspan="5">No Record found</td>
+           </tr>
+         </tbody>
+         </table>
+         <div class="has-text-centered">
+           <pagination-controls (pageChange)="page = $event"></pagination-controls>
+       </div>
+       </div>
+     </div>
+   </div>
+
+
+   </div>

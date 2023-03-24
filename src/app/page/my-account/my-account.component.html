@@ -1,0 +1,45 @@
+<div class="content_box">
+    <h2>My Account</h2>
+
+    <form class="inner_form" [formGroup]="updateForm" (ngSubmit)="updateData()">
+        <mat-form-field>
+          <input matInput placeholder="Name" formControlName="name">
+          <mat-error *ngIf="updateForm.controls['name'].hasError('required') && updateForm.controls['name'].touched">
+              Please enter name.
+            </mat-error>
+          <mat-error *ngIf="updateForm.controls['name'].hasError('maxlength') && updateForm.controls['name'].touched">
+              Name length must be maximum 32 characters.
+            </mat-error>
+
+          <!-- <mat-error *ngIf="updateForm.controls['name'].hasError('pattern') && updateForm.controls['name'].touched">
+              First name can not contain any number or special character.
+            </mat-error> -->
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Username" formControlName="username">
+            <mat-error *ngIf="updateForm.controls['username'].hasError('required') && updateForm.controls['username'].touched">
+                Please enter username name.
+              </mat-error>
+            <mat-error *ngIf="updateForm.controls['username'].hasError('maxlength') && updateForm.controls['username'].touched">
+                username name length must be maximum 32 characters.
+              </mat-error>
+
+            <!-- <mat-error *ngIf="updateForm.controls['username'].hasError('pattern') && updateForm.controls['username'].touched">
+                Last name can not contain any number or special character.
+              </mat-error> -->
+          </mat-form-field>
+          <mat-form-field>
+              <input matInput placeholder="Email" formControlName="email">
+              <mat-error *ngIf="updateForm.controls['email'].hasError('required') && updateForm.controls['email'].touched">
+                  Please enter a valid email.
+                </mat-error>
+              <mat-error *ngIf="updateForm.controls['email'].hasError('pattern') && updateForm.controls['email'].touched">
+                  Please enter a valid email.
+              </mat-error>
+            </mat-form-field>
+
+            <button mat-raised-button class="default_btn" [disabled]="updateForm.invalid">Update</button>
+      </form>
+
+     
+  </div>  

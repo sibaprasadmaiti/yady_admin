@@ -1,0 +1,41 @@
+<div class="content_box">  
+  <div  class="card">
+    <div  class="card-header card-header-danger">
+      <h4  class="card-title ">Content Management</h4>
+      <p  class="card-category">
+        Add Content
+      </p>      
+    </div>
+    <div  class="card-body">
+  <div class="edit_form">
+    <form class="inner_form"  [formGroup]="addForm" (ngSubmit)="addData()">
+    <mat-form-field>
+      <input matInput type="text" placeholder="Title" formControlName="title">
+      <mat-error *ngIf="addForm.controls['title'].hasError('required') && addForm.controls['title'].touched">
+          Please enter a title.
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+    <textarea hidden matInput placeholder="" formControlName="description"></textarea>
+    <angular-editor formControlName="description"[config]="config"></angular-editor>
+    <mat-error *ngIf="addForm.controls['description'].hasError('required') && addForm.controls['description'].touched">
+        Please enter content description.
+      </mat-error>
+  </mat-form-field>
+  <div class="form-group">
+    <label for="language">language</label>
+    <select class="form-control" formControlName="language" [(ngModel)]="language">
+       <option value="E">English</option>
+       <option value="D" selected>Dutch</option>
+    </select>
+</div>
+    
+
+
+  <button mat-button class="option_btn" [disabled]="addForm.invalid">Add Content</button>
+    
+  </form>
+
+</div>
+</div>
+</div>

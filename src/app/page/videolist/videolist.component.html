@@ -1,0 +1,99 @@
+
+<div class="content_box">
+    <div  class="card">
+     <div  class="card-header card-header-danger">
+       <h4  class="card-title ">Spotlight Video Management</h4>
+       <p  class="card-category">
+         Video list details
+       </p>
+       <div><button  (click)="addNew()" class="option_btn">Add  Menu</button></div>
+     </div>
+     <div  class="card-body">
+       <div  class="table-responsive">
+         <table  class="table">
+         <thead  class=" text-primary">  
+           <th>Video File</th>  
+            <th style="width:10%">Status</th>           
+           <th style="width:15%">Action</th>          
+         </thead>
+         <tbody >
+           <tr *ngFor="let video of videoData  | paginate: { itemsPerPage: 5, currentPage: page } ;let i = index" [ngClass]="{'content_box_seller': video.status=='Y', 'content_box_buy':video.type=='N'}" [ngClass]="{'brown':showColor}">
+            
+                      
+             <td *ngIf="video.thum_img">
+              <!-- <img [src]="imgpath+video.thum_img" height="150"> -->
+              
+                    <div class="col-sm-12 p-2">     
+                         <!-- <img class="video-image" [src]="'//i.ytimg.com/vi/'+video.video+'/'+video.thum_img" />    -->
+                    </div>
+
+                    <div class="video">
+                      <video controls (click)="toggleVideo()" #videoPlayer>
+                          <source [src]="videopath+video.video" type="video/mp4" />
+                          Browser not supported
+                      </video>
+                  </div>
+
+             
+                  
+                
+                    <ul class="player-list">
+                      <!-- <li *ngFor="let vdo of videoItems; let $index = index"
+                        (click)="startPlaylistVdo(vdo, $index)" [class.selected]="vdo === currentVideo">
+                        {{ vdo.name }}
+                      </li> -->
+                    </ul>
+                
+              
+                  
+             
+              </td> 
+              <td *ngIf="!video.thum_img">
+                <img [src]="defaultimg" height="150">
+                </td>
+                           
+             <td *ngIf="video.status=='Y'" [ngClass]="{'status_active': video.status=='Y'}">Active</td>
+             <td *ngIf="video.status=='N'" [ngClass]="{'status_inactive': video.status=='N'}">Inactive</td>
+            
+             <td>             
+            <button _ngcontent-eva-c5="" class="btn btn-primary btn-link btn-sm btn-just-icon mat-raised-button" mat-raised-button="" mattooltip="Edit video" type="button" aria-describedby="cdk-describedby-message-2" cdk-describedby-host="">
+             <span class="mat-button-wrapper" >
+              <i _ngcontent-eva-c5="" class="material-icons" (click)="editMenu(video.id)">
+                edit
+            </i>
+             </span>
+         <div class="mat-button-ripple mat-ripple" matripple="">
+         </div>
+         <div class="mat-button-focus-overlay">
+         </div>
+         </button>
+
+               <div *ngIf="video.status=='Y'" >  
+                 <img src="assets/tick.png" (click)="changeStatus(i,video.id,video.status)"> 
+                 
+                        
+             </div> 
+             <div *ngIf="video.status=='N'">  
+               <img src="assets/cross.png" (click)="changeStatus(i,video.id,video.status)"> 
+                                    
+           </div> 
+           
+         
+             </td>
+             
+             
+           </tr>
+           <tr *ngIf="videoData.length == 0">
+               <td style="text-align:center" colspan="3">No Record found</td>
+           </tr>
+         </tbody>
+         </table>
+         <div class="has-text-centered">
+           <pagination-controls (pageChange)="page = $event"></pagination-controls>
+       </div>
+       </div>
+     </div>
+   </div>
+ 
+ 
+   </div>

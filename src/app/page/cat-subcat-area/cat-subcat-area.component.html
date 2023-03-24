@@ -1,0 +1,49 @@
+<div class="content_box">
+	<div class="card">
+		<div class="card-header card-header-danger">
+			<h4 class="card-title">Category/Sub Category Area Management</h4>
+			<div>
+				<button (click)="back()" class="option_btn">Back</button>&nbsp;
+			</div>
+		</div>
+		<div class="card-body">
+			<div class="edit_form">
+				<form class="inner_form" [formGroup]="areaAddForm" (ngSubmit)="addArea()">
+					<mat-form-field style="width:48%; display: inline-block !important;">
+						<mat-label>{{country}}</mat-label>
+						<mat-select formControlName="country_id" (selectionChange)="onChangeCountry($event.value)">
+							<mat-option *ngFor="let country of countryData" [value]="country.id">{{country.name}}</mat-option>
+						</mat-select>
+					</mat-form-field>
+					&nbsp;&nbsp;
+					<mat-form-field style="width:48%; display: inline-block !important;">
+						<mat-label>{{state}}</mat-label>
+						<mat-select formControlName="state_id" (selectionChange)="onChangeState($event.value)">
+							<mat-option *ngFor="let state of stateData" [value]="state.id">{{state.name}}</mat-option>
+						</mat-select>
+					</mat-form-field>
+					<mat-form-field style="width:48%; display: inline-block !important;">
+						<mat-label>{{city}}</mat-label>
+						<mat-select formControlName="city_id" (selectionChange)="onChangeCity($event.value)">
+							<mat-option *ngFor="let city of cityData" [value]="city.id" attr.data="city.name">{{city.name}}</mat-option>
+						</mat-select>
+					</mat-form-field>
+					&nbsp;&nbsp;
+					<mat-form-field style="width:48%; display: inline-block !important;">
+						<input matInput type="text" placeholder="Currecny" formControlName="currency" autocomplete="off" readonly >
+					</mat-form-field>
+					<input type="hidden" id="lat" value="{{lattitude}}">
+					<input type="hidden" id="long" value="{{longitude}}">
+					
+					<input type="hidden" id="view_port_northeast_lat" value="{{view_port_northeast_lat}}">
+					<input type="hidden" id="view_port_northeast_lng" value="{{view_port_northeast_lng}}">
+					<input type="hidden" id="view_port_southwest_lat" value="{{view_port_southwest_lat}}">
+					<input type="hidden" id="view_port_southwest_lng" value="{{view_port_southwest_lng}}">
+					<div class="btn_name">
+						<button mat-button class="option_btn" [disabled]="areaAddForm.invalid">Save and Next</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,71 @@
+<div class="content_box">   
+    <div  class="card">
+      <div  class="card-header card-header-danger">
+        <h4  class="card-title ">Recipe Management</h4>
+        <p  class="card-category">
+          Edit Recipe 
+        </p>       
+      </div>
+      <div  class="card-body"> 
+    <div class="edit_form">
+      <form class="inner_form" [formGroup]="EditForm" (ngSubmit)="updateData()">
+ 
+      <mat-form-field>
+        <input matInput type="text" placeholder="Recipe Name (English)" formControlName="name">
+        <mat-error *ngIf="EditForm.controls['name'].hasError('required') && EditForm.controls['name'].touched">
+            Please enter a Recipe Name in English.
+          </mat-error>
+      </mat-form-field>
+	  
+	  <mat-form-field>
+        <input matInput type="text" placeholder="Recipe Name (Dutch)" formControlName="name_dutch">
+        <mat-error *ngIf="EditForm.controls['name_dutch'].hasError('required') && EditForm.controls['name_dutch'].touched">
+            Please enter a Recipe Name in Dutch.
+          </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <textarea  matInput type="text" placeholder="Recipe Description (English)" formControlName="description"></textarea>
+        <mat-error *ngIf="EditForm.controls['description'].hasError('required') && EditForm.controls['description'].touched">
+            Please enter a Recipe Description in English.
+          </mat-error>
+      </mat-form-field> 
+
+		<mat-form-field>
+			<textarea  matInput type="text" placeholder="Recipe Description (Dutch)" formControlName="description_dutch"></textarea>
+			<mat-error *ngIf="EditForm.controls['description_dutch'].hasError('required') && EditForm.controls['description_dutch'].touched">
+				Please enter a Recipe Description in Dutch.
+			</mat-error>
+      </mat-form-field>	  
+
+      
+      <label >Upload Recipe file </label>
+      <input  type="file" placeholder="Upload Menu Image"   (change)="onFileChoose($event)" />
+
+      <div >
+        <img src= "{{imgpath }}{{imgsrc}}"  height="150">
+      </div>
+      
+     
+        <!--<div class="form-group">
+        <label for="language">language</label>
+        <select class="form-control" formControlName="language" [(ngModel)]="language">
+            <option value="E">English</option>
+            <option value="D" selected>Dutch</option>
+        </select>
+        </div>-->
+		
+        <div class="form-group">
+            <label for="language">Status</label>
+            <select class="form-control" formControlName="status" [(ngModel)]="status">
+                <option value="Y">Active</option>
+                <option value="N" >InActive</option>
+            </select>
+            </div>
+    <div class="btn_name">
+    <button mat-button class="option_btn" [disabled]="EditForm.invalid">Update</button>
+    </div> 
+    </form>
+  </div>
+    </div>
+  </div>

@@ -1,0 +1,73 @@
+<div class="content_box">
+	<div class="card">
+		<div class="card-header card-header-danger">
+			<h4 class="card-title">Edit Profile</h4>
+			<!-- <div><button (click)="backtolist()" class="option_btn">Back To List</button></div> -->
+		</div>
+		<form class="inner_form" [formGroup]="EditProfileForm" (ngSubmit)="updateProfile()">
+			<div class="card-body">
+				<div class="edit_form">
+					<mat-form-field style="width:48%; display: inline-block !important;">
+						<mat-label>{{country}}</mat-label>
+						<mat-select formControlName="country_id" (selectionChange)="onChangeCountry($event.value)">
+							<mat-option *ngFor="let country of countryData" [value]="country.id">{{country.name}}</mat-option>
+						</mat-select>
+					</mat-form-field>
+					&nbsp;&nbsp;
+					<mat-form-field style="width:48%; display: inline-block !important;">
+						<mat-label>{{state}}</mat-label>
+						<mat-select formControlName="state_id" (selectionChange)="onChangeState($event.value)">
+							<mat-option *ngFor="let state of stateData" [value]="state.id">{{state.name}}</mat-option>
+						</mat-select>
+					</mat-form-field>
+					<mat-form-field style="width:48%; display: inline-block !important;">
+						<mat-label>{{city}}</mat-label>
+						<mat-select formControlName="city_id">
+							<mat-option *ngFor="let city of cityData" [value]="city.id">{{city.name}}</mat-option>
+						</mat-select>
+					</mat-form-field>
+					<div>
+						<mat-form-field style="width:48%; display: inline-block !important;">
+							<input matInput type="text" placeholder="First Name" formControlName="first_name">
+							<mat-error *ngIf="EditProfileForm.controls['first_name'].hasError('required') && EditProfileForm.controls['first_name'].touched">
+								Please enter a first name.
+							</mat-error>
+						</mat-form-field>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<mat-form-field style="width:48%; display: inline-block !important;">
+							<input matInput type="text" placeholder="Last Name" formControlName="last_name">
+							<mat-error *ngIf="EditProfileForm.controls['last_name'].hasError('required') && EditProfileForm.controls['last_name'].touched">
+								Please enter a last name.
+							</mat-error>
+						</mat-form-field>
+					</div>
+					<mat-form-field>
+						<input matInput type="text" placeholder="Email" formControlName="email">
+						<mat-error *ngIf="EditProfileForm.controls['email'].hasError('required') && EditProfileForm.controls['email'].touched">
+							Please enter a email.
+						</mat-error>
+					</mat-form-field>
+					<div>
+						<mat-form-field style="width:48%; display: inline-block !important;">
+							<input matInput type="text" placeholder="Country Code" formControlName="country_code">
+							<mat-error *ngIf="EditProfileForm.controls['country_code'].hasError('required') && EditProfileForm.controls['country_code'].touched">
+								Please enter country code.
+							</mat-error>
+						</mat-form-field>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<mat-form-field style="width:48%; display: inline-block !important;">
+							<input matInput type="text" placeholder="Mobile Number" formControlName="only_mobile_no">
+							<mat-error *ngIf="EditProfileForm.controls['only_mobile_no'].hasError('required') && EditProfileForm.controls['only_mobile_no'].touched">
+								Please enter mobile number.
+							</mat-error>
+						</mat-form-field>
+					</div>
+				</div>
+			</div>
+			<br>
+      <div class="btn_name" style="text-align: center;">
+        <button mat-button class="option_btn" [disabled]="EditProfileForm.invalid">Update</button>
+      </div>
+		</form>
+	</div>
+</div>

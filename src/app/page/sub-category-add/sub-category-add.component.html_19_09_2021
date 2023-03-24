@@ -1,0 +1,33 @@
+<div class="content_box">   
+    <div class="card">
+      <div class="card-header card-header-danger">
+        <h4 class="card-title">Sub Category Management</h4>
+        <p class="card-category">
+          Add Sub Category
+        </p>       
+      </div>
+      <div class="card-body"> 
+    <div class="edit_form">
+		<form class="inner_form" [formGroup]="addForm" (ngSubmit)="addData()">
+			<mat-form-field>
+				<input matInput type="text" placeholder="Sub Category Name" formControlName="sub_category_name">
+				<mat-error *ngIf="addForm.controls['sub_category_name'].hasError('required') && addForm.controls['sub_category_name'].touched">
+				Please enter sub category name.
+				</mat-error>
+			</mat-form-field>
+			<input type="hidden" placeholder="Category Id" formControlName="category_id">
+			
+			<div id="textboxes"></div>
+			<a class="btn btn-success" (click)="addfield()" >Add New Fiels +</a>
+			
+			
+			<label>Upload Sub Category Image</label>
+			<input type="file" placeholder="Upload Sub Category Image" (change)="onFileChoose($event)" />
+			
+			<div class="btn_name">
+				<button mat-button class="option_btn" [disabled]="addForm.invalid">Add Category</button>
+			</div> 
+		</form>
+  </div>
+    </div>
+  </div>

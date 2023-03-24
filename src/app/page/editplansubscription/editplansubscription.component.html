@@ -1,0 +1,88 @@
+<div class="content_box">
+    
+    <div  class="card">
+      <div  class="card-header card-header-danger">
+        <h4  class="card-title ">Subscription Management</h4>
+        <p  class="card-category">
+          Edit Subscription Plan
+        </p>
+      </div>
+      <div  class="card-body"> 
+    <div class="edit_form">
+      <form class="inner_form"  [formGroup]="updatePlanForm" (ngSubmit)="updatefaqcategoryData()">
+      <mat-form-field>
+        <input matInput type="text" placeholder="Plan name" formControlName="pname" readonly>
+        <mat-error *ngIf="updatePlanForm.controls['pname'].hasError('required') && updatePlanForm.controls['pname'].touched">
+            Please enter a  Plan name.
+          </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput type="text" placeholder="Plan Price" formControlName="price_per_month" readonly>
+        <mat-error *ngIf="updatePlanForm.controls['price_per_month'].hasError('required') && updatePlanForm.controls['price_per_month'].touched">
+            Please enter a  Plan Price.
+          </mat-error>
+      </mat-form-field>
+      <mat-form-field >
+        <mat-select formControlName="currency" placeholder="Currency" disabled>
+          <mat-option value="usd">USD</mat-option>
+          <mat-option value="aud">AUD</mat-option>
+          <mat-option value="bgn">BGN</mat-option>
+          <mat-option value="brl">BRL</mat-option>
+          <mat-option value="cad">CAD</mat-option>
+          <mat-option value="chf">CHF</mat-option>
+          <mat-option value="czk">CZK</mat-option>
+          <mat-option value="dkk">DKK</mat-option>
+          <mat-option value="eur">EUR</mat-option>
+          <mat-option value="gbp">GBP</mat-option>
+          <mat-option value="hkd">HKD</mat-option>
+          <mat-option value="inr">INR</mat-option>
+          <mat-option value="mxn">MXN</mat-option>
+          <mat-option value="myr">MYR</mat-option>
+          <mat-option value="nok">NOK</mat-option>
+          <mat-option value="nzd">NZD</mat-option>
+          <mat-option value="pln">PLN</mat-option>
+          <mat-option value="rom">RON</mat-option>
+          <mat-option value="sek">SEK</mat-option>
+          <mat-option value="sgd">SGD</mat-option>
+        </mat-select>
+      </mat-form-field> 
+      <mat-form-field>
+        <mat-select formControlName="plantype" placeholder="Plan Type" disabled>
+          <mat-option value="basic">Basic</mat-option>
+          <mat-option value="premium">Premium</mat-option>          
+        </mat-select>
+      </mat-form-field> 
+      <mat-form-field>
+        <mat-select formControlName="inter_val" placeholder="Specifies billing interval" disabled>
+          <mat-option value="day">Day</mat-option>
+          <mat-option value="week">Week</mat-option>
+          <mat-option value="month">Month</mat-option>
+          <mat-option value="year">Year</mat-option>
+        </mat-select>
+      </mat-form-field> 
+      <mat-form-field>
+        <input matInput type="text" placeholder="Trial periods on subscriptions value" formControlName="trial_periods" >
+        <mat-error *ngIf="updatePlanForm.controls['price_per_month'].hasError('required') && updatePlanForm.controls['price_per_month'].touched">
+            Please enter a  trial periods on subscriptions value.
+          </mat-error>
+      </mat-form-field>     
+      <mat-form-field>
+          <mat-select formControlName="status">
+            <mat-option value="Y">Active</mat-option>
+            <mat-option value="N">Inactive</mat-option>
+          </mat-select>
+        </mat-form-field>  
+        <mat-form-field>
+          <mat-select formControlName="type" disabled>
+            <mat-option value="S">Seller</mat-option>
+            <mat-option value="B">Buyer</mat-option>
+          </mat-select>
+        </mat-form-field>  
+  
+  
+    <button mat-button class="update_btn" [disabled]="updatePlanForm.invalid">Update</button>
+      
+    </form>
+  </div>
+    </div>
+  </div>

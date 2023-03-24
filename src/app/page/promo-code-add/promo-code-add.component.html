@@ -1,0 +1,111 @@
+<div class="content_box">
+	<div class="card">
+		<div class="card-header card-header-danger">
+			<h4 class="card-title">Promo Code</h4>
+			<p class="card-category">
+				Create Promo Code
+			</p>
+		</div>
+		<div class="card-body">
+			<div class="edit_form">
+				<form class="inner_form" [formGroup]="addForm" (ngSubmit)="addData()">
+					<mat-form-field style="width:48%; display: inline-block !important;">
+						<mat-label>Select Country</mat-label>
+						<mat-select formControlName="country_id" (selectionChange)="onChangeCountry($event.value)">
+							<mat-option *ngFor="let country of countryData" [value]="country.id">{{country.name}}</mat-option>
+						</mat-select>
+					</mat-form-field>
+					&nbsp;&nbsp;
+					<mat-form-field style="width:48%; display: inline-block !important;">
+						<mat-label>Select State</mat-label>
+						<mat-select formControlName="state_id" (selectionChange)="onChangeState($event.value)">
+							<mat-option *ngFor="let state of stateData" [value]="state.id">{{state.name}}</mat-option>
+						</mat-select>
+					</mat-form-field>
+					<mat-form-field style="width:48%; display: inline-block !important;">
+						<mat-label>Select City</mat-label>
+						<mat-select formControlName="city_id">
+							<mat-option *ngFor="let city of cityData" [value]="city.id" attr.data="city.name">{{city.name}}</mat-option>
+						</mat-select>
+					</mat-form-field>
+					<br>
+					<mat-form-field>
+						<input matInput type="text" placeholder="Promo Code" formControlName="promo_code">
+						<mat-error *ngIf="addForm.controls['promo_code'].hasError('required') && addForm.controls['promo_code'].touched">
+						Please enter promo code.
+						</mat-error>
+					</mat-form-field>
+					<div>
+						<mat-form-field style="width:48%; display: inline-block !important;">
+							<mat-label>Start Date</mat-label>
+							<input matInput [matDatepicker]="picker1" formControlName="start_date" readonly>
+							<mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+							<mat-datepicker #picker1></mat-datepicker>
+							<mat-error *ngIf="addForm.controls['start_date'].hasError('required') && addForm.controls['start_date'].touched">
+								Please start date.
+							</mat-error>
+						</mat-form-field>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<mat-form-field style="width:48%; display: inline-block !important;">
+							<mat-label>End Date</mat-label>
+							<input matInput [matDatepicker]="picker2" formControlName="end_date" readonly>
+							<mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+							<mat-datepicker #picker2></mat-datepicker>
+							<mat-error *ngIf="addForm.controls['end_date'].hasError('required') && addForm.controls['end_date'].touched">
+								Please end date.
+							</mat-error>
+						</mat-form-field>
+						<div *ngIf="addForm.errors" style="text-align: center;font-size: 12px;color: red;">Start Date Should Be Less Than End Date</div>
+					</div>
+					<label>Fixed-Amount Deduction or Percentage Discount</label><br>
+					Fixed Amount - <input type="radio" name="discount_type" formControlName="discount_type" value=1>&nbsp;&nbsp;&nbsp;
+					Percentage Discount - <input type="radio" name="discount_type" formControlName="discount_type" value=2>
+					<mat-error *ngIf="addForm.controls['discount_type'].hasError('required') && addForm.controls['discount_type'].touched">
+						Please select one type
+					</mat-error>
+					<mat-form-field>
+						<input matInput type="text" placeholder="Fixed Amount/Percentage (Don't put any percentage sign)" formControlName="amount">
+						<mat-error *ngIf="addForm.controls['amount'].hasError('required') && addForm.controls['amount'].touched">
+							Please enter amount.
+						</mat-error>
+						<mat-error *ngIf="addForm.controls['amount'].hasError('pattern') && addForm.controls['amount'].touched">
+							Please enter valid amount.
+						</mat-error>
+					</mat-form-field>
+					<mat-form-field>
+						<input matInput type="text" placeholder="No of Use" formControlName="no_of_use">
+						<mat-error *ngIf="addForm.controls['no_of_use'].hasError('required') && addForm.controls['no_of_use'].touched">
+						Please enter number of use.
+						</mat-error>
+					</mat-form-field>
+					
+					Exclude Zones - <mat-checkbox formControlName="zone_exclude_status"></mat-checkbox><br>
+					
+					<label>Select Category</label><br>
+					<div class="col-md-12">
+						<div class="row">
+							<div class="col-md-3" *ngFor="let category_details of categoryData; let i = index">
+								<input type="checkbox" (click)="send_category_id($event,category_details._id)">&nbsp;{{category_details.category_name}}
+							</div>
+						</div>
+						<div *ngIf="isShown" style="font-size: 12px;color: red;margin-top: 3px;">Please Select Category</div>
+					</div>
+					<br>
+					<label>Select Sub Category</label><br>
+					<div class="col-md-12">
+						<div class="row">
+							<div class="col-md-3" *ngFor="let sub_category_details of subcategoryData; let i = index">
+								<input type="checkbox" id="zz" [checked]="inputCheckedSubcat(sub_category_details._id)" (click)="send_sub_category_id($event,sub_category_details._id)" value="{{sub_category_details.category_id}}">&nbsp;{{sub_category_details.sub_category_name}} <span style="font-size:11px">({{sub_category_details.category_name}})</span>
+							</div>
+						</div>
+						<div *ngIf="isShown2" style="font-size: 12px;color: red;margin-top: 3px;">Please Select Sub Category</div>
+					</div>
+					<br>
+					<div class="btn_name">
+						<button mat-button class="option_btn" [disabled]="addForm.invalid">Save Promotion</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

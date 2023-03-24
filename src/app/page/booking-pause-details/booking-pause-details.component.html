@@ -1,0 +1,38 @@
+<div class="content_box">
+	<h2 class="bookingDetlHdn">Extra Payment Details</h2>
+	<div class="row" *ngFor="let bookingPause of bookingPauseData">
+		<div class="col-md-12">
+			<div class="card">
+				<div class="card-body">
+					<div class="paymntbg">
+						<div class="payLft">
+							<div class="bookingRow" *ngIf="bookingPause.additional_parts != null">
+								<strong>Additional Parts</strong><span>{{bookingPause?.additional_parts }}</span>
+							</div>
+							<div class="bookingRow" *ngIf="bookingPause?.additional_time != ''">
+								<strong>Additional Time</strong><span>{{bookingPause?.additional_time }}</span>
+							</div>
+							<div class="bookingRow">
+								<strong>Reason</strong><span>{{ bookingPause?.reason }}</span>
+							</div>
+							<div class="bookingRow">
+								<strong>Price</strong><span>{{ bookingPause?.cost }} {{ bookingPause?.currency}}</span>
+							</div>
+							<div class="bookingRow">
+								<strong>Payment Method</strong>
+								<span *ngIf="bookingPause?.paid_medium == 1">Online</span>
+								<span *ngIf="bookingPause?.paid_medium == 2">Cash</span>
+							</div>
+							<div class="bookingRow" *ngIf="bookingPause?.pause_type == 2">
+								<strong>Pause Image</strong>
+								<div class="pause-img" *ngFor="let pauseImg of bookingPause.pause_images">
+									<img src="{{ pauseImg?.pause_image }}" alt="Pause Image" width="100">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,129 @@
+.workingTimebg {
+  border-radius: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
+}
+.radioInn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 15px;
+}
+.rateListCheck {
+  padding-left: 30px;
+}
+.hourDay label {
+  font-size: 20px;
+  line-height: 22px;
+  font-weight: 400;
+  color: #0E6060;
+}
+.formTobg {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.formCount {
+  width: 45%;
+}
+.formCount p {
+  font-size: 20px;
+  font-weight: 400;
+  color: #7A7A7A;
+  margin: 0;
+  padding-bottom: 6px;
+}
+.formMain {
+  display: flex;
+  justify-content: space-between;
+}
+.formMain input {
+  border: 1px solid #E4E4E4;
+  border-radius: 10px;
+  padding: 8px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 400;
+  color: #769292;
+  width: 70px;
+}
+.ampmBg {
+  display: flex;
+  border: 1px solid #E4E4E4;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.ampmBg span {
+  font-size: 16px;
+  font-weight: 400;
+  color: #769292;
+  display: flex;
+  align-items: center;
+  text-transform: uppercase;
+  padding: 6px 8px;
+  border-radius: 10px;
+  cursor: default;
+}
+.btnActv {
+  background: #0E6060;
+  color: #fff !important;
+}
+.serviceToggle {
+  font-size: 20px;
+  font-weight: 400;
+  color: #004E4E;
+  padding-bottom: 15px;
+}
+.btn-toggle.btn-xs {
+  margin: 0 0;
+  padding: 0;
+  position: relative;
+  border: 1px solid #000;
+  height: 1rem;
+  width: 2rem;
+  border-radius: 1rem;
+}
+.btn-toggle.btn-xs.active > .handle {
+  left: 1.1rem;
+  transition: left 0.25s;
+}
+.btn-toggle.btn-xs > .handle {
+  position: absolute;
+  top: 1px;
+  left: 0.125rem;
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 0.75rem;
+  background: #000;
+  transition: left 0.25s;
+}
+.inner_main_content {
+  box-shadow: 0px 0px 17px #ede6e6;
+  border-radius: 10px;
+  padding: 0px 20px;
+}
+.btn-toggle.btn-xs.active {
+  transition: background-color 0.25s;
+  background: #fff !important;
+}
+.innerHdn {
+  font-size: 30px;
+  line-height: 38px;
+  font-weight: 500;
+  color: #004E4E;
+  text-transform: inherit;
+  padding-top: 30px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid #E4E4E4;
+  margin-bottom: 30px;
+}
+h3 {
+  // font-size: 27px;
+  // line-height: 36px;
+  // font-weight: 400;
+  // color: #757575;
+  margin: 0;
+  // text-transform: uppercase;
+}
+

@@ -1,0 +1,52 @@
+<div class="content_box">
+	<div class="card">
+		<div class="card-header card-header-danger">
+			<h4 class="card-title">Zone Category/Sub Category List</h4>
+			<div>
+				<button (click)="zoneCatSubcatAdd()" class="option_btn">Add Zone Category/Sub Category</button>&nbsp;
+				<button (click)="zoneList()" class="option_btn">Back To Zone List</button>&nbsp;
+			</div>
+		</div>
+		
+		<div class="card-body">
+			<div class="table-responsive">
+				<table class="table">
+					<thead class="text-primary">
+						<th>Zone</th>
+						<th>Category</th>
+						<th>Sub Category</th>
+						<th>Price Status</th>
+						<th>Percentage</th>
+						<th>Action</th>
+					</thead>
+					<tbody>
+						<tr *ngFor="let zonePrice of zonePriceData  | paginate: { itemsPerPage: 5, currentPage: page } ;let i = index">
+							<td>{{zonePrice.zone_name}}</td>
+							<td>{{zonePrice.category_name}}</td>
+							<td>{{zonePrice.sub_category_name}}</td>
+							<td>
+								<span *ngIf="zonePrice.zone_price_status == 1">Same as set before</span>
+								<span *ngIf="zonePrice.zone_price_status == 2">Price changed</span>
+							</td>
+							<td>{{zonePrice.price_percentage}}  <span *ngIf="zonePrice.increase_decrease_status == 1">% Increased</span><span *ngIf="zonePrice.increase_decrease_status == 2">% Decreased</span></td>
+							<td>
+								<i style="cursor: pointer;" *ngIf="zonePrice.cat_subcat_status == 1" class="fa fa-eye" title="View Prices" (click)="viewPrices(zonePrice.cat_id,zonePrice._id)"></i>
+								
+								<i style="cursor: pointer;" *ngIf="zonePrice.cat_subcat_status == 2" class="fa fa-eye" title="View Prices" (click)="viewPrices(zonePrice.sub_cat_id,zonePrice._id)"></i>
+								
+								&nbsp;<i style="cursor: pointer;" class="fa fa-trash" title="Delete" (click)="deleteZoneCatSubcat(zonePrice._id)"></i>
+								&nbsp;<i style="cursor: pointer;" class="fa fa-pencil" title="Edit" (click)="edit(zonePrice._id)"></i>
+							</td>
+						</tr>
+						<tr *ngIf="zonePriceData?.length == 0">
+							<td text-align="center" colspan="2">No Record found</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="has-text-centered">
+					<pagination-controls (pageChange)="page = $event"></pagination-controls>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

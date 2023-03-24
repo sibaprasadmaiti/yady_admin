@@ -1,0 +1,41 @@
+<div class="content_box">
+	<div class="card">
+		<div class="card-header card-header-danger">
+			<h4 class="card-title">Category/Sub Category Area Management</h4>
+			<div>
+				<button (click)="addNewArea()" class="option_btn">Add Cat/Subcat Area</button>&nbsp;
+				<button (click)="back()" class="option_btn">Back</button>
+			</div>
+		</div>
+		<div class="card-body">
+			<div class="table-responsive">
+				<table class="table">
+					<thead class="text-primary">
+						<th>Country</th>
+						<th>State</th>
+						<th>City</th>
+						<th>Places</th>
+						<th>Action</th>
+					</thead>
+					<tbody>
+						<tr *ngFor="let area of areaData  | paginate: { itemsPerPage: 5, currentPage: page } ;let i = index">
+							<td>{{area.country}}</td>
+							<td>{{area.state}}</td>
+							<td>{{area.city}}</td>
+							<td><button mat-raised-button (click)="viewPlaces(area._id)">View Places</button></td>
+							<td>
+								<i style="cursor: pointer;" class="fa fa-trash" title="Delete" (click)="deleteArea(area._id)"></i>
+							</td>
+						</tr>
+						<tr *ngIf="areaData?.length == 0">
+							<td text-align="center" colspan="2">No Record found</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="has-text-centered">
+					<pagination-controls (pageChange)="page = $event"></pagination-controls>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

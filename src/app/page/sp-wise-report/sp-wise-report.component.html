@@ -1,0 +1,191 @@
+<div class="content_box">
+  <form class="inner_form" [formGroup]="searchForm" (ngSubmit)="searchData()">
+    <div>
+      <mat-form-field class="newDatepick" appearance="fill">
+        <mat-label>Select Country</mat-label>
+        <mat-select (selectionChange)="onChangeCountry($event.value)" formControlName="country_id">
+          <mat-option *ngFor="let country of countryData" [value]="country.id">{{country.name}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="searchForm.controls['country_id'].hasError('required') && searchForm.controls['country_id'].touched">
+          Please select country.
+          </mat-error>
+      </mat-form-field>
+      &nbsp;&nbsp;
+      <mat-form-field class="newDatepick" appearance="fill">
+        <mat-label>Select State</mat-label>
+        <mat-select  (selectionChange)="onChangeState($event.value)" formControlName="state_id">
+          <mat-option *ngFor="let state of stateData" [value]="state.id">{{state.name}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="searchForm.controls['state_id'].hasError('required') && searchForm.controls['state_id'].touched">
+          Please select state.
+          </mat-error>
+      </mat-form-field>
+      &nbsp;&nbsp;
+      <mat-form-field class="newDatepick" appearance="fill">
+        <mat-label>Select City</mat-label>
+        <mat-select formControlName="city_id" (selectionChange)="onChangeCity($event.value)">
+          <mat-option *ngFor="let city of cityData" [value]="city.id"
+            attr.data="city.name">{{city.name}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="searchForm.controls['city_id'].hasError('required') && searchForm.controls['city_id'].touched">
+          Please select city.
+          </mat-error>
+      </mat-form-field>
+      &nbsp;&nbsp;
+      <!-- <mat-form-field class="newDatepick" appearance="fill">
+        <mat-label>Select SP</mat-label>
+        <mat-select formControlName="service_provider_id">
+          <mat-option *ngFor="let sp of spList" [value]="sp._id"> {{sp.first_name}} {{sp.last_name}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="searchForm.controls['service_provider_id'].hasError('required') && searchForm.controls['service_provider_id'].touched">
+          Please select SP.
+          </mat-error>
+      </mat-form-field> -->
+      <mat-form-field class="newDatepick" appearance="fill">
+        <mat-label>Select SP</mat-label>
+        <input type="text" placeholder="Enter SP Name" matInput formControlName="service_provider_id" [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let sp of filteredOptions" (onSelectionChange)="getId(sp._id)" [value]="sp.first_name+' '+ sp.last_name">
+            {{sp.first_name}} {{sp.last_name}}
+          </mat-option>
+        </mat-autocomplete>
+        <mat-error *ngIf="searchForm.controls['service_provider_id'].hasError('required') && searchForm.controls['service_provider_id'].touched">
+          Please select SP.
+          </mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field class="newDatepick" appearance="fill">
+        <mat-label>From Date</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="from_date" readonly>
+        <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
+        <mat-datepicker-toggle matSuffix [for]="picker">
+          <!-- <mat-icon>keyboard_arrow_down</mat-icon> -->
+        </mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="searchForm.controls['from_date'].hasError('required') && searchForm.controls['from_date'].touched">
+        From date is required.
+          </mat-error>
+      </mat-form-field>
+      &nbsp;&nbsp;
+      <mat-form-field class="newDatepick" appearance="fill" >
+        <mat-label>To Date</mat-label>
+        <input matInput [matDatepicker]="picker1" formControlName="to_date" readonly>
+        <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
+        <mat-datepicker-toggle matSuffix [for]="picker1">
+        </mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+        <mat-error *ngIf="searchForm.controls['to_date'].hasError('required') && searchForm.controls['to_date'].touched">
+          To date is required.
+          </mat-error>
+      </mat-form-field>
+      &nbsp;&nbsp;
+      <mat-form-field class="pageltd" appearance="fill">
+        <mat-label>Limit</mat-label>
+        <mat-select formControlName="per_page">
+          <mat-option [value]="10">10</mat-option>
+          <mat-option [value]="50">50</mat-option>
+          <mat-option [value]="100">100</mat-option>
+          <mat-option [value]="200">200</mat-option>
+          <mat-option [value]="500">500</mat-option>
+        </mat-select>
+      </mat-form-field>
+      &nbsp;&nbsp;
+      <button mat-flat-button color="accent" type="submit" [disabled]="!searchForm.valid">Search</button>
+      <!-- &nbsp;&nbsp;
+      <button mat-flat-button type="button" color="warn">Reset</button> -->
+    </div>
+</form>
+
+  <div class="card">
+    <div class="card-header card-header-danger">
+      <div class="row">
+        <div class="col-md-6">
+          <h4 class="card-title">Service Provider Wise Report</h4>
+          <p class="card-category">Service Provider Report List</p>
+        </div>
+        <div class="col-md-6" style="text-align: end" *ngIf="spWiseData?.length > 0">
+          <button class="btn btn-primary" (click)="exportCsv()">
+            Export CSV <i class="fa fa-file-excel-o"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="tab-content dbTabContent" id="myTabContent">
+        <div
+          class="tab-pane fade show active"
+          id="all"
+          role="tabpanel"
+          aria-labelledby="all-report"
+        >
+          <div class="table-responsive">
+            <table class="table">
+              <thead class="text-primary">
+                <th>Booking No</th>
+                <th>Booking Date Time</th>
+                <th>Service Name</th>
+                <th>Provider Name</th>
+                <th>Requester Name</th>
+                <th>Location</th>
+                <th>Before Tax Total</th>
+                <th>Tax</th>
+                <th>After Tax Total</th>
+                <th>Additional Part Cost</th>
+                <th>Additional Time Cost</th>
+                <th>Reschedule Cost</th>
+                <th>Used Wallet Money</th>
+                <th>Total Cost</th>
+
+              </thead>
+              <tbody>
+                <tr
+                  *ngFor="
+                    let spWiseList of spWiseData
+                      | paginate : { itemsPerPage: perPage, currentPage: page };
+                    let i = index
+                  "
+                >
+                  <td>{{ spWiseList.booking_job_no }}</td>
+                  <td *ngIf="spWiseList.booking_time !=''">{{ spWiseList.booking_date + " "+ spWiseList.booking_time | date: "dd-MM-yyyy h:mm a"}}</td>
+                  <td *ngIf="spWiseList.booking_time ==''">{{ spWiseList.booking_date | date: "dd-MM-yyyy"}}</td>
+                  <td>{{ spWiseList.cat_subcat_name }}</td>
+                  <td>{{ spWiseList.provider_name }}</td>
+                  <td>{{ spWiseList.requester_name }}</td>
+                  <td>
+                    <span style="font-size: small"
+                      >Country - {{ spWiseList.country }}</span
+                    ><br />
+                    <span style="font-size: small"
+                      >State - {{ spWiseList.state }}</span
+                    ><br />
+                    <span style="font-size: small"
+                      >City - {{ spWiseList.city }}</span
+                    >
+                  </td>
+                  <td>{{ spWiseList.before_tax_cost }} {{ spWiseList.currency }}</td>
+                  <td>{{ spWiseList.tax }} {{ spWiseList.currency }}</td>
+                  <td>{{ spWiseList.after_tax_cost }} {{ spWiseList.currency }}</td>
+                  <td>{{ spWiseList.additional_part_cost }} {{ spWiseList.currency }}</td>
+                  <td>{{ spWiseList.additional_time_cost }} {{ spWiseList.currency }}</td>
+                  <td>{{ spWiseList.reschedule_cost }} {{ spWiseList.currency }}</td>
+                  <td>{{ spWiseList.wallet_pay_status == 1 ? spWiseList.used_wallet_money : 0 }} {{ spWiseList.currency }}</td>
+                  <td>{{ spWiseList.total_cost + spWiseList.additional_part_cost + spWiseList.additional_time_cost +  spWiseList.reschedule_cost }} {{ spWiseList.currency }}</td>
+
+                </tr>
+                <tr *ngIf="spWiseData?.length == 0">
+                  <td colspan="12">Data not found.</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="has-text-centered">
+              <pagination-controls
+                (pageChange)="page = $event"
+              ></pagination-controls>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

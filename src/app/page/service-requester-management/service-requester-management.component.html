@@ -1,0 +1,245 @@
+<div class="content_box">
+  <div class="row">
+    <div class="col-md-3">
+      <span class="form-group col-lg-3 col-sm-12 col-md-12">
+        <!-- <label for="search_type">Search Type</label> -->
+        <div class="input-group no-border">
+          <select
+            class="form-control"
+            name="search_type"
+            id="search_type"
+            [(ngModel)]="search_type"
+          >
+            <option value="">Select an Option</option>
+            <option value="sr_name">Name</option>
+            <option value="email">Email</option>
+            <option value="sr_phone_number">Only Phone No.</option>
+          </select>
+        </div>
+      </span>
+    </div>
+    <div class="col-md-3">
+      <span class="form-group col-lg-3 col-sm-12 col-md-12">
+        <div class="input-group no-border">
+          <input
+            type="text"
+            name="search_key"
+            id="search_key"
+            placeholder="Search"
+            class="form-control"
+            [(ngModel)]="search_key"
+          />
+        </div>
+      </span>
+    </div>
+    <div class="col-md-3" *ngIf="adminType == 0">
+      <span class="form-group col-lg-3 col-sm-12 col-md-12">
+        <!-- <label for="country_id">Country</label> -->
+        <div class="input-group no-border">
+          <select
+            class="form-control"
+            name="country_id"
+            id="country_id"
+            (change)="onChangeCountry($event.target.value)"
+            [(ngModel)]="country_id"
+          >
+            <option value="">Select Country</option>
+            <option
+              *ngFor="let country of countryData"
+              value="{{ country.id }}"
+            >
+              {{ country.name }}
+            </option>
+          </select>
+        </div>
+      </span>
+    </div>
+    <div class="col-md-3" *ngIf="adminType == 0">
+      <span class="form-group col-lg-3 col-sm-12 col-md-12">
+        <!-- <label for="state_id">Select State</label> -->
+        <div class="input-group no-border">
+          <select
+            class="form-control"
+            name="state_id"
+            id="state_id"
+            (change)="onChangeState($event.target.value)"
+            [(ngModel)]="state_id"
+          >
+            <option value="">Select State</option>
+            <option *ngFor="let state of stateData" value="{{ state.id }}">
+              {{ state.name }}
+            </option>
+          </select>
+        </div>
+      </span>
+    </div>
+    <!-- <div class="col-md-3"  *ngIf="adminType == 3">
+      <span class="bmd-form-group col-lg-3 col-sm-12 col-md-12">
+        <div class="input-group no-border ">
+          <input type="submit" name="search" id="btn_data_search" class="btn btn-success btn-sm" value="Search" (click)='searchUser(search_type,search_key,country_id,state_id,city_id)' />&nbsp;
+          <input type="submit" class="btn btn-danger btn-sm" (click)="reset_page()" value="Reset">
+        </div>
+      </span>
+    </div> -->
+    <!-- </div>
+
+
+  <div class="row" > -->
+    <div class="col-md-3" *ngIf="adminType == 0">
+      <span class="form-group col-lg-3 col-sm-12 col-md-12">
+        <!-- <label for="city_id">Select City</label> -->
+        <div class="input-group no-border">
+          <select
+            class="form-control"
+            name="city_id"
+            id="city_id"
+            [(ngModel)]="city_id"
+          >
+            <option value="">Select City</option>
+            <option
+              *ngFor="let city of cityData"
+              value="{{ city.id }}"
+              attr.data="city.name"
+            >
+              {{ city.name }}
+            </option>
+          </select>
+        </div>
+      </span>
+    </div>
+    <div class="col-md-3">
+      <span class="bmd-form-group col-lg-3 col-sm-12 col-md-12">
+        <div class="input-group no-border">
+          <input
+            type="submit"
+            name="search"
+            id="btn_data_search"
+            class="btn btn-success btn-sm"
+            value="Search"
+            (click)="
+              searchUser(search_type, search_key, country_id, state_id, city_id)
+            "
+          />&nbsp;
+          <input
+            type="submit"
+            class="btn btn-danger btn-sm"
+            (click)="reset_page()"
+            value="Reset"
+          />
+        </div>
+      </span>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header card-header-danger">
+      <h4 class="card-title">User Management</h4>
+      <p class="card-category">Service Requester List</p>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table">
+          <thead class="text-primary">
+            <th>Name</th>
+            <th>Email</th>
+            <th>Contact No</th>
+            <th>Location</th>
+            <th>Status</th>
+            <th>Action</th>
+          </thead>
+          <tbody *ngIf="serviceRequesterList">
+            <tr
+              *ngFor="
+                let serviceRequester of serviceRequesterList
+                  | paginate : { itemsPerPage: 5, currentPage: page };
+                let i = index
+              "
+              [ngClass]="{ brown: showColor }"
+            >
+              <td>
+                {{ serviceRequester.first_name }}
+                {{ serviceRequester.last_name }}
+              </td>
+              <td>{{ serviceRequester.email }}</td>
+              <td>{{ serviceRequester.mobile_no }}</td>
+              <td>
+                <span style="font-size: small"
+                  >Country - {{ serviceRequester.country }}</span
+                ><br />
+                <span style="font-size: small"
+                  >State - {{ serviceRequester.state }}</span
+                ><br />
+                <span style="font-size: small"
+                  >City - {{ serviceRequester.city }}</span
+                >
+              </td>
+              <td
+                *ngIf="serviceRequester.status == 1"
+                [ngClass]="{ status_active: serviceRequester.status == 1 }"
+              >
+                Active
+              </td>
+              <td
+                *ngIf="serviceRequester.status == 0"
+                [ngClass]="{ status_inactive: serviceRequester.status == 0 }"
+              >
+                Inactive
+              </td>
+              <td>
+                <div *ngIf="adminType != 3">
+                  <!--<div>
+								<img src="assets/userView.png" alt="View User" title="View User" class="img-rounded" (click)="viewtuser(serviceRequester._id)">
+							</div>-->
+                  <div *ngIf="serviceRequester.status == 1">
+                    <img
+                      src="assets/tick.png"
+                      alt="Active user"
+                      title="Active user"
+                      class="img-rounded img"
+                      (click)="
+                        changeStatus(
+                          i,
+                          serviceRequester._id,
+                          serviceRequester.status
+                        )
+                      "
+                    />
+                  </div>
+                  <div *ngIf="serviceRequester.status == 0">
+                    <img
+                      src="assets/cross.png"
+                      alt="Inactive User"
+                      title="Inactive User"
+                      class="img-rounded img"
+                      (click)="
+                        changeStatus(
+                          i,
+                          serviceRequester._id,
+                          serviceRequester.status
+                        )
+                      "
+                    />
+                  </div>
+                  <i
+                    class="fa fa-suitcase"
+                    title="Wallet"
+                    (click)="getwallet(serviceRequester._id)"
+                  ></i>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+          <tbody *ngIf="!serviceRequesterList">
+            <tr>
+              <td colspan="5">Data not found.</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="has-text-centered">
+          <pagination-controls
+            (pageChange)="page = $event"
+          ></pagination-controls>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

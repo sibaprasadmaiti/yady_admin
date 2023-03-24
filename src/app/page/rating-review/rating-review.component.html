@@ -1,0 +1,128 @@
+<div class="content_box">
+
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header card-header-danger">
+                <!-- <div class="card-icon">
+                    <i class="material-icons">assignment</i>
+                </div>
+                <h4 class="card-title"> Regular Table with Colors</h4> -->
+                <!-- 1->Active | normal ,2->Process table-info,0->In active | table-warning,3->Completed | table-success,4->cancel by buyer | table-danger        -->
+        <h4  class="card-title ">Rating Review Management</h4>
+          <p  class="card-category">
+            Rating Review  list details 
+          </p>
+            </div>
+            <div class="card-body table-full-width">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th width="5%">
+                            SR.No
+                        </th>
+                        <th width="15%">
+                            User Name
+                        </th>
+                        <th>
+                            Item Details
+                        </th>
+                        <th>
+                            Image 
+                        </th>
+                        
+                        <th width="50%">
+                            Rating & Review
+                        </th>
+                        <th width="15%">
+                            On Date
+                        </th>
+                        <th>Status</th>
+                        <th>Action</th>
+                        <!---->
+                    </tr>
+                    </thead>
+                    <tbody  *ngIf="ratingreviewListData?.length==0">
+                        <tr><td colspan="8" style="text-align: center;">No record found</td></tr>
+                    </tbody>
+                    <tbody *ngIf="ratingreviewListData?.length>0">
+                    <tr class="" *ngFor="let ratereview of ratingreviewListData  | paginate: { itemsPerPage: 5, currentPage: page } ;let i = index" 
+                    [ngClass]="{'': ratereview.status==1,'table-info': ratereview.status==2,'table-warning': ratereview.status==0,'table-success': ratereview.status==3,'table-danger': ratereview.status==4}" 
+                    
+                    >
+                        <td>
+                            {{i+1}}
+                        </td>
+                        <td>
+                            {{ratereview.RatedUser}} 
+                        </td>
+                        
+                        <td width="15%">
+                            <!-- $36,738 -->
+                            <p>{{ratereview.menu_name}}</p>
+                            <!-- {{ (ratereview.menu_description.length>6)? (ratereview.menu_description | slice:0:30)+'..':(ratereview.menu_description) }} -->
+                        </td>
+                        <td *ngIf="ratereview.menu_img">
+                            <img [src]="imgpath+ratereview.menu_img" height="50">
+                            </td> 
+                            <td *ngIf="!ratereview.menu_img" vlain="top">
+                              <img [src]="defaultimg" height="50">
+                              </td>
+                        <td width="50%">
+                            <!-- <ngb-rating [(max)]="max" [(rate)]="currentRate" readonly="true"></ngb-rating> -->
+                            <div class="stars">
+                                <ngx-star-rating [(ngModel)]="rating3" [id]="'rating3'" [disabled]="true"></ngx-star-rating >
+                              </div>
+                              <!-- <div>Rating: {{ rating3 }}</div> -->
+                              <div> Review  :                           
+                                
+                                <!-- <div [ngClass]="{'show-less': showShortDesciption}"> -->
+                                    <div>
+                                    {{ratereview.content}}
+                                </div>
+                                <!-- <button  class="btn btn-outline-light text-dark" type="button " (click)="alterDescriptionText()" [value]>{{value}}</button> -->
+                                  
+                            </div>
+                        </td>
+                        <td width="15%">{{ratereview.created_on|date:'longDate'}} </td>
+                        <td *ngIf="ratereview.reviewStatus==1">Active</td>
+                        <td *ngIf="ratereview.reviewStatus==0">Pending</td>                        
+                        <!---->
+                        
+                        <td *ngIf="ratereview.reviewStatus==1">
+                            <div >  
+                                <img src="assets/tick.png" (click)="changeStatus(i,ratereview.rid,ratereview.reviewStatus)">   
+                            <!-- <input  type="button" value="Active{{i}}{{user.id}}{{user.status}}" (click)="changeStatus(i,user.id,user.status)"/>   -->
+                              
+                        </div></td>
+                        <td *ngIf="ratereview.reviewStatus==0">
+                            <div >  
+                                <img src="assets/cross.png" (click)="changeStatus(i,ratereview.rid,ratereview.reviewStatus)">   
+                            <!-- <input  type="button" value="Active{{i}}{{user.id}}{{user.status}}" (click)="changeStatus(i,user.id,user.status)"/>   -->
+                              
+                        </div></td>
+                    </tr>
+                    
+                    </tbody>
+                    </table>
+                    
+                    
+                    <div class="has-text-centered"  *ngIf="ratingreviewListData?.length>0">
+                        <pagination-controls (pageChange)="page = $event"></pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    </div>
+    
+    
+      
+    
+    
+      
+    
+    
+    
+     

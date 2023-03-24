@@ -1,0 +1,44 @@
+<div class="content_box">
+	<div class="card">
+		<div class="card-header card-header-danger">
+			<h4 class="card-title">Category/Sub-Category Places</h4>
+			<div>
+				<button (click)="back()" class="option_btn">Back</button>&nbsp;
+			</div>
+		</div>
+		<div class="card-body">
+			<div class="edit_form">
+				<form class="inner_form" [formGroup]="areaPlacesForm" (ngSubmit)="addAreaPlaces()">
+					<mat-form-field style="width:85%; display: inline-block !important;">
+						<input matInput type="text" placeholder="Area" formControlName="area" id="area" autocomplete="off" #area>
+						<input type="hidden" id="place_id">
+						<input type="hidden" id="lattitude"> 
+						<input type="hidden" id="longitude">
+					</mat-form-field> &nbsp;&nbsp;
+					<button type="button" class="btn btn-primary" (click)="addPlaces()">Add</button>
+					<span *ngFor="let areaDetails of unique_area_arr; let i = index">
+						<input type="text" value="{{areaDetails}}" class="form-control" style="width:85%; display: inline-block !important;" readonly>&nbsp;
+						<button type="button" class="btn btn-danger" (click)="removePlace(i,areaDetails,unique_googlePlaceIdArr[i],unique_lat_array[i],unique_lng_array[i])">Delete</button>
+					</span>
+					
+					<!--<input ngx-google-places-autocomplete formControlName="area" [options]='options' (onAddressChange)="AddressChange($event)"/>-->
+					
+					<div class="btn_name">
+						<button mat-button class="option_btn" [disabled]="areaPlacesForm.invalid">Save</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="card">
+		<div class="card-header card-header-danger">
+			<h4 class="card-title">Places List</h4>
+		</div>
+		<div class="card-body">
+			<span *ngFor="let areaPlaces of areaPlacesData; let i = index">
+				<input type="text" value="{{areaPlaces.place_name}}" class="form-control" style="width:85%; display: inline-block !important;" readonly>&nbsp;
+				<button type="button" class="btn btn-danger" (click)="deletePlace(areaPlaces._id)">Delete</button>
+			</span>
+		</div>
+	</div>
+</div>

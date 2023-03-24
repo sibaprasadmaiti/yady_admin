@@ -1,0 +1,40 @@
+<div class="content_box">
+    
+    <div  class="card">
+      <div  class="card-header card-header-danger">
+        <h4  class="card-title ">Payment Form Message Management</h4>
+        <p  class="card-category">
+          Edit Form Message
+        </p>
+      </div>
+      <div  class="card-body"> 
+    <div class="edit_form">
+      <form class="inner_form"  [formGroup]="updateForm" (ngSubmit)="updatemessageData()">
+      <mat-form-field>
+        <input matInput type="text" placeholder="Name" formControlName="name">
+        <mat-error *ngIf="updateForm.controls['name'].hasError('required') && updateForm.controls['name'].touched">
+            Please enter a  name.
+          </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput type="text" placeholder="Value" formControlName="value">
+        <mat-error *ngIf="updateForm.controls['value'].hasError('required') && updateForm.controls['value'].touched">
+            Please enter a  Message.
+          </mat-error>
+      </mat-form-field>
+             
+      <!--<mat-form-field>
+          <mat-select formControlName="status">
+            <mat-option value="Y">Active</mat-option>
+            <mat-option value="N">Inactive</mat-option>
+          </mat-select>
+        </mat-form-field> --> 
+  
+  
+    <button mat-button class="update_btn" [disabled]="updateForm.invalid">Update</button>
+      
+    </form>
+  </div>
+    </div>
+  </div>

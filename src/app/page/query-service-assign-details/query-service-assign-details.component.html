@@ -1,0 +1,50 @@
+<div class="content_box">
+  <h2 class="bookingDetlHdn">Query Service Details</h2>
+  <div>
+    <button (click)="back(query_service_assign_details.query_service_id)" class="option_btn">Back</button>&nbsp;
+  </div>
+  <div class="row">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-body">
+          <div class="paymntbg">
+            <div class="payLft">
+              <div class="bookingRow">
+                <strong>SR Name: </strong><span>{{
+                  query_service_assign_details?.service_requester_name }}</span>
+              </div>
+              <div class="bookingRow">
+                <strong>Service Type: </strong><span>{{
+                  query_service_assign_details?.service_type }}</span>
+              </div>
+              <div class="bookingRow">
+                <strong>SP Name: </strong><span>{{
+                  query_service_assign_details?.service_provider_name }}</span>
+              </div>
+
+              <div class="bookingRow">
+                <strong>Description: </strong><span>{{
+                  query_service_assign_details?.sp_description }}</span>
+              </div>
+              <div class="bookingRow">
+                <strong>Days: </strong><span>{{ query_service_assign_details?.days }}</span>
+              </div>
+
+              <div class="bookingRow">
+                <strong>Cost: </strong>
+                <span>{{ query_service_assign_details?.cost }} {{ query_service_assign_details?.currency }}</span>
+              </div>
+              <div class="bookingRow">
+                <strong>Replay Date Time: </strong>
+                <span>{{ query_service_assign_details?.submitted_date_time }}</span>
+              </div>
+              <div class="bookingRow" *ngIf="!query_service_assign_details?.admin_confirm_status && !adminApproval">
+                <button mat-raised-button color="primary" (click)="approveQuery()" style="margin-top:20px;">Approve</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,80 @@
+
+   <div class="content_box">
+    <div  class="card">
+     <div  class="card-header card-header-danger">
+       <h4  class="card-title ">Menu Management</h4>
+       <p  class="card-category">
+         Menu list details
+       </p>
+       <div><button  (click)="addNew()" class="option_btn">Add  Menu</button></div>
+     </div>
+     <div  class="card-body">
+       <div  class="table-responsive">
+         <table  class="table">
+         <thead  class=" text-primary">          
+           
+			<th style="width:10%">Name(Eng)</th>
+			<th style="width:10%">Name(Dutch)</th>
+			<th style="width:30%">Description(Eng)</th>
+			<th>Price</th>
+			<th>Image</th>  
+			<th style="width:10%">Status</th>
+			<!--<th style="width:10%">Language</th>-->
+			<th style="width:15%">Action</th>
+          
+         </thead>
+         <tbody >
+           <tr *ngFor="let menu of menuData  | paginate: { itemsPerPage: 5, currentPage: page } ;let i = index" [ngClass]="{'content_box_seller': menu.status=='Y', 'content_box_buy':menu.type=='N'}" [ngClass]="{'brown':showColor}">
+            
+             <td>{{menu.menu_name}}</td>
+			 <td>{{menu.menu_name_dutch}}</td>
+             <td>{{menu.menu_description}}</td>
+             <td>{{menu.price}}€</td>
+             <td *ngIf="menu.menu_img">
+              <img [src]="imgpath+menu.menu_img" height="150">
+              </td> 
+              <td *ngIf="!menu.menu_img">
+                <img [src]="defaultimg" height="150">
+                </td>
+                           
+             <td *ngIf="menu.status=='Y'" [ngClass]="{'status_active': menu.status=='Y'}">Active</td>
+             <td *ngIf="menu.status=='N'" [ngClass]="{'status_inactive': menu.status=='N'}">Inactive</td>
+             <!--<td *ngIf="menu.language=='E'" [ngClass]="{'status_active': menu.status=='E'}">English</td>
+             <td *ngIf="menu.language=='D'" [ngClass]="{'status_inactive': menu.status=='D'}">Dutch</td>-->
+             <td>             
+            <button _ngcontent-eva-c5="" class="btn btn-primary btn-link btn-sm btn-just-icon mat-raised-button" mat-raised-button="" mattooltip="Edit driver" type="button" aria-describedby="cdk-describedby-message-2" cdk-describedby-host="">
+             <span class="mat-button-wrapper" >
+              <i _ngcontent-eva-c5="" class="material-icons" (click)="editMenu(menu.id)">
+                edit
+            </i>
+             </span>
+         <div class="mat-button-ripple mat-ripple" matripple="">
+         </div>
+         <div class="mat-button-focus-overlay">
+         </div>
+         </button>
+
+		<div *ngIf="menu.status=='Y'" >  
+			<img src="./assets/tick.png" (click)="changeStatus(i,menu.id,menu.status)">     
+		</div> 
+		<div *ngIf="menu.status=='N'">  
+			<img src="./assets/cross.png" (click)="changeStatus(i,menu.id,menu.status)">                  
+		</div>
+        </td>
+             
+             
+           </tr>
+           <tr *ngIf="menuData?.length == 0">
+               <td text-align="center" colspan="6">No Record found</td>
+           </tr>
+         </tbody>
+         </table>
+         <div class="has-text-centered">
+           <pagination-controls (pageChange)="page = $event"></pagination-controls>
+       </div>
+       </div>
+     </div>
+   </div>
+ 
+ 
+   </div>

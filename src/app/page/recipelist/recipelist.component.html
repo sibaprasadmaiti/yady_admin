@@ -1,0 +1,80 @@
+
+   <div class="content_box">
+    <div  class="card">
+     <div  class="card-header card-header-danger">
+       <h4  class="card-title ">Recipe Management</h4>
+       <p  class="card-category">
+         Recipe list details
+       </p>
+       <div><button  (click)="addNew()" class="option_btn">Add Recipe</button></div>
+     </div>
+     <div  class="card-body">
+       <div  class="table-responsive">
+         <table  class="table">
+         <thead  class=" text-primary">          
+           
+           <th style="width:10%">Name(Eng)</th>
+           <th style="width:10%">Name(Dutch)</th>
+           <th style="width:30%">Description</th>          
+            <th>Image</th>  
+            <th style="width:10%">Status</th>
+            <!--<th style="width:10%">Language</th>-->
+           <th style="width:15%">Action</th>
+          
+         </thead>
+         <tbody >
+           <tr *ngFor="let recipe of recipeData  | paginate: { itemsPerPage: 5, currentPage: page } ;let i = index" [ngClass]="{'content_box_seller': recipe.status=='Y', 'content_box_buy':recipe.type=='N'}" [ngClass]="{'brown':showColor}">
+            
+             <td>{{recipe.name}}</td>
+			 <td>{{recipe.name_dutch}}</td>
+             <td>{{recipe.description}}</td>            
+             <td *ngIf="recipe.image">
+              <img [src]="imgpath+recipe.image" height="150">
+              </td> 
+              <td *ngIf="!recipe.image">
+                <img [src]="defaultimg" height="150">
+                </td>
+                           
+             <td *ngIf="recipe.status=='Y'" [ngClass]="{'status_active': recipe.status=='Y'}">Active</td>
+             <td *ngIf="recipe.status=='N'" [ngClass]="{'status_inactive': recipe.status=='N'}">Inactive</td>
+             <!--<td *ngIf="recipe.language=='E'" [ngClass]="{'status_active': recipe.status=='E'}">English</td>
+             <td *ngIf="recipe.language=='D'" [ngClass]="{'status_inactive': recipe.status=='D'}">Dutch</td>-->
+             <td>             
+            <button _ngcontent-eva-c5="" class="btn btn-primary btn-link btn-sm btn-just-icon mat-raised-button" mat-raised-button="" mattooltip="Edit recipe" type="button" aria-describedby="cdk-describedby-message-2" cdk-describedby-host="">
+             <span class="mat-button-wrapper" >
+              <i _ngcontent-eva-c5="" class="material-icons" (click)="editMenu(recipe.id)">
+                edit
+            </i>
+             </span>
+         <div class="mat-button-ripple mat-ripple" matripple="">
+         </div>
+         <div class="mat-button-focus-overlay">
+         </div>
+         </button>
+
+			<div *ngIf="recipe.status=='Y'" >  
+			<img src="assets/tick.png" (click)="changeStatus(i,recipe.id,recipe.status)">
+			</div> 
+			<div *ngIf="recipe.status=='N'">  
+			<img src="assets/cross.png" (click)="changeStatus(i,recipe.id,recipe.status)">
+			</div> 
+           
+         
+             </td>
+             
+             
+           </tr>
+           <tr *ngIf="recipeData.length == 0">
+               <td style="text-align:center" colspan="6">No Record found</td>
+           </tr>
+         </tbody>
+         </table>
+         <div class="has-text-centered">
+           <pagination-controls (pageChange)="page = $event"></pagination-controls>
+       </div>
+       </div>
+     </div>
+   </div>
+ 
+ 
+   </div>

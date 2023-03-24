@@ -1,0 +1,36 @@
+   <div class="content_box">
+		<div class="card">
+			<div class="card-header card-header-danger">
+				<h4 class="card-title">Reschedule Rule List</h4>
+				<!--<div><button (click)="addNew()" class="option_btn">Add Holiday</button></div>-->
+			</div>
+			<div class="card-body">
+				<div class="table-responsive">
+					<table class="table">
+						<thead class="text-primary">
+							<th>Rule</th>
+							<th style="text-align:center">Amount %</th>
+							<th style="text-align:center">Action</th>
+						</thead>
+						<tbody>
+							<tr *ngFor="let rule of ruleData  | paginate: { itemsPerPage: 5, currentPage: page } ;let i = index">
+								<td>{{rule.rule_name}}</td>
+								<td style="text-align:center">{{rule.amount_percentage}} %</td>
+								<td style="text-align:center">
+									<i style="cursor: pointer;" class="fa fa-pencil" title="Edit" (click)="editRule(rule._id)"></i>
+								</td>
+							</tr>
+							<tr *ngIf="ruleData?.length == 0">
+								<td text-align="center" colspan="3">No Record found</td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="has-text-centered">
+						<pagination-controls (pageChange)="page = $event"></pagination-controls>
+					</div>
+				</div>
+			</div>
+		</div>
+ 
+ 
+   </div>

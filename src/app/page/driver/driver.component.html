@@ -1,0 +1,76 @@
+
+   <div class="content_box">
+    <div  class="card">
+     <div  class="card-header card-header-danger">
+       <h4  class="card-title ">Driver Management</h4>
+       <p  class="card-category">
+         Driver list details
+       </p>
+       <div><button  (click)="addNew()" class="option_btn">Add  Driver</button></div>
+     </div>
+     <div  class="card-body">
+       <div  class="table-responsive">
+         <table  class="table">
+         <thead  class=" text-primary">          
+           
+           <th>Name</th>
+           <th>Email</th>
+           <th>Contact Number</th>   
+           <th>User Name</th>                    
+           <th>Status</th>
+           <th>Action</th>
+          
+         </thead>
+         <tbody >
+           <tr *ngFor="let driver of userList  | paginate: { itemsPerPage: 5, currentPage: page } ;let i = index" [ngClass]="{'content_box_seller': driver.type==1, 'content_box_buy':driver.type==2}" [ngClass]="{'brown':showColor}">
+            
+             <td>{{driver.name}}</td>
+             <td>{{driver.email}}</td>
+             <td>{{driver.contact}}</td>  
+             <td>{{driver.username}}</td> 
+                           <!-- <!- <td *ngIf="user.account_type==0">Both</td> -> -->            
+             <td *ngIf="driver.status==1" [ngClass]="{'status_active': driver.status==1}">Active</td>
+             <td *ngIf="driver.status==0" [ngClass]="{'status_inactive': driver.status==0}">Inactive</td>
+             <td>
+             
+            <button _ngcontent-eva-c5="" class="btn btn-primary btn-link btn-sm btn-just-icon mat-raised-button" mat-raised-button="" mattooltip="Edit driver" type="button" aria-describedby="cdk-describedby-message-2" cdk-describedby-host="">
+             <span class="mat-button-wrapper" >
+                 <i _ngcontent-eva-c5="" class="material-icons" > <!--(click)="viewtuser(driver.id)"-->
+                   details
+                 </i>
+             </span>
+         <div class="mat-button-ripple mat-ripple" matripple="">
+         </div>
+         <div class="mat-button-focus-overlay">
+         </div>
+         </button>
+
+               <div *ngIf="driver.status==1" >  
+                 <img src="assets/tick.png" (click)="changeStatus(i,driver.id,driver.status)"> 
+                 <!-- <input  type="button" value="Active{{i}}{{user.id}}{{user.status}}" (click)="changeStatus(i,user.id,user.status)"/>   -->
+                        
+             </div> 
+             <div *ngIf="driver.status==0">  
+               <img src="assets/cross.png" (click)="changeStatus(i,driver.id,driver.status)"> 
+                                    
+           </div> 
+           
+         
+             </td>
+             
+             
+           </tr>
+           <tr *ngIf="userList?.length == 0">
+               <td text-align="center" colspan="6">No Record found</td>
+           </tr>
+         </tbody>
+         </table>
+         <div class="has-text-centered">
+           <pagination-controls (pageChange)="page = $event"></pagination-controls>
+       </div>
+       </div>
+     </div>
+   </div>
+ 
+ 
+   </div>

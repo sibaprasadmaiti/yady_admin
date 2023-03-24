@@ -1,0 +1,31 @@
+<div class="content_box">
+  <div class="card">
+    <div class="card-header card-header-danger">
+      <h4 class="card-title">Bookings</h4>
+      <p class="card-category">
+        Assign Bookings
+      </p>
+      <div>
+				<button (click)="back()" class="option_btn">Back</button>&nbsp;
+			</div>
+    </div>
+    <div class="card-body">
+      <div class="edit_form">
+        <form class="inner_form" [formGroup]="addForm" (ngSubmit)="assignSP()">
+          <mat-form-field>
+            <mat-label>Select Service Provider</mat-label>
+            <mat-select formControlName="service_provider_array" multiple>
+              <mat-option *ngFor="let sp of spDetails" [value]="sp._id">{{sp.first_name}} {{sp.last_name}}
+                ({{sp.mobile_no}})</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <div><span style="color: red;">{{error_msg}}</span></div>
+          <br />
+          <div class="btn_name">
+            <button mat-button class="option_btn" [disabled]="addForm.invalid">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

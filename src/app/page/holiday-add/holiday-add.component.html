@@ -1,0 +1,67 @@
+<div class="content_box">
+	<div class="card">
+		<div class="card-header card-header-danger">
+			<h4 class="card-title">Holidays</h4>
+			<p class="card-category">
+				Holiday Add
+			</p>
+		</div>
+		<div class="card-body">
+			<div class="edit_form">
+				<form class="inner_form" [formGroup]="addForm" (ngSubmit)="addData()">
+					<mat-form-field style="width:48%; display: inline-block !important;">
+						<mat-label>Select Country</mat-label>
+						<mat-select formControlName="country_id" (selectionChange)="onChangeCountry($event.value)">
+							<mat-option *ngFor="let country of countryData" [value]="country.id">{{country.name}}</mat-option>
+						</mat-select>
+					</mat-form-field>
+					&nbsp;&nbsp;
+					<mat-form-field style="width:48%; display: inline-block !important;">
+						<mat-label>Select State</mat-label>
+						<mat-select formControlName="state_id" (selectionChange)="onChangeState($event.value)">
+							<mat-option *ngFor="let state of stateData" [value]="state.id">{{state.name}}</mat-option>
+						</mat-select>
+					</mat-form-field>
+					<mat-form-field style="width:48%; display: inline-block !important;">
+						<mat-label>Select City</mat-label>
+						<mat-select formControlName="city_id">
+							<mat-option *ngFor="let city of cityData" [value]="city.id" attr.data="city.name">{{city.name}}</mat-option>
+						</mat-select>
+					</mat-form-field>
+					<br>
+					<mat-form-field>
+						<input matInput type="text" placeholder="Holiday Name" formControlName="holiday_name">
+						<mat-error *ngIf="addForm.controls['holiday_name'].hasError('required') && addForm.controls['holiday_name'].touched">
+						Please enter holiday name.
+						</mat-error>
+					</mat-form-field>
+					<div>
+						<mat-form-field style="width:48%; display: inline-block !important;">
+							<mat-label>Start Date</mat-label>
+							<input matInput [matDatepicker]="picker1" formControlName="start_date" readonly>
+							<mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+							<mat-datepicker #picker1></mat-datepicker>
+							<mat-error *ngIf="addForm.controls['start_date'].hasError('required') && addForm.controls['start_date'].touched">
+								Please start date.
+							</mat-error>
+						</mat-form-field>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<mat-form-field style="width:48%; display: inline-block !important;">
+							<mat-label>End Date</mat-label>
+							<input matInput [matDatepicker]="picker2" formControlName="end_date" readonly>
+							<mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+							<mat-datepicker #picker2></mat-datepicker>
+							<mat-error *ngIf="addForm.controls['end_date'].hasError('required') && addForm.controls['end_date'].touched">
+								Please end date.
+							</mat-error>
+						</mat-form-field>
+						<div *ngIf="addForm.errors" style="text-align: center;font-size: 12px;color: red;">Start Date Should Be Less Than End Date</div>
+					</div>
+					<div class="btn_name">
+						<button mat-button class="option_btn" [disabled]="addForm.invalid">Save</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

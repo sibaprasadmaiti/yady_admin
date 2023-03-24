@@ -1,0 +1,46 @@
+<div class="content_box">
+  <h2 class="bookingDetlHdn">Query Service Details</h2>
+  <div>
+    <button (click)="back()" class="option_btn">Back</button>&nbsp;
+  </div>
+  <div class="row">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-body">
+          <div class="paymntbg">
+            <div class="payLft">
+              <div class="bookingRow">
+                <strong>SR Name: </strong><span>{{
+                  servicedata?.service_requester_name }}</span>
+              </div>
+              <div class="bookingRow">
+                <strong>SR Address: </strong><span>{{
+                  servicedata?.address }}</span>
+              </div>
+              <div class="bookingRow">
+                <strong>Description: </strong><span>{{
+                  servicedata?.description }}</span>
+              </div>
+              <div class="bookingRow">
+                <strong>SR Phone Number: </strong><span>{{ servicedata?.service_requester_phone_number }}</span>
+              </div>
+              <div class="bookingRow">
+                <strong>Service Type: </strong>
+                <span>{{ servicedata?.service_type }}</span>
+              </div>
+              <div class="bookingRow">
+                <strong>Service Query Image: </strong>
+                <div class="pause-img" >
+                  <img *ngFor="let qryImg of servicedata?.query_image" src="{{ qryImg?.query_image }}" alt="Pause Image" style="padding: 10px 10px;width: 200px;object-fit: contain;">
+                </div>
+              </div>
+              <!-- <div class="bookingRow">
+                <button mat-raised-button color="primary" (click)="approveQuotation()">Approve</button>
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

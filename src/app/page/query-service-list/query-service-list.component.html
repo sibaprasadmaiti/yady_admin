@@ -1,0 +1,77 @@
+<div class="content_box">
+	<div class="card">
+		<div class="card-header card-header-danger">
+			<h4 class="card-title">Query Service</h4>
+			<p class="card-category">Query Service List</p>
+			<!-- <div>
+				<button (click)="addNew()" class="option_btn">Add Promo Code</button>&nbsp;
+			</div> -->
+		</div>
+		<div class="card-body">
+			<ul class="nav nav-tabs nav-fill dbTabHeading" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="assign" data-bs-toggle="tab" data-bs-target="#upco" type="button"
+                        role="tab" aria-controls="assign" aria-selected="false"
+                        (click)="searchBookingByStatus('assign')">
+                        Assign SP
+                    </button>
+                </li>
+
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="approve" data-bs-toggle="tab" data-bs-target="#ongo" type="button"
+                        role="tab" aria-controls="approve" aria-selected="false"
+                        (click)="searchBookingByStatus('approve')">
+                        Approve Quote
+                    </button>
+                </li>
+            </ul>
+			<div class="table-responsive">
+				<table class="table">
+					<thead class="text-primary">
+						<th>SR Name</th>
+						<th>SR Phone No.</th>
+						<th>Service Type</th>
+						<th>Description</th>
+						<th>Assign Status</th>
+						<!--<th>Response Status</th>-->
+						<th>Action</th>
+					</thead>
+					<tbody>
+						<tr *ngFor="let queryServiceList of queryServiceListData  | paginate: { itemsPerPage: 5, currentPage: page } ;let i = index">
+							<td>{{queryServiceList.service_requester_name}}</td>
+							<td>{{queryServiceList.service_requester_phone_number}}</td>
+							<td>{{queryServiceList.service_type}}</td>
+							<td>{{queryServiceList.description}}</td>
+							  <td>
+								<span *ngIf="queryServiceList.assign_status == 0">SP Not Assign</span>
+								<span *ngIf="queryServiceList.assign_status == 1">SP Assigned</span>
+							  </td>
+							  <!--<td></td>-->
+							<td>
+							<!-- <button _ngcontent-eva-c5="" class="btn btn-primary btn-link btn-sm btn-just-icon mat-raised-button" mat-raised-button="" mattooltip="View Details" type="button" aria-describedby="cdk-describedby-message-2" cdk-describedby-host="">
+                <span class="mat-button-wrapper">
+                  <i class="fa fa-eye" title="View Details" (click)="viewDetails(queryServiceList._id)" aria-hidden="true"></i>
+                </span>
+              </button> -->
+
+              <button mat-raised-button color="primary" [matMenuTriggerFor]="menu">Action</button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="viewDetails(queryServiceList._id)">View Details</button>
+                <button *ngIf="queryServiceList.assign_status == 0 && adminType != 3" mat-menu-item (click)="assignToSp(queryServiceList._id)">Assign To SP</button>
+                <button *ngIf="adminType != 3" mat-menu-item (click)="spAssignList(queryServiceList._id)">SP Assign List</button>
+              </mat-menu>
+
+							</td>
+						</tr>
+						<tr *ngIf="queryServiceListData?.length == 0">
+							<td text-align="center" colspan="5">No Record found</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="has-text-centered">
+					<pagination-controls (pageChange)="page = $event"></pagination-controls>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

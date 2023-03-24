@@ -1,0 +1,29 @@
+<div class="content_box">
+	<div class="card">
+		<div class="card-header card-header-danger">
+			<h4 class="card-title">Work Area Radius</h4>
+			<p class="card-category">
+				Edit Work Area Radius
+			</p>
+		</div>
+		<div class="card-body">
+			<div class="edit_form">
+				<div class="edit_form">
+					<form class="inner_form" [formGroup]="EditForm" (ngSubmit)="updateData()">
+						<mat-form-field style="width:50%; display: inline-block !important;">
+							<input matInput type="text" placeholder="Work Radius" formControlName="radius">
+							<mat-error *ngIf="EditForm.controls['radius'].hasError('required') && EditForm.controls['radius'].touched">
+							Please enter radius.
+							</mat-error>
+						</mat-form-field>
+						KM
+						<br>
+						<div class="btn_name">
+							<button mat-button class="option_btn" [disabled]="EditForm.invalid">Set Work Radius</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

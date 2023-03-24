@@ -1,0 +1,85 @@
+.content_box table{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.content_box table tr th, .content_box table tr td{
+    border: 1px solid #ccc;
+    padding: 10px 10px;
+    text-align: center;
+    font-size: 15px;
+}
+
+.option_b{
+    position: relative;
+    width: auto;
+    display: inline-block;
+}
+.option_btn{
+    padding: 5px 15px;
+    border-radius: 4px;
+    background: #012a7a;
+    color: #fff;
+    font-size: 14px;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    margin: 0;
+}
+.option_btn:hover{
+    color: #fff;
+    text-decoration: none;
+}
+.dropdown_a{
+    display: none;
+    width: auto;
+    position: absolute;
+    right: -25px;
+    top: 36;
+    background: #012a7a;
+    z-index: 99;
+    width: 120px;
+    border-radius: 4px;
+    overflow: hidden;
+
+}
+.dropdown_a ul{
+    margin: 0;
+    padding: 0;
+}
+.dropdown_a ul li{
+    list-style-type: none;
+    margin: 0;
+    display: block;
+    color: #fff;
+    font-size: 14px;
+    padding: 7px 15px;
+    cursor: pointer;
+
+}
+.dropdown_a ul li:hover{
+    background: #012a7a;
+}
+.option_b:hover .dropdown_a{
+    display: block;
+}
+.job_logo img{
+    width: 80px;
+    max-width: 100%;
+}
+.status_active{
+    color: #45b70a;
+    font-weight: 600
+}
+.status_inactive{
+    color:#f00c0c;
+    font-weight: 600
+
+}.type_seller{
+    color:#8cf009f3;
+    font-weight: 600
+}
+.type_buyer{
+    color:#1026ebf3;
+    font-weight: 600
+}

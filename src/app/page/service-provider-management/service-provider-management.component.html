@@ -1,0 +1,170 @@
+<div class="content_box">
+  <div class="row">
+    <div class="col-md-3">
+      <span class="bmd-form-group col-lg-3 col-sm-12 col-md-12">
+        <div class="input-group no-border">
+          <input
+            type="text"
+            name="name"
+            id="name"
+            placeholder="Name"
+            class="form-control"
+            [(ngModel)]="name"
+          />
+        </div>
+      </span>
+    </div>
+    <div class="col-md-3">
+      <span class="bmd-form-group col-lg-3 col-sm-12 col-md-12">
+        <div class="input-group no-border">
+          <input
+            type="text"
+            name="email"
+            id="email"
+            placeholder="Email"
+            class="form-control"
+            [(ngModel)]="email"
+          />
+        </div>
+      </span>
+    </div>
+    <div class="col-md-3">
+      <span class="bmd-form-group col-lg-3 col-sm-12 col-md-12">
+        <div class="input-group no-border">
+          <input
+            type="submit"
+            name="search"
+            id="btn_data_search"
+            class="btn btn-success"
+            value="Search"
+            (click)="searchUser(name, email)"
+          />&nbsp;
+          <input
+            type="submit"
+            class="btn btn-danger"
+            (click)="reset_page()"
+            value="Reset"
+          />
+        </div>
+      </span>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header card-header-danger">
+      <h4 class="card-title">User Management</h4>
+      <p class="card-category">Service Provider List</p>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table">
+          <thead class="text-primary">
+            <th>Name</th>
+            <th>Email</th>
+            <th>Contact No</th>
+            <th>Status</th>
+            <th>Action</th>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="
+                let serviceProvider of serviceProviderList
+                  | paginate : { itemsPerPage: 5, currentPage: page };
+                let i = index
+              "
+              [ngClass]="{ brown: showColor }"
+            >
+              <td>
+                {{ serviceProvider.first_name }} {{ serviceProvider.last_name }}
+              </td>
+              <td>{{ serviceProvider.email }}</td>
+              <td>{{ serviceProvider.mobile_no }}</td>
+              <td
+                *ngIf="serviceProvider.status == 1"
+                [ngClass]="{ status_active: serviceProvider.status == 1 }"
+              >
+                Active
+              </td>
+              <td
+                *ngIf="serviceProvider.status == 0"
+                [ngClass]="{ status_inactive: serviceProvider.status == 0 }"
+              >
+                Inactive
+              </td>
+              <td>
+                <!--<div>
+								<img src="assets/userView.png" alt="View User" title="View User" class="img-rounded" (click)="viewtuser(serviceProvider._id)">
+							</div>-->
+                <div *ngIf="adminType != 3">
+                  <div *ngIf="serviceProvider.status == 1">
+                    <img
+                      src="assets/tick.png"
+                      alt="Active user"
+                      title="Active user"
+                      class="img-rounded img"
+                      (click)="
+                        changeStatus(
+                          i,
+                          serviceProvider._id,
+                          serviceProvider.status
+                        )
+                      "
+                    />
+                  </div>
+                  <div *ngIf="serviceProvider.status == 0">
+                    <img
+                      src="assets/cross.png"
+                      alt="Inactive User"
+                      title="Inactive User"
+                      class="img-rounded img"
+                      (click)="
+                        changeStatus(
+                          i,
+                          serviceProvider._id,
+                          serviceProvider.status
+                        )
+                      "
+                    />
+                  </div>
+
+                  <!--<i *ngIf="adminType != 3" class="fa fa-street-view sp-icon-st" title="Set Radius" (click)="setradius(serviceProvider._id)"></i>-->
+                  <i
+                    class="fa fa-area-chart sp-icon-st"
+                    title="Working Area"
+                    (click)="workingArea(serviceProvider._id)"
+                  ></i>
+                  <i
+                    class="fa fa-clock-o sp-icon-st"
+                    title="Working Hour"
+                    (click)="workingHour(serviceProvider._id)"
+                  ></i>
+                  <i
+                    class="fa fa-money"
+                    title="Transaction Details"
+                    (click)="spTransaction(serviceProvider._id)"
+                  ></i
+                  >&nbsp;
+                  <i
+                    class="fa fa-percent"
+                    title="Individual Percentage"
+                    (click)="individual_percentage(serviceProvider._id)"
+                  ></i
+                  >&nbsp;
+                  <i
+                    class="fa fa-briefcase"
+                    title="Wallet"
+                    (click)="getWallet(serviceProvider._id)"
+                  ></i>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="has-text-centered">
+          <pagination-controls
+            (pageChange)="page = $event"
+          ></pagination-controls>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

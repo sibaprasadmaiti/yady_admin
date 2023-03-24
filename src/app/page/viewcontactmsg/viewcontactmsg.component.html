@@ -1,0 +1,61 @@
+<div class="content_box">
+    
+    <div  class="card">
+      <div  class="card-header card-header-danger">
+        <h4  class="card-title ">Customer Message Management</h4>
+        <p  class="card-category">
+          View Contact Message  list
+        </p>
+      </div>
+      <div  class="card-body">  
+    <div class="edit_form">
+        <div  class="table-responsive">
+            <table  class="table">
+            <thead  class=" text-primary">
+              <th></th>
+              <th>Name</th>
+              <th>Email</th>                  
+              <th>Message</th>
+              <th>Date</th>
+              <th>Action</th>
+            </thead>
+            <tbody >
+              <tr *ngFor="let messagelist of messagelist" > 
+                  <td *ngIf="messagelist.length == 0" colspan="5"> No record</td>              
+                <td>
+                  <div *ngIf="messagelist.pid != messagelist.id then content else other_content">here is ignored</div> 
+                  <ng-template #content><div class="avatar">
+                    <img ng-src="assets/img/arrow.png" class="img-avatar" alt="" src="assets/img/arrow.png">
+                  </div> </ng-template>
+                  <ng-template #other_content><div class="avatar">
+                    <img ng-src="assets/img/1.png" class="img-avatar" alt="" src="assets/img/1.png">
+                  </div> </ng-template>
+                                   
+                </td>
+                <td>
+                  <div class="ng-binding"> {{messagelist.name}}</div>
+                  </td>
+                <td>{{messagelist.email}}</td>                     
+                <!-- <!- <td *ngIf="user.account_type==0">Both</td> -> -->
+                <td>{{messagelist.description}}</td>
+                <td>{{messagelist.created_at|date:'medium'}}</td>
+                <td>
+                  <button _ngcontent-eva-c5="" class="btn btn-danger btn-link btn-sm btn-just-icon mat-raised-button" mat-raised-button="" mattooltip="Remove" type="button" aria-describedby="cdk-describedby-message-3" cdk-describedby-host=""><span class="mat-button-wrapper">
+                    <i _ngcontent-eva-c5="" class="material-icons" (click)="openModal(messagelist.id)">send</i></span>
+                    <div class="mat-button-ripple mat-ripple" matripple="">
+                    </div>
+                    <div class="mat-button-focus-overlay">
+                    </div>
+                    </button>
+                </td>
+              </tr>
+            </tbody>
+            </table>
+            <!-- <div><button mat-button class="option_btn" (click)="back()">Back</button></div> -->
+        </div>
+  
+    </div>
+  </div>
+  </div>
+
+ 

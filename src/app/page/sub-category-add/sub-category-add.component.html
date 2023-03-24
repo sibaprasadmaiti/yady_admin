@@ -1,0 +1,138 @@
+<div class="content_box">
+    <div class="card">
+      <div class="card-header card-header-danger">
+        <h4 class="card-title">Sub Category Management</h4>
+        <p class="card-category">
+          Add Sub Category
+        </p>
+      </div>
+      <div class="card-body">
+    <div class="edit_form">
+		<form class="inner_form" [formGroup]="addForm" (ngSubmit)="addData()">
+			<mat-form-field style="width:48%; display: inline-block !important;">
+				<mat-label>Select Country</mat-label>
+				<mat-select formControlName="country_id" (selectionChange)="onChangeCountry($event.value)">
+					<mat-option *ngFor="let country of countryData" [value]="country.id">{{country.name}}</mat-option>
+				</mat-select>
+			</mat-form-field>
+			&nbsp;&nbsp;
+			<mat-form-field style="width:48%; display: inline-block !important;">
+				<mat-label>Select State</mat-label>
+				<mat-select formControlName="state_id" (selectionChange)="onChangeState($event.value)">
+					<mat-option *ngFor="let state of stateData" [value]="state.id">{{state.name}}</mat-option>
+				</mat-select>
+			</mat-form-field>
+			<mat-form-field style="width:48%; display: inline-block !important;">
+				<mat-label>Select City</mat-label>
+				<mat-select formControlName="city_id" (selectionChange)="onChangeCity($event.value)">
+					<mat-option *ngFor="let city of cityData" [value]="city.id" attr.data="city.name">{{city.name}}</mat-option>
+				</mat-select>
+			</mat-form-field>
+			&nbsp;&nbsp;
+			<mat-form-field style="width:48%; display: inline-block !important;">
+				<input matInput type="text" placeholder="Currecny" formControlName="currency" autocomplete="off" readonly >
+			</mat-form-field>
+			<br>
+			<mat-form-field style="width:85%; display: inline-block !important;">
+				<input matInput type="text" placeholder="Area" formControlName="area" id="area" autocomplete="off" #area>
+				<input type="hidden" id="place_id">
+				<input type="hidden" id="lattitude">
+				<input type="hidden" id="longitude">
+			</mat-form-field> &nbsp;&nbsp;
+			<button type="button" class="btn btn-primary" (click)="addPlaces()">Add</button>
+			<span *ngFor="let areaDetails of unique_area_arr; let i = index">
+				<input type="text" value="{{areaDetails}}" class="form-control" style="width:85%; display: inline-block !important;" readonly>&nbsp;
+				<button type="button" class="btn btn-danger" (click)="removePlace(i,areaDetails,unique_googlePlaceIdArr[i],unique_lat_array[i],unique_lng_array[i])">Delete</button>
+			</span>
+			<mat-form-field>
+				<input matInput type="text" placeholder="Sub Category Name" formControlName="sub_category_name">
+				<mat-error *ngIf="addForm.controls['sub_category_name'].hasError('required') && addForm.controls['sub_category_name'].touched">
+				Please enter sub category name.
+				</mat-error>
+			</mat-form-field>
+      <mat-form-field>
+        <textarea matInput placeholder="Description" formControlName="description"></textarea>
+        <mat-error *ngIf="addForm.controls['description'].hasError('required') && addForm.controls['description'].touched">
+          Please enter description.
+          </mat-error>
+			</mat-form-field>
+			<mat-form-field style="width:32%; display: inline-block !important;">
+				<input matInput type="time" placeholder="Start Time" formControlName="start_time">
+			</mat-form-field>&nbsp;&nbsp;
+			<mat-form-field style="width:32%; display: inline-block !important;">
+				<input matInput type="time" placeholder="End Time" formControlName="end_time">
+			</mat-form-field>&nbsp;&nbsp;
+			<mat-form-field style="width:32%; display: inline-block !important;">
+				<mat-label>Select Timezone</mat-label>
+				<mat-select formControlName="timezone_id" (selectionChange)="onChangeTimezone($event.value)">
+					<mat-option *ngFor="let timezone of timezoneData" [value]="timezone._id">{{timezone.timezone}}</mat-option>
+				</mat-select>
+			</mat-form-field>
+			<input type="hidden" placeholder="Category Id" formControlName="category_id">
+			<mat-form-field>
+				<input matInput type="text" placeholder="Material Cost" formControlName="material_cost">
+				<mat-error *ngIf="addForm.controls['material_cost'].hasError('required') && addForm.controls['material_cost'].touched">
+				Please enter material cost.
+				</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput type="text" placeholder="Inspection Cost" formControlName="inspection_cost">
+				<mat-error *ngIf="addForm.controls['inspection_cost'].hasError('required') && addForm.controls['inspection_cost'].touched">
+				Please enter inspection cost.
+				</mat-error>
+			</mat-form-field>
+			<label style="color: black;font-weight: bold;">If it is under fixed cost then fill it. Otherwise left it blank</label>
+			<mat-form-field>
+				<input matInput type="text" placeholder="Approx Time(Put the value in minutes)" formControlName="fixed_price_hour">
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput type="text" placeholder="Price Structure Question" formControlName="price_structure_question">
+				<mat-error *ngIf="addForm.controls['price_structure_question'].hasError('required') && addForm.controls['price_structure_question'].touched">
+				Please enter price structure question..
+				</mat-error>
+			</mat-form-field>
+			<br>
+			<label style="font-weight: bold;color: black;">Prices (Hour Wise)</label>
+			<div class="row">
+				<div class="col-sm-12 table-responsive" formArrayName="itemRows">
+					<table class="table">
+						<thead>
+							<tr>
+								<th>Hour</th>
+								<th>Price</th>
+							<tr>
+						</thead>
+						<tbody>
+							<tr *ngFor="let itemrow of addForm['controls'].itemRows['controls']; let i=index" [formGroupName]="i">
+								<td><input id="hour{{i}}" formControlName="hour" class="form-control"></td>
+								<td><input id="price{{i}}" formControlName="price" class="form-control"></td>
+								<td><button *ngIf="addForm['controls'].itemRows['controls'].length > 1" (click)="deleteRow(i)" class="btn btn-danger btn-sm"><i class="fa fa-minus-circle" aria-hidden="true"></i></button></td>
+							<tr>
+						</tbody>
+						<tfoot>
+							<button type="button" (click)="addNewRow()" class="btn btn-primary">Add More Hour</button>
+						</tfoot>
+					</table>
+				</div>
+			</div>
+			<br>
+			<label>Upload Sub Category Image</label>
+			<input type="file" formControlName="image2" placeholder="Upload Sub Category Image" (change)="onFileChoose($event)" />
+			<br>
+			<label style="font-weight: bold;color: black;">Add-ons / Questionnaire</label><br>
+			Add-ons - <input type="radio" name="aq_status" formControlName="aq_status" value="1">&nbsp;&nbsp;&nbsp;
+			Questionnaire - <input type="radio" name="aq_status" formControlName="aq_status" value="2">
+			<br><br>
+			<div *ngIf="price_status == 1">
+			<label style="font-weight: bold;color:black">Time lapses</label><br>
+				30 Mins - <input type="radio" name="time_interval" formControlName="time_interval" [value]=30>&nbsp;&nbsp;&nbsp;
+				1 Hour - <input type="radio" name="time_interval" formControlName="time_interval" [value]=60>
+			<br><br>
+			</div>
+			<div class="btn_name">
+				<button mat-button class="option_btn">Add Sub Category</button>
+			</div>
+		</form>
+  </div>
+    </div>
+  </div>

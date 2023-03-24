@@ -1,0 +1,44 @@
+.custom-table th img, .custom-table td img {
+    width: 50px;
+    height: 50px;
+    border-radius: 0;
+}
+.br-theme-css-stars .br-widget {
+    height: 28px;
+    white-space: nowrap;
+}
+.br-theme-fontawesome-stars .br-widget a, .br-theme-css-stars .br-widget a {
+    font-size: 20px;
+}
+.main-panel .content-wrapper .br-theme-css-stars .br-widget a.br-selected:after {
+    color: #edb867;
+    font-size: 15px;
+}
+.main-panel .content-wrapper .br-theme-css-stars .br-widget a:after {
+    content: "\2605";
+    font-size: 15px;
+    color: #d2d2d2;
+}
+.br-theme-fontawesome-stars .br-widget a.br-selected:after, .br-theme-fontawesome-stars .br-widget a.br-active:after, .br-theme-css-stars .br-widget a.br-selected:after, .br-theme-css-stars .br-widget a.br-active:after {
+    color: #0033c4;
+}
+.br-theme-css-stars .br-widget a.br-selected:after {
+    color: #EDB867;
+}
+.br-theme-css-stars .br-widget a:after {
+    content: "\2605";
+    color: #d2d2d2;
+}
+*, *::before, *::after {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+img {
+    vertical-align: middle;
+    border-style: none;
+}
+.table, .jsgrid .jsgrid-table {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #212529;
+}

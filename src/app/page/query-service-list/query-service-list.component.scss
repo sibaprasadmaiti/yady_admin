@@ -1,0 +1,156 @@
+.option_b {
+    position: relative;
+    width: auto;
+    display: inline-block;
+  }
+  .option_btn {
+    padding: 5px 15px;
+    border-radius: 4px;
+    background: #012a7a;
+    color: #fff;
+    font-size: 14px;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    margin: 0;
+  }
+  .option_btn:hover {
+    color: #fff;
+    text-decoration: none;
+  }
+  .dropdown_a {
+    display: none;
+    width: auto;
+    position: absolute;
+    right: -25px;
+    top: 36;
+    background: #012a7a;
+    z-index: 99;
+    width: 120px;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .dropdown_a ul {
+    margin: 0;
+    padding: 0;
+  }
+  .dropdown_a ul li {
+    list-style-type: none;
+    margin: 0;
+    display: block;
+    color: #fff;
+    font-size: 14px;
+    padding: 7px 15px;
+    cursor: pointer;
+  }
+  .dropdown_a ul li:hover {
+    background: #012a7a;
+  }
+  .option_b:hover .dropdown_a {
+    display: block;
+  }
+  .content_box_seller {
+    background-color: #e0e0e0;
+  }
+  .content_box_buy {
+    background-color: #f1f1f1;
+  }
+  .status_active {
+    color: #45b70a;
+    font-weight: 600;
+  }
+  .status_inactive {
+    color: #f00c0c;
+    font-weight: 600;
+  }
+  .red {
+    color: red;
+  }
+  .blue {
+    color: blue;
+  }
+  .cyan {
+    color: cyan;
+  }
+  .brown {
+    color: brown;
+  }
+
+  /* ---------------db-tab-start--------------- */
+  .dbTabHeading {
+    padding: 0;
+  }
+  .dbTabHeading li button {
+    color: #00b2b2 !important;
+    border: 1px solid #8ebfbf !important;
+    border-radius: 10px 10px 0 0;
+    transition: none;
+  }
+  .dbTabHeading li button.active {
+    color: #fff !important;
+    border: 1px solid #00b2b2 !important;
+    border-radius: 10px 10px 0 0;
+    background: #00b2b2;
+  }
+  .dbTabContent {
+    border: 1px solid #bad3d3;
+    padding: 5px;
+  }
+  .dbTabContent .table thead th {
+    white-space: nowrap;
+  }
+  .status-content{
+    font-size: 12px;
+    border: 1px solid #ccc;
+    padding: 3px;
+  }
+  .status-pending{
+    background-color: yellow;
+  }
+  .status-accept{
+    background-color: turquoise;
+  }
+  .status-completed{
+    background-color: springgreen;
+  }
+  .status-ongonig{
+    background-color: sandybrown;
+  }
+  .status-cancel{
+    background-color: #f00c0c;
+  }
+  .sp-not-acc{
+    background-color: peachpuff;
+    font-size: 12px;
+  }
+  .acc-by-sp{
+    background-color: greenyellow;
+    font-size: 12px;
+  }
+  .sp-ass-st{
+    background-color: #8ebfbf;
+    font-size: 12px;
+  }
+  .sp-not-avai{
+    background-color: rgba(255, 0, 0, 0.548);
+    font-size: 12px;
+  }
+  .not-resch{
+    background-color: pink;
+  }
+  .resch{
+    background-color: chartreuse;
+  }
+  .not-started{
+    background-color: gold;
+  }
+  .started{
+    background-color: #00b2b2;
+  }
+  .finished{
+    background-color: cyan;
+  }
+  .bk-status{
+    width: 155px;
+    display: block;
+  }

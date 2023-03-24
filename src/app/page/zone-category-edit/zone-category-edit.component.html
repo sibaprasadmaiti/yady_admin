@@ -1,0 +1,50 @@
+<div class="content_box">
+	<div class="card">
+		<div class="card-header card-header-danger">
+			<h4 class="card-title">Zone Category/ Sub Category Pricing</h4>
+			<p class="card-category">
+				Edit Zone Category/ Sub Category Pricing
+			</p>
+		</div>
+		<div class="card-body">
+			<div class="edit_form">
+				<div class="edit_form">
+				<form class="inner_form" [formGroup]="EditForm" (ngSubmit)="updateData()">
+					<mat-form-field style="width:60%; display: inline-block !important;">
+						<mat-label>Select Catgeory</mat-label>
+						<mat-select formControlName="category_id" (selectionChange)="onChangeCategory($event.value)">
+							<mat-option *ngFor="let category of categoryData" [value]="category._id">{{category.category_name}}</mat-option>
+						</mat-select>
+					</mat-form-field>
+					<br>
+					<label>Select Sub Category</label><br>
+					<div class="col-md-12">
+						<div class="row">
+							<div class="col-md-3" *ngFor="let subcategory of subCategoryData; let i = index">
+								<input type="checkbox" (click)="send_subcategory_id($event,subcategory._id)" [checked]="inputChecked(subcategory._id)">&nbsp;{{subcategory.sub_category_name}}
+							</div>
+						</div>
+					</div>
+					<br>
+					<label style="font-weight: bold;color: black;">Zone Price</label><br>
+					<input type="radio" name="zone_price_status" [value]=1 formControlName="zone_price_status" [(ngModel)]="optionValue"> - to category price &nbsp;&nbsp;&nbsp;
+					<input type="radio" name="zone_price_status" [value]=2 formControlName="zone_price_status" [(ngModel)]="optionValue"> - % of category Price
+					<br><br>
+					<div *ngIf="optionValue == '2'">
+						<mat-form-field style="width:50%; display: inline-block !important;">
+							<input matInput type="text" placeholder="Category / Sub Category Price %" formControlName="price_percentage">
+						</mat-form-field>
+						&nbsp;&nbsp;
+						<input type="radio" name="increase_decrease_status" formControlName="increase_decrease_status"  [value]=1> - Increase &nbsp;&nbsp;&nbsp;
+						<input type="radio" name="increase_decrease_status" formControlName="increase_decrease_status" [value]=2> - Decrease
+					</div>
+					
+					<div class="btn_name">
+						<button mat-button class="option_btn" [disabled]="EditForm.invalid">Update Promotion</button>
+					</div>
+				</form>
+			</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,409 @@
+<div class="content_box">
+
+  <div class="row">
+    <div class="col-md-3">
+      <span class="form-group col-lg-3 col-sm-12 col-md-12">
+        <!-- <label for="search_type">Search Type</label> -->
+        <div class="input-group no-border">
+          <select class="form-control" name="search_type" id="search_type" [(ngModel)]="search_type">
+            <option value="">Select an Option</option>
+            <option value="id">Booking ID</option>
+            <option value="provider_name">Provider Name</option>
+            <option value="customer_name">Customer Name</option>
+            <option value="phone_number">Customer Only Phone No.</option>
+          </select>
+        </div>
+      </span>
+    </div>
+    <div class="col-md-2">
+      <span class="form-group col-lg-3 col-sm-12 col-md-12">
+        <!-- <label for="search_key">Search</label> -->
+        <div class="input-group no-border">
+          <input class="form-control" type="text" name="search_key" id="search_key" placeholder="Search" class="form-control"
+            [(ngModel)]="search_key" />
+        </div>
+      </span>
+    </div>
+    <div class="col-md-2">
+      <span class="form-group col-lg-3 col-sm-12 col-md-12">
+        <!-- <label for="payment_type">Payment Type</label> -->
+        <div class="input-group no-border">
+          <select class="form-control" name="payment_type" id="payment_type" [(ngModel)]="payment_type">
+            <option value="">Select Payment Type</option>
+            <option value="1">Online/Card</option>
+            <option value="2">Cash</option>
+          </select>
+        </div>
+      </span>
+    </div>
+    <div class="col-md-3">
+      <span class="form-group col-lg-3 col-sm-12 col-md-12">
+        <!-- <label for="from_date">From Date</label> -->
+        <div class="input-group no-border">
+          <input class="form-control" type="date" name="from_date" id="from_date" [(ngModel)]="from_date" />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div> To </div>
+        </div>
+      </span>
+    </div>
+    <div class="col-md-2">
+      <span class="form-group col-lg-3 col-sm-12 col-md-12">
+        <!-- <label for="from_date">To Date</label> -->
+        <div class="input-group no-border">
+          <input class="form-control" type="date" name="to_date" id="to_date" [(ngModel)]="to_date" />
+        </div>
+      </span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3" *ngIf="adminType == 0">
+      <span class="bmd-form-group col-lg-3 col-sm-12 col-md-12">
+        <!-- <label for="country_id">Country</label> -->
+        <!-- <div class="input-group no-border">
+          <select class="form-select" name="country_id" id="country_id" (change)="onChangeCountry($event.target.value)"
+            [(ngModel)]="country_id">
+            <option value="">Select Country</option>
+            <option *ngFor="let country of countryData" value="{{country.id}}">{{country.name}}</option>
+          </select>
+        </div> -->
+        <mat-form-field>
+					<mat-label>Select Country</mat-label>
+					<mat-select name="country_id" (selectionChange)="onChangeCountry($event.value)" [(ngModel)]="country_id">
+						<mat-option *ngFor="let country of countryData" [value]="country.id">{{country.name}}</mat-option>
+					</mat-select>
+				</mat-form-field>
+      </span>
+    </div>
+    <div class="col-md-2" *ngIf="adminType == 0">
+      <span class="bmd-form-group col-lg-3 col-sm-12 col-md-12">
+        <mat-form-field>
+					<mat-label>Select State</mat-label>
+          <mat-select name="state_id" (selectionChange)="onChangeState($event.value)">
+						<mat-option *ngFor="let state of stateData" [value]="state.id">{{state.name}}</mat-option>
+					</mat-select>
+				</mat-form-field>
+      </span>
+    </div>
+    <div class="col-md-2" *ngIf="adminType == 0">
+      <span class="bmd-form-group col-lg-3 col-sm-12 col-md-12">
+        <!-- <label for="city_id">Select City</label> -->
+        <!-- <div class="input-group no-border">
+          <select class="form-select" name="city_id" id="city_id" [(ngModel)]="city_id">
+            <option value="">Select City</option>
+            <option *ngFor="let city of cityData" value="{{city.id}}" attr.data="city.name">{{city.name}}</option>
+          </select>
+        </div> -->
+        <mat-form-field>
+					<mat-label>Select City</mat-label>
+					<mat-select name="city_id" [(ngModel)]="city_id">
+						<mat-option *ngFor="let city of cityData" [value]="city.id">{{city.name}}</mat-option>
+					</mat-select>
+				</mat-form-field>
+      </span>
+    </div>
+    <div class="col-md-2">
+      <span class="bmd-form-group col-lg-3 col-sm-12 col-md-12">
+        <!-- <label for="city_id">Select City</label> -->
+        <!-- <div class="input-group no-border">
+          <select class="form-select" name="perPage" id="perPage" [(ngModel)]="perPage">
+            <option value="20">20</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+            <option value="200">200</option>
+          </select>
+        </div> -->
+
+        <mat-form-field>
+					<mat-label>Limit</mat-label>
+					<mat-select name="perPage" [(ngModel)]="perPage">
+						<mat-option [value]="20">20</mat-option>
+            <mat-option [value]="50">50</mat-option>
+            <mat-option [value]="100">100</mat-option>
+            <mat-option [value]="200">200</mat-option>
+					</mat-select>
+				</mat-form-field>
+      </span>
+    </div>
+    <div class="col-md-3">
+      <span class="bmd-form-group col-lg-3 col-sm-12 col-md-12">
+        <div class="input-group no-border">
+          <input type="submit" name="search" id="btn_data_search" class="btn btn-success btn-sm" value="Search"
+            (click)="searchBooking(search_type, search_key, payment_type, from_date, to_date, city_id)" />&nbsp;
+          <input type="submit" class="btn btn-danger btn-sm" (click)="reset_page()" value="Reset" />
+
+        </div>
+      </span>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header card-header-danger">
+      <div class="row">
+        <div class="col-md-6">
+          <h4 class="card-title">Bookings</h4>
+          <p class="card-category">Booking List</p>
+        </div>
+        <div *ngIf="bookingData.length > 0 && adminType != 3" class="col-md-6" style="text-align: end;">
+          <button class="btn btn-primary" (click)="exportCsv()"> Export CSV <i class="fa fa-file-excel-o"></i></button>
+        </div>
+      </div>
+
+    </div>
+    <div class="card-body">
+      <ul class="nav nav-tabs nav-fill dbTabHeading" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="booking-request" data-bs-toggle="tab" data-bs-target="#book-req"
+            type="button" role="tab" aria-controls="booking-request" aria-selected="true"
+            (click)="searchBookingByStatus('booking-request')">
+            Booking Request
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="upcoming" data-bs-toggle="tab" data-bs-target="#upco" type="button" role="tab"
+            aria-controls="upcoming" aria-selected="false" (click)="searchBookingByStatus('upcoming')">
+            Upcoming
+          </button>
+        </li>
+
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="ongoing" data-bs-toggle="tab" data-bs-target="#ongo" type="button" role="tab"
+            aria-controls="ongoing" aria-selected="false" (click)="searchBookingByStatus('ongoing')">
+            Ongoing
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="completed" data-bs-toggle="tab" data-bs-target="#comple" type="button" role="tab"
+            aria-controls="completed" aria-selected="false" (click)="searchBookingByStatus('completed')">
+            Completed
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="cancel" data-bs-toggle="tab" data-bs-target="#can" type="button" role="tab"
+            aria-controls="cancel" aria-selected="false" (click)="searchBookingByStatus('cancel')">
+            Cancel
+          </button>
+        </li>
+      </ul>
+      <div class="tab-content dbTabContent" id="myTabContent">
+        <div class="tab-pane fade show active" id="book-req" role="tabpanel" aria-labelledby="booking-request">
+          <div class="table-responsive">
+            <table class="table">
+              <thead class="text-primary">
+                <th>Booking Id</th>
+                <th>Service</th>
+                <th>Date Time</th>
+                <th>Provider Name</th>
+                <th>Customer Name</th>
+                <th class="bk-status">Status</th>
+                <th>Reschedule Status</th>
+                <th>Paid Medium</th>
+                <th>Before Tax Total</th>
+                <th>Tax</th>
+                <th>After Tax Total</th>
+				<th>Additional Time/Quotations</th>
+                <th>Total</th>
+                <th *ngIf="showhide == 'booking-request'">Assign Status</th>
+                <th>Action</th>
+              </thead>
+              <tbody>
+                <tr *ngFor="
+                    let booking of bookingData
+                      | paginate: { itemsPerPage: perPage, currentPage: page, totalItems: totalRecords };
+                    let i = index
+                  ">
+                  <td>
+                    <span style="font-size: 12px">{{ booking.booking_job_no }}
+                      <span *ngIf="booking.reschedule_status == 1" style="color: blue">(Rescheduled)</span></span><br />
+
+                    <span
+                      *ngIf="!(booking.booking_status == 4 || booking.booking_status == 2) && (booking.pause_type == 2 && booking.confirm_status == 0 && booking.sp_reschedule_status == 0 && booking.admin_approval_status == 0) "
+                      style="font-size: 12px"><i class="fa fa-refresh fa-spin" style="font-size:20px;color:blue"></i>
+                      Approval Needed</span>
+
+                    <span
+                      *ngIf="!(booking.booking_status == 4 || booking.booking_status == 2) && (booking.pause_type == 2 && booking.confirm_status == 0 && booking.sp_reschedule_status == 1 && booking.admin_approval_status == 0 && booking.sp_reschedule_accepted_status == 1 && booking.cost > 0) "
+                      style="font-size: 12px"><i class="fa fa-refresh fa-spin" style="font-size:20px;color:blue"></i>
+                      Approval Needed</span>
+                  </td>
+                  <td>
+                    <span style="font-size: 12px">{{
+                      booking.cat_subcat_name
+                      }}</span>
+                  </td>
+                  <td>
+                    <span style="font-size: 12px"><i class="fa fa-calendar"></i>
+                      {{ booking.booking_date | date: "dd-MM-yyyy" }}</span><br />
+                    <span style="font-size: 12px"><i class="fa fa-clock-o"></i>
+                      {{ booking.booking_time }}</span>
+                  </td>
+                  <td>{{ booking.provider_name }}</td>
+                  <td>{{ booking.service_requester_name }}</td>
+                  <!-- <td>{{ booking.sr_address }}</td> -->
+                  <td>
+                    <span class="status-content status-pending" *ngIf="booking.booking_status == 0 && booking.assign_exists == 1">Pending, Not Accepted</span>
+					<span class="status-content status-pending" *ngIf="booking.booking_status == 0 && booking.assign_exists == 0">No SP Assigned</span>
+                    <span class="status-content status-accept" *ngIf="booking.booking_status == 1">Accepted and
+                      Upcoming</span>
+                    <span class="status-content status-completed" *ngIf="booking.booking_status == 2">Completed</span>
+                    <span class="status-content status-ongonig" *ngIf="booking.booking_status == 3">Ongoing</span>
+                    <span class="status-content status-cancel" *ngIf="booking.booking_status == 4">Cancel </span>
+                    <br>
+                    <span class="status-content status-pending" *ngIf="booking.start_status == 0">Not Started</span>
+                    <span class="status-content status-accept" *ngIf="booking.start_status == 1">Started</span>
+                    <span class="status-content status-completed" *ngIf="booking.start_status == 2">Finished</span>
+					<br>
+					<span class="status-content status-ongonig" *ngIf="booking.late_status == 1">SP Late</span>
+                  </td>
+                  <td>
+                    <!--<span class="status-content status-pending" *ngIf="booking.reschedule_status == 0">Not Rescheduled</span>-->
+                    <span class="status-content status-completed" *ngIf="booking.reschedule_status == 1">SR
+                      Rescheduled</span>
+
+                    <span class="status-content status-completed"
+                      *ngIf="booking.pause_type == 2 && booking.confirm_status == 0 && booking.sp_reschedule_status == 1 && booking.admin_approval_status == 0 && booking.sp_reschedule_accepted_status == 0">SP
+                      Submitted Dates, SR Acceptance Pending</span>
+
+                    <span class="status-content status-completed"
+                      *ngIf="booking.pause_type == 2 && booking.confirm_status == 0 && booking.sp_reschedule_status == 1 && booking.admin_approval_status == 0 && booking.sp_reschedule_accepted_status == 1 && booking.cost == 0">SR
+                      Accepted Res. Date</span>
+
+                    <span class="status-content status-completed"
+                      *ngIf="booking.pause_type == 2 && booking.confirm_status == 0 && booking.sp_reschedule_status == 1 && booking.admin_approval_status == 0 && booking.sp_reschedule_accepted_status == 1 && booking.cost > 0">SP
+                      Submitted Quote For Res.</span>
+
+                    <span class="status-content status-completed"
+                      *ngIf="booking.pause_type == 2 && booking.confirm_status == 0 && booking.sp_reschedule_status == 1 && booking.admin_approval_status == 1 && booking.sp_reschedule_accepted_status == 1 && booking.cost > 0">SP
+                      Submitted Quote For Res. Admin Approved</span>
+
+                    <span class="status-content status-completed"
+                      *ngIf="booking.pause_type == 2 && booking.confirm_status == 1 && booking.sp_reschedule_status == 1 && booking.admin_approval_status == 1 && booking.sp_reschedule_accepted_status == 1 && booking.cost > 0">SP
+                      Submitted Quote For Res. SR Accepted</span>
+
+                    <span class="status-content status-completed"
+                      *ngIf="booking.pause_type == 2 && booking.confirm_status == 0 && booking.sp_reschedule_status == 0 && booking.admin_approval_status == 0">SP
+                      Quote Submitted, Admin Approval Pending</span>
+
+                    <span class="status-content status-completed"
+                      *ngIf="booking.pause_type == 2 && booking.confirm_status == 0 && booking.sp_reschedule_status == 0 && booking.admin_approval_status == 1">SP
+                      Quote Submitted, Admin Approved</span>
+
+                    <span class="status-content status-completed"
+                      *ngIf="booking.pause_type == 2 && booking.confirm_status == 1 && booking.sp_reschedule_status == 0 && booking.admin_approval_status == 1">SP
+                      Quote Submitted, SR Accepted</span>
+
+                    <span class="status-content status-completed"
+                      *ngIf="booking.pause_type == 1 && booking.confirm_status == 0">SP Extended Time, SR Acceptance
+                      Pending</span>
+
+                    <span class="status-content status-completed"
+                      *ngIf="booking.pause_type == 1 && booking.confirm_status == 1">SP Extended Time, SR
+                      Accepted</span>
+                  </td>
+                  <td>
+                    <span *ngIf="booking.paid_medium == 1">Online/Card</span>
+                    <span *ngIf="booking.paid_medium == 2">Cash</span>
+                  </td>
+                  <td>{{ booking.before_tax_cost }} {{booking.currency}}</td>
+                  <td>{{ booking.tax }} {{booking.currency}}</td>
+                  <td>{{ booking.after_tax_cost }} {{booking.currency}}</td>
+				          <td>{{booking.addtional_total_cost}} {{booking.currency}}</td>
+                  <td>
+                    <span>{{ booking.total_cost + booking.addtional_total_cost }} {{booking.currency}}</span>
+                  </td>
+                  <td *ngIf="showhide == 'booking-request'">
+                    <span class="status-content sp-not-avai" *ngIf="booking.assign_status == 0">SP Not Available To
+                      Assign</span>
+                    <span class="status-content sp-ass-st" *ngIf="booking.assign_status == 1 && booking.assign_exists == 1">Request sent to SP</span>
+					<span class="status-content sp-ass-st" *ngIf="booking.assign_status == 1 && booking.assign_exists == 0">No SP to Assigned</span>
+                    <span class="status-content acc-by-sp" *ngIf="booking.assign_status == 2">Accepted By SP</span>
+                    <span class="status-content sp-not-acc" *ngIf="booking.assign_status == 3">Not Accepted, Time Expired</span>
+                  </td>
+                  <td style="text-align: center">
+                    <!-- <i class="fa fa-hand-o-up" style="cursor: pointer" (click)="assign_booking(booking._id)"
+                      title="Assign Booking" *ngIf="booking.assign_status == 3"></i>&nbsp;
+                    <i class="fa fa-eye" style="cursor: pointer" title="View Details"
+                      (click)="viewDetails(booking._id)"></i> -->
+
+                    <button mat-raised-button color="primary" [matMenuTriggerFor]="menu">Action</button>
+                    <mat-menu #menu="matMenu">
+
+                      <button *ngIf="(booking.assign_status == 3 || booking.assign_exists == 0) && booking.booking_status == 0 && adminType != 3" mat-menu-item
+                        (click)="assign_booking(booking._id)">Assign Booking</button>
+                      <button *ngIf="booking.booking_status == 2 && booking.change_request_status == 1 && adminType != 3" mat-menu-item
+                        (click)="changeRequest(booking._id)">Approve Change Request</button>
+						<button *ngIf="booking.admin_assign_status == 1 && adminType != 3" mat-menu-item
+                        (click)="assign_booking(booking._id)">Assign Booking</button>
+
+                      <button mat-menu-item (click)="viewDetails(booking._id)">View Details</button>
+
+                      <button mat-menu-item (click)="adminApproval(booking._id, booking.booking_pause_id)"
+                        *ngIf="adminType != 3 && !(booking.booking_status == 4 || booking.booking_status == 2) && (booking.pause_type == 2 && booking.confirm_status == 0 && booking.sp_reschedule_status == 0 && booking.admin_approval_status == 0) && quotation_approval_permission">Admin
+                        Approval</button>
+
+                      <button mat-menu-item (click)="adminApproval(booking._id, booking.booking_pause_id)"
+                        *ngIf="adminType != 3 && !(booking.booking_status == 4 || booking.booking_status == 2) && (booking.pause_type == 2 && booking.confirm_status == 0 && booking.sp_reschedule_status == 1 && booking.admin_approval_status == 0 && booking.sp_reschedule_accepted_status == 1 && booking.cost > 0) && quotation_approval_permission">Admin
+                        Approval</button>
+
+                      <button mat-menu-item *ngIf="booking.booking_status != 4 && booking.booking_status != 2 && adminType != 3"
+                        (click)="cancel_booking(booking._id)">Cancel Booking</button>
+
+                      <button mat-menu-item *ngIf="booking.booking_status == 3 && adminType != 3 && booking.start_status == 0"
+						(click)="start_service(booking._id)">Start Service</button>
+
+					  <button mat-menu-item *ngIf="booking.booking_status == 3 && adminType != 3 && booking.start_status == 1"
+                        (click)="complete_booking(booking._id)">Complete Service</button>
+
+                      <a mat-menu-item href="{{booking.invoice}}" *ngIf="booking.invoice != '' && adminType != 3"
+                        target="_blank">Invoice</a>
+
+					<button mat-menu-item *ngIf="booking.booking_status == 4 && adminType != 3"
+                        (click)="cancel_reason(booking._id)">Cancel Reason</button>
+
+                    </mat-menu>
+                  </td>
+                </tr>
+
+                <tr *ngIf="bookingData?.length == 0">
+                  <td text-align="center" colspan="14">No Record found</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="has-text-centered">
+              <pagination-controls (pageChange)="nextPage(page = $event)"></pagination-controls>
+            </div>
+          </div>
+        </div>
+        <!-- <div
+          class="tab-pane fade"
+          id="upco"
+          role="tabpanel"
+          aria-labelledby="upcoming"
+        >
+          222
+        </div>
+        <div
+          class="tab-pane fade"
+          id="comple"
+          role="tabpanel"
+          aria-labelledby="completed"
+        >
+          33
+        </div>
+        <div
+          class="tab-pane fade"
+          id="ongo"
+          role="tabpanel"
+          aria-labelledby="ongoing"
+        >
+          44
+        </div>
+        <div
+        class="tab-pane fade"
+        id="can"
+        role="tabpanel"
+        aria-labelledby="cancel"
+      >
+        88
+      </div> -->
+      </div>
+    </div>
+  </div>
+</div>

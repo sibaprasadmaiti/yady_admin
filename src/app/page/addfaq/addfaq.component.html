@@ -1,0 +1,51 @@
+<div class="content_box"> 
+    <div  class="card">
+      <div  class="card-header card-header-danger">
+        <h4  class="card-title ">FAQ Management</h4>
+        <p  class="card-category">
+          Add FAQ
+        </p>
+        
+      </div>
+      <div  class="card-body">
+    <div class="edit_form">
+      <form class="inner_form"  [formGroup]="addForm" (ngSubmit)="addData()">
+      <mat-form-field>
+        <input matInput type="text" placeholder="Title" formControlName="title">
+        <mat-error *ngIf="addForm.controls['title'].hasError('required') && addForm.controls['title'].touched">
+            Please enter a title.
+          </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <textarea hidden matInput placeholder="" formControlName="content"></textarea>
+        <angular-editor formControlName="content"[config]="config"></angular-editor>
+        <mat-error *ngIf="addForm.controls['content'].hasError('required') && addForm.controls['content'].touched">
+            Please enter FAQ description.
+          </mat-error>
+      </mat-form-field>
+      <div class="form-group">
+        <label for="language">language</label>
+        <select class="form-control" formControlName="language" [(ngModel)]="language">
+           <option value="E">English</option>
+           <option value="D" selected>Dutch</option>
+        </select>
+    </div>
+      
+      <!-- <div class="mat-form-field-infix">        
+        <select id="category" [(ngModel)]="category" formControlName="category"> 
+          <option value="0">--Select Category--</option>
+          <option *ngFor="let addfaqcategory of addfaqcategory" value={{addfaqcategory.id}}>
+            {{addfaqcategory.name}}
+          </option>
+        </select>
+      </div> -->
+    <br/>
+    <!-- <angular-editor [placeholder]="'Enter text here...'" [(ngModel)]="htmlContent"></angular-editor> -->
+  
+  
+    <button mat-button class="option_btn" [disabled]="addForm.invalid">Add FAQ</button>
+      
+    </form>
+  </div>
+    </div>
+  </div>

@@ -1,0 +1,47 @@
+<div class="content_box">
+    
+    <div  class="card">
+      <div  class="card-header card-header-danger">
+        <h4  class="card-title ">Email Template  Management</h4>
+        <p  class="card-category">
+          Edit Email Template
+        </p>
+      </div>
+      <div  class="card-body"> 
+    <div class="edit_form">
+      <form class="inner_form"  [formGroup]="updateForm" (ngSubmit)="updatefaqcategoryData()">
+      <mat-form-field>
+        <input matInput type="text" placeholder="Template title" formControlName="template_title">
+        <mat-error *ngIf="updateForm.controls['template_title'].hasError('required') && updateForm.controls['template_title'].touched">
+            Please enter a  title.
+          </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput type="text" placeholder="Template slug" formControlName="template_slug">
+        <mat-error *ngIf="updateForm.controls['template_slug'].hasError('required') && updateForm.controls['template_slug'].touched">
+            Please enter a  slug.
+          </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput type="text" placeholder="Email subject" formControlName="email_subject">
+        <mat-error *ngIf="updateForm.controls['email_subject'].hasError('required') && updateForm.controls['email_subject'].touched">
+            Please enter a  Subject.
+          </mat-error>
+      </mat-form-field>
+             
+      <mat-form-field>
+        <textarea hidden matInput placeholder="Email subject" formControlName="template_description"></textarea>
+        <angular-editor formControlName="template_description"[config]="config"></angular-editor>
+        <mat-error *ngIf="updateForm.controls['template_description'].hasError('required') && updateForm.controls['template_description'].touched">
+            Please enter Email description.
+          </mat-error>
+        </mat-form-field>  
+  
+  
+    <button mat-button class="update_btn" [disabled]="updateForm.invalid">Update</button>
+      
+    </form>
+  </div>
+    </div>
+  </div>

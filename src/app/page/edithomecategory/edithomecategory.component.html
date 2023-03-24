@@ -1,0 +1,33 @@
+<div class="content_box">   
+    <div  class="card">
+      <div  class="card-header card-header-danger">
+        <h4  class="card-title ">Home Category Management</h4>
+        <p  class="card-category">
+          Edit Home Category
+        </p>
+      </div>
+    <div  class="card-body">  
+    <div class="edit_form">
+      <form class="inner_form"  [formGroup]="updateContentForm" (ngSubmit)="updatehomecategoryData()">
+      <mat-form-field>
+        <input matInput type="text" placeholder="categoryname" formControlName="categoryname">
+        <mat-error *ngIf="updateContentForm.controls['categoryname'].hasError('required') && updateContentForm.controls['categoryname'].touched">
+            Please enter a category name.
+          </mat-error>
+      </mat-form-field>
+             
+      <mat-form-field>
+          <mat-select formControlName="status">
+            <mat-option value="Y">Active</mat-option>
+            <mat-option value="N">Inactive</mat-option>
+          </mat-select>
+        </mat-form-field>  
+  
+  
+    <button mat-button class="option_btn" [disabled]="updateContentForm.invalid">Update Content</button>
+      
+    </form>
+  
+    </div>
+  </div>
+  </div>

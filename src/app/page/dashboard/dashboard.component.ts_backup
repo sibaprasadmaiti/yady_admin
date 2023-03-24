@@ -1,0 +1,296 @@
+import { Component, OnInit } from '@angular/core';
+import {Location} from '@angular/common';
+import { FormBuilder, FormGroup, Validators, AbstractControl, ValidatorFn, FormControl} from '@angular/forms';
+import {ApiServiceService} from '../../services/api-service/api-service.service';
+import { RouterModule, Router } from '@angular/router';
+import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
+import {MatSnackBar} from '@angular/material';
+import { DatePipe } from '@angular/common';
+import { environment } from '../../../environments/environment';
+import { HttpClient } from '@angular/common/http';
+@Component({
+  selector: 'app-dashboard',
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.scss'],
+  providers: [DatePipe]
+})
+export class DashboardComponent implements OnInit {
+  public userName: any;
+  public userEmail: any;
+  public profileData: any;
+  // public updateForm: any;
+  public updateForm: FormGroup;
+  public totalUser: any;
+  public totalCms: any;
+  public totalHomeCategory: any;
+  public totalFaq: any;
+  public latestUData: any;
+  public prevedate: any;
+  public reviewlist: any;
+  public curencylist: any;
+  public curencyArr: any;
+  public getcurencyList: any;
+  public  addcontent: any;
+  public imgpath: any;
+  public defaultimg: any;
+  logtoken = localStorage.getItem('LoginToken');
+  constructor(
+    public formbuilder: FormBuilder,
+    public adminservice: ApiServiceService,
+    private router: Router,
+    public snackBar: MatSnackBar,
+    private spinnerService: Ng4LoadingSpinnerService,
+    private http: HttpClient,
+    // tslint:disable-next-line:variable-name
+    private _location: Location
+   ) {
+    this.imgpath = environment.api_url + 'public/productimage/';
+    this.defaultimg = environment.api_url + 'public/productimage/default-book.png';
+    }
+
+  ngOnInit() {
+    this.spinnerService.show();
+    this.profileData = {};
+    this.spinnerService.show();
+    this.adminservice.HttpGetReq(`admin/getprofile?token=${this.logtoken}`, true)
+      .then(
+        (response: any) => {
+          this.spinnerService.hide();
+          this.profileData = response.data;
+          this.userName = response.data.name;
+          this.userEmail = response.data.email;
+
+          // this.updateForm.setValue({
+          //   name:  this.profileData.name,
+          //   username: this.profileData.username,
+          //   email: this.profileData.email,
+          // });
+
+        },
+        (error) => {
+          this.spinnerService.hide();
+          this.snackBar.open('Internal server error', 'End now', {
+            duration: 5000,
+          });
+        }
+        );
+
+    this.adminservice.HttpGetReq(`admin/userCount/1?token=${this.logtoken}`, true)
+      .then(
+        (response: any) => {
+          this.spinnerService.hide();
+          this.totalUser = response.data;
+		  console.log(this.totalUser);
+        },
+        (error) => {
+          this.spinnerService.hide();
+          this.snackBar.open('Internal server error', 'End now', {
+            duration: 5000,
+          });
+        }
+        );
+
+    /*this.adminservice.HttpGetReq(`admin/getallcontentcount?token=${this.logtoken}`, true)
+      .then(
+        (response: any) => {
+          this.spinnerService.hide();
+          this.totalCms = response.data[0].totalcms;
+        },
+        (error) => {
+          this.spinnerService.hide();
+          this.snackBar.open('Internal server error2', 'End now', {
+            duration: 5000,
+          });
+        }
+        );*/
+
+    /*this.adminservice.HttpGetReq(`admin/getallhomecategorycount?token=${this.logtoken}`, true)
+      .then(
+        (response: any) => {
+          this.spinnerService.hide();
+          this.totalHomeCategory = response.data[0].totalhomecat;
+        },
+        (error) => {
+          this.spinnerService.hide();
+          this.snackBar.open('Internal server error2', 'End now', {
+            duration: 5000,
+          });
+        }
+        );*/
+
+    /*this.adminservice.HttpGetReq(`admin/getallfaqcount?token=${this.logtoken}`, true)
+        .then(
+          (response: any) => {
+            this.spinnerService.hide();
+            this.totalFaq = response.data[0].totalfaq;
+          },
+          (error) => {
+            this.spinnerService.hide();
+            this.snackBar.open('Internal server error2', 'End now', {
+              duration: 5000,
+            });
+          }
+          );*/
+
+    /*this.adminservice.HttpGetReq(`admin/getlastUser?token=${this.logtoken}`, true)
+        .then(
+          (response: any) => {
+            this.spinnerService.hide();
+            this.latestUData = response.data;
+          },
+          (error) => {
+            this.spinnerService.hide();
+            this.snackBar.open('Internal server error2', 'End now', {
+              duration: 5000,
+            });
+          }
+          );*/
+
+          // myDate = new Date();
+          // constructor(private datePipe: DatePipe){
+          //     this.myDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
+          // }
+
+
+
+    /*this.adminservice.HttpGetReq(`admin/getRatingReviewList?token=${this.logtoken}`, true)
+        .then(
+          (response: any) => {
+            this.spinnerService.hide();
+            this.reviewlist = response.data;
+          },
+          (error) => {
+            this.spinnerService.hide();
+            this.snackBar.open('Internal server error2', 'End now', {
+              duration: 5000,
+            });
+          }
+          );*/
+
+
+    /*this.adminservice.HttpGetReq(`admin/getCurrencyList?token=${this.logtoken}`, true)
+        .then(
+          (response: any) => {
+            this.spinnerService.hide();
+            this.getcurencyList = response.data;
+          },
+          (error) => {
+            this.spinnerService.hide();
+            this.snackBar.open('Internal server error for currency list', 'End now', {
+              duration: 5000,
+            });
+          }
+          );*/
+
+// https://api.exchangeratesapi.io/latest
+
+   // this.adminservice.HttpGetReq2(`https://api.exchangeratesapi.io/latest?symbols=EUR,GBP&base=USD`, true)
+    this.adminservice.HttpGetReq2(`https://api.exchangeratesapi.io/latest?symbols=EUR,GBP,AUD,BGN,BRL,CAD,CHF,CZK,DKK,HKD,INR,JPY,MXN,MYR,NOK,NZD,PLN,RON,SEK,SGD&base=USD`, true)
+        .then(
+          (response: any) => {
+            this.spinnerService.hide();
+            console.log('<All Response>', response);
+            console.log('<Base>', response.base);
+            const addcontent1  = [response.base, response.rates.EUR, response.rates.GBP];
+
+        //     const addcontent = {
+        //     'base': response.base,
+        //     'eur': response.rates['EUR'],
+        //     'gbp' : response.rates['GBP']
+        //  };
+
+            // this.curencyArr  = [];
+            // this.curencyArr.push({'base': response.base, 'eur': response.rates['EUR'], 'gbp': response.rates['GBP']});
+            // this.curencyArr.push({'base': response.base, 'eur': response.rates['EUR'], 'gbp': response.rates['GBP']});
+            // const addcontent = this.curencyArr;
+
+            const addcontent = [
+              {base: response.base, iso_code: 'EUR', value : response.rates.EUR, symbol: '€', date : response.date },
+              {base: response.base, iso_code: 'GBP', value : response.rates.GBP, symbol: '£', date : response.date},
+              {base: response.base, iso_code: 'AUD', value : response.rates.AUD, symbol: '£', date : response.date},
+              {base: response.base, iso_code: 'BGN', value : response.rates.BGN, symbol: '£', date : response.date},
+              {base: response.base, iso_code: 'BRL', value : response.rates.BRL, symbol: '£', date : response.date},
+              {base: response.base, iso_code: 'CAD', value : response.rates.CAD, symbol: '£', date : response.date},
+              {base: response.base, iso_code: 'CHF', value : response.rates.CHF, symbol: '£', date : response.date},
+              {base: response.base, iso_code: 'CZK', value : response.rates.CZK, symbol: '£', date : response.date},
+              {base: response.base, iso_code: 'DKK', value : response.rates.DKK, symbol: '£', date : response.date},
+              {base: response.base, iso_code: 'HKD', value : response.rates.HKD, symbol: '£', date : response.date},
+              {base: response.base, iso_code: 'INR', value : response.rates.INR, symbol: '£', date : response.date},
+              {base: response.base, iso_code: 'JPY', value : response.rates.JPY, symbol: '£', date : response.date},
+              {base: response.base, iso_code: 'MXN', value : response.rates.MXN, symbol: '£', date : response.date},
+              {base: response.base, iso_code: 'MYR', value : response.rates.MYR, symbol: '£', date : response.date},
+              {base: response.base, iso_code: 'NOK', value : response.rates.NOK, symbol: '£', date : response.date},
+              {base: response.base, iso_code: 'NZD', value : response.rates.NZD, symbol: '£', date : response.date},
+              {base: response.base, iso_code: 'RON', value : response.rates.RON, symbol: '£', date : response.date},
+              {base: response.base, iso_code: 'SEK', value : response.rates.SEK, symbol: '£', date : response.date},
+              {base: response.base, iso_code: 'SGD', value : response.rates.SGD, symbol: '£', date : response.date}
+          ];
+
+            // this.addcontent.push(customObj);
+           // this.curencylist = response.rates;
+           // this.addcontent[0] = response.base;
+            // addcontent.push(response.base);
+           // this.addcontent[1] = response.rates['EUR'];
+            // this.addcontent[2] = response.rates['GBP'];
+            console.log('<11currency1>', addcontent1);
+            console.log('<currency>', addcontent);
+
+            this.adminservice.HttpPostReq(`admin/addcumency?token=${this.logtoken}`, addcontent, true)
+            .then(
+              ( response: any) => {
+               this.spinnerService.hide();
+               // this.toastr.success(response.message);
+               // this.router.navigateByUrl('/main/faq');
+              },
+             (error) => {
+              this.spinnerService.hide();
+              // this.toastr.error('Internal server error');
+              this.snackBar.open('Internal server error for insert currency', 'End now', {
+                duration: 5000,
+              });
+             }
+           );
+
+          },
+          (error) => {
+            this.spinnerService.hide();
+            console.log('<currency>', error);
+            this.snackBar.open('Internal server error currency', 'End now', {
+              duration: 5000,
+            });
+          }
+          );
+
+
+//   this.http.get<any>('https://api.exchangeratesapi.io/latest?symbols=EUR,GBP&base=USD')
+//   .subscribe( data => this.curencylist = data.rates,
+
+//     error => console.error('There was an error!', error)
+// )
+
+  }
+
+  myUser() {
+    console.log('hi....');
+    this.router.navigateByUrl('/main/user-management');
+  }
+
+  myFaq() {
+    console.log('hi....');
+    this.router.navigateByUrl('/main/faq');
+  }
+
+  myContent() {
+    console.log('hi....');
+    this.router.navigateByUrl('/main/managecontent');
+  }
+
+  myHomeCategory() {
+    console.log('hi....');
+    this.router.navigateByUrl('/main/homecategory');
+  }
+  backClicked() {
+    this._location.back();
+  }
+
+}

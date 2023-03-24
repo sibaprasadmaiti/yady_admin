@@ -1,0 +1,113 @@
+<div class="content_box">
+	<div class="card">
+		<div class="card-header card-header-danger">
+			<h4 class="card-title">Service Dispatcher Management</h4>
+			<p class="card-category">
+				Edit Service Dispatcher
+			</p>
+			<div><button (click)="backtolist()" class="option_btn">Back To List</button></div>
+		</div>
+		<form class="inner_form" [formGroup]="EditForm" (ngSubmit)="updateData()">
+			<div class="card-body">
+				<div class="edit_form">
+          <mat-form-field style="width:48%; display: inline-block !important;">
+						<mat-label>Type</mat-label>
+						<mat-select formControlName="admin_type" [(ngModel)]="optionValue" (selectionChange)="onChangeType($event.value)">
+							<mat-option [value]="1">Admin</mat-option>
+							<mat-option [value]="2">Sub Admin</mat-option>
+							<mat-option [value]="3">Service Dispatcher</mat-option>
+						</mat-select>
+					</mat-form-field>&nbsp;&nbsp;
+					<mat-form-field style="width:48%; display: inline-block !important;">
+						<mat-label>{{country}}</mat-label>
+						<mat-select formControlName="country_id" (selectionChange)="onChangeCountry($event.value)">
+							<mat-option *ngFor="let country of countryData" [value]="country.id">{{country.name}}</mat-option>
+						</mat-select>
+					</mat-form-field>
+					&nbsp;&nbsp;
+					<mat-form-field style="width:48%; display: inline-block !important;" *ngIf="stateHide && type != 2">
+						<mat-label>{{state}}</mat-label>
+						<mat-select formControlName="state_id" (selectionChange)="onChangeState($event.value)">
+							<mat-option *ngFor="let state of stateData" [value]="state.id">{{state.name}}</mat-option>
+						</mat-select>
+					</mat-form-field>
+          <mat-form-field style="width:48%; display: inline-block !important;" *ngIf="stateHide && type == 2">
+						<mat-label>{{state}}</mat-label>
+						<mat-select formControlName="state_id" (selectionChange)="onChangeState($event.value)" multiple>
+							<mat-option *ngFor="let state of stateData" [value]="state.id">{{state.name}}</mat-option>
+						</mat-select>
+					</mat-form-field>&nbsp;&nbsp;
+					<mat-form-field style="width:48%; display: inline-block !important;" *ngIf="cityHide">
+						<mat-label>{{city}}</mat-label>
+						<mat-select formControlName="city_id" (selectionChange)="onChangeCity($event.value)">
+							<mat-option *ngFor="let city of cityData" [value]="city.id">{{city.name}}</mat-option>
+						</mat-select>
+					</mat-form-field>
+
+					<div>
+						<mat-form-field style="width:48%; display: inline-block !important;">
+							<input matInput type="text" placeholder="First Name" formControlName="first_name">
+							<mat-error *ngIf="EditForm.controls['first_name'].hasError('required') && EditForm.controls['first_name'].touched">
+								Please enter a first name.
+							</mat-error>
+						</mat-form-field>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<mat-form-field style="width:48%; display: inline-block !important;">
+							<input matInput type="text" placeholder="Last Name" formControlName="last_name">
+							<mat-error *ngIf="EditForm.controls['last_name'].hasError('required') && EditForm.controls['last_name'].touched">
+								Please enter a last name.
+							</mat-error>
+						</mat-form-field>
+					</div>
+					<mat-form-field>
+						<input matInput type="text" placeholder="Email" formControlName="email">
+						<mat-error *ngIf="EditForm.controls['email'].hasError('required') && EditForm.controls['email'].touched">
+							Please enter a email.
+						</mat-error>
+					</mat-form-field>
+					<div>
+						<mat-form-field style="width:48%; display: inline-block !important;">
+							<input matInput type="text" placeholder="Country Code" formControlName="country_code">
+							<mat-error *ngIf="EditForm.controls['country_code'].hasError('required') && EditForm.controls['country_code'].touched">
+								Please enter country code.
+							</mat-error>
+						</mat-form-field>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<mat-form-field style="width:48%; display: inline-block !important;">
+							<input matInput type="text" placeholder="Mobile Number" formControlName="only_mobile_no">
+							<mat-error *ngIf="EditForm.controls['only_mobile_no'].hasError('required') && EditForm.controls['only_mobile_no'].touched">
+								Please enter mobile number.
+							</mat-error>
+						</mat-form-field>
+					</div>
+				</div>
+			</div>
+			<br>
+			<div class="card-header card-header-danger">
+				<h4 class="card-title">Menu List</h4>
+			</div>
+			<div class="card-body">
+				<div class="edit_form">
+					<div *ngIf="optionValue == '2' || optionValue == '3' " id="divshow">
+						<mat-checkbox formControlName="service_requester">Service Requester</mat-checkbox>&nbsp;&nbsp;
+						<mat-checkbox formControlName="service_provider">Service Provider</mat-checkbox>&nbsp;&nbsp;
+						<mat-checkbox formControlName="service_dispatcher">Service Dispatcher</mat-checkbox>&nbsp;&nbsp;
+            <mat-checkbox formControlName="bookings">Bookings</mat-checkbox>&nbsp;
+						<mat-checkbox formControlName="category">Category</mat-checkbox>&nbsp;&nbsp;
+						<mat-checkbox formControlName="promotion">Promotion</mat-checkbox>&nbsp;&nbsp;
+            <mat-checkbox formControlName="zone">Zone</mat-checkbox>&nbsp;&nbsp;
+            <mat-checkbox formControlName="holidays">Holidays</mat-checkbox>&nbsp;&nbsp;
+            <mat-checkbox formControlName="sr_reschedule">SR Reschedule</mat-checkbox>&nbsp;&nbsp;
+            <mat-checkbox formControlName="query_service">Query Service</mat-checkbox>&nbsp;&nbsp;
+            <mat-checkbox formControlName="banner_management">Banner Management</mat-checkbox>&nbsp;&nbsp;
+            <mat-checkbox formControlName="quotation_approval">Quotation Approval</mat-checkbox>&nbsp;&nbsp;
+            <mat-checkbox formControlName="notification_management">Notification Management</mat-checkbox>
+					</div>
+				</div>
+				<div class="btn_name">
+					<button mat-button class="option_btn" [disabled]="EditForm.invalid">Update</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

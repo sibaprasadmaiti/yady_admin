@@ -1,0 +1,24 @@
+<div class="content_box">
+	<h2 class="bookingDetlHdn">Booking Images</h2>
+  <div>
+    <button (click)="back()" class="option_btn">Back</button>&nbsp;
+  </div>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="card">
+				<div class="card-body">
+					<div class="paymntbg">
+						<div class="payLft">
+							<div class="bookingRow">
+								<strong>Issues Images</strong>
+								<div class="pause-img" *ngFor="let bookingImg of bookingImageData">
+									<img src="{{ bookingImg.booking_img }}" alt="Booking Image" width="100">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

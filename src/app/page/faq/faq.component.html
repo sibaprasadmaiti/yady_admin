@@ -1,0 +1,127 @@
+
+ <div class="content_box">
+    <!-- <h2>Faq  list details</h2>
+    <table>
+    <div><button mat-button (click)="addNew()">Add New!</button></div>
+      <tr>
+        <th>Title</th>  
+        <th>Content</th> 
+        <th>Category</th>     
+        <th>Status</th>     
+        <th>Action</th>
+      </tr>     
+      <tr *ngFor="let faq of faqData">
+        <td>{{faq.title}}</td>  
+        <td [innerHtml]="faq.content | slice:0:90"></td>
+        <td>{{faq.name}}</td>       
+        <td *ngIf="faq.status=='Y'" [ngClass]="{'status_active': faq.status=='Y'}">Active</td>
+        <td *ngIf="faq.status=='N'" [ngClass]="{'status_inactive': faq.status=='N'}">Inactive</td>               
+        <td>
+         <div class="option_b">
+           <p href="#" class="option_btn">Option</p>
+           <div class="dropdown_a">
+               <ul>
+                   <li [routerLink]="['/main/editfaq', faq.id]">Edit</li>
+                   <!- <li (click)="checkStatus(cms.id,cms.status)">Remove</li> ->
+               </ul>
+             
+           </div>
+       </div>
+        </td>
+      </tr>
+    </table>
+  </div>  -->
+
+
+  <div  class="card">
+    <div  class="card-header card-header-danger">
+      <h4  class="card-title ">FAQ Management</h4>
+      <p  class="card-category">
+        FAQ  list details
+      </p>
+      <div><button class="option_btn" (click)="addNew()">Add New!</button></div>
+    </div>
+    <div  class="card-body">
+      <div  class="table-responsive">
+        <table  class="table">
+        <thead  class=" text-primary">
+          <th>No</th>
+          <th>Title</th>  
+          <th>Content</th> 
+          <th>Language</th>           
+          <th>Status</th>     
+          <th>Action</th>
+        </thead>
+        <tbody >
+          <tr *ngFor="let faq of faqData ; let i = index">
+            <td>{{i+1}}</td>
+            <td>{{faq.title}}</td>  
+            <td [innerHtml]="faq.content | slice:0:90"></td>  
+            <td *ngIf="faq.language=='E'" [ngClass]="{'status_active': faq.language=='E'}">English</td>
+            <td *ngIf="faq.language=='D'" [ngClass]="{'status_inactive': faq.language=='D'}">Dutch</td>              
+            <td *ngIf="faq.status=='Y'" [ngClass]="{'status_active': faq.status=='Y'}">Active</td>
+            <td *ngIf="faq.status=='N'" [ngClass]="{'status_inactive': faq.status=='N'}">Inactive</td>               
+            <td>
+             <!-- <div class="option_b">
+               <p href="#" class="option_btn">Option</p>
+               <div class="dropdown_a">
+                   <ul>
+                       <li [routerLink]="['/main/editfaq', faq.id]">Edit</li>
+                        <li (click)="checkStatus(cms.id,cms.status)">Remove</li> 
+                   </ul>
+                 
+               </div>
+           </div> -->
+           <button _ngcontent-eva-c5="" class="btn btn-primary btn-link btn-sm btn-just-icon mat-raised-button" mat-raised-button="" mattooltip="Edit Task" type="button" aria-describedby="cdk-describedby-message-2" cdk-describedby-host="">
+            <span class="mat-button-wrapper" >
+                <i _ngcontent-eva-c5="" class="material-icons" (click)="editfaq(faq.id)">
+                    edit
+                </i>
+            </span>
+        <div class="mat-button-ripple mat-ripple" matripple="">
+        </div>
+        <div class="mat-button-focus-overlay">
+        </div>
+        </button>
+        <button _ngcontent-eva-c5="" class="btn btn-primary btn-link btn-sm btn-just-icon mat-raised-button" mat-raised-button="" mattooltip="Edit Task" type="button" aria-describedby="cdk-describedby-message-2" cdk-describedby-host="">
+          <span class="mat-button-wrapper" >
+              <i _ngcontent-eva-c5="" class="material-icons" (click)="clickMethod(faq.id,i)">
+                remove_circle_outline
+              </i>
+          </span>          
+      
+      </button>
+        <div *ngIf="faq.status=='Y'" >  
+          <img src="assets/tick.png" (click)="changeStatus(i,faq.id,faq.status)"> 
+          <!-- <input  type="button" value="Active{{i}}{{user.id}}{{user.status}}" (click)="changeStatus(i,user.id,user.status)"/>   -->
+                 
+      </div> 
+      <div *ngIf="faq.status=='N'">  
+        <img src="assets/cross.png" (click)="changeStatus(i,faq.id,faq.status)"> 
+        <!-- <input  type="button" value="Active{{i}}{{user.id}}{{user.status}}" (click)="changeStatus(i,user.id,user.status)"/>   -->
+               
+    </div> 
+        <!-- <button _ngcontent-eva-c5="" class="btn btn-danger btn-link btn-sm btn-just-icon mat-raised-button" mat-raised-button="" mattooltip="Remove" type="button" aria-describedby="cdk-describedby-message-3" cdk-describedby-host="">
+          <span class="mat-button-wrapper"><i _ngcontent-eva-c5="" class="material-icons">close</i></span>
+        <div class="mat-button-ripple mat-ripple" matripple="">
+        </div>
+        <div class="mat-button-focus-overlay">
+        </div>
+        </button> -->
+            </td>
+          </tr>
+        </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+
+  </div>
+
+
+
+
+
+
+  

@@ -1,0 +1,215 @@
+<div class="content_box">
+  <form class="inner_form" [formGroup]="searchForm" (ngSubmit)="searchData()">
+    <div>
+      <mat-form-field class="newDatepick" appearance="fill">
+        <mat-label>Select Country</mat-label>
+        <mat-select (selectionChange)="onChangeCountry($event.value)" formControlName="country_id">
+          <mat-option *ngFor="let country of countryData" [value]="country.id">{{country.name}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="searchForm.controls['country_id'].hasError('required') && searchForm.controls['country_id'].touched">
+          Please select country.
+          </mat-error>
+      </mat-form-field>
+      &nbsp;&nbsp;
+      <mat-form-field class="newDatepick" appearance="fill">
+        <mat-label>Select State</mat-label>
+        <mat-select  (selectionChange)="onChangeState($event.value)" formControlName="state_id">
+          <mat-option *ngFor="let state of stateData" [value]="state.id">{{state.name}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="searchForm.controls['state_id'].hasError('required') && searchForm.controls['state_id'].touched">
+          Please select state.
+          </mat-error>
+      </mat-form-field>
+      &nbsp;&nbsp;
+      <mat-form-field class="newDatepick" appearance="fill">
+        <mat-label>Select City</mat-label>
+        <mat-select formControlName="city_id">
+          <mat-option *ngFor="let city of cityData" [value]="city.id"
+            attr.data="city.name">{{city.name}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="searchForm.controls['city_id'].hasError('required') && searchForm.controls['city_id'].touched">
+          Please select city.
+          </mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field class="newDatepick" appearance="fill">
+        <mat-label>From Date</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="from_date" readonly>
+        <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
+        <mat-datepicker-toggle matSuffix [for]="picker">
+          <!-- <mat-icon>keyboard_arrow_down</mat-icon> -->
+        </mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="searchForm.controls['from_date'].hasError('required') && searchForm.controls['from_date'].touched">
+        From date is required.
+          </mat-error>
+      </mat-form-field>
+      &nbsp;&nbsp;
+      <mat-form-field class="newDatepick" appearance="fill" >
+        <mat-label>To Date</mat-label>
+        <input matInput [matDatepicker]="picker1" formControlName="to_date" readonly>
+        <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
+        <mat-datepicker-toggle matSuffix [for]="picker1">
+        </mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+        <mat-error *ngIf="searchForm.controls['to_date'].hasError('required') && searchForm.controls['to_date'].touched">
+          To date is required.
+          </mat-error>
+      </mat-form-field>
+      &nbsp;&nbsp;
+      <mat-form-field class="pageltd" appearance="fill">
+        <mat-label>Limit</mat-label>
+        <mat-select formControlName="per_page">
+          <mat-option [value]="10">10</mat-option>
+          <mat-option [value]="50">50</mat-option>
+          <mat-option [value]="100">100</mat-option>
+          <mat-option [value]="200">200</mat-option>
+          <mat-option [value]="500">500</mat-option>
+        </mat-select>
+      </mat-form-field>
+      &nbsp;&nbsp;
+      <button mat-flat-button color="accent" type="submit" [disabled]="!searchForm.valid">Search</button>
+      <!-- &nbsp;&nbsp;
+      <button mat-flat-button type="button" color="warn">Reset</button> -->
+    </div>
+</form>
+
+  <div class="card">
+    <div class="card-header card-header-danger">
+      <div class="row">
+        <div class="col-md-6">
+          <h4 class="card-title">Area Wise Report</h4>
+          <p class="card-category">Area Wise Report List</p>
+        </div>
+        <div class="col-md-6" style="text-align: end" *ngIf="areaWiseData?.length > 0">
+          <button class="btn btn-primary" (click)="exportCsv()">
+            Export CSV <i class="fa fa-file-excel-o"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <ul class="nav nav-tabs nav-fill dbTabHeading" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link active"
+            id="all-report"
+            data-bs-toggle="tab"
+            data-bs-target="#all"
+            type="button"
+            role="tab"
+            aria-controls="all-report"
+            aria-selected="true"
+            (click)="searchReportByStatus(0)"
+          >
+            All
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link"
+            id="completed-report"
+            data-bs-toggle="tab"
+            data-bs-target="#completed"
+            type="button"
+            role="tab"
+            aria-controls="completed-report"
+            aria-selected="false"
+            (click)="searchReportByStatus(1)"
+          >
+            Completed
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link"
+            id="cancel-report"
+            data-bs-toggle="tab"
+            data-bs-target="#cancel"
+            type="button"
+            role="tab"
+            aria-controls="cancel-report"
+            aria-selected="false"
+            (click)="searchReportByStatus(2)"
+          >
+            Cancel
+          </button>
+        </li>
+      </ul>
+
+      <div class="tab-content dbTabContent" id="myTabContent">
+        <div
+          class="tab-pane fade show active"
+          id="all"
+          role="tabpanel"
+          aria-labelledby="all-report"
+        >
+          <div class="table-responsive">
+            <table class="table">
+              <thead class="text-primary">
+                <th>Booking No</th>
+                <th>Booking Date Time</th>
+                <th>Service Name</th>
+                <th>Provider Name</th>
+                <th>Requester Name</th>
+                <th>Location</th>
+                <th>Before Tax Total</th>
+                <th>Tax</th>
+                <th>After Tax Total</th>
+                <th>Additional Part Cost</th>
+                <th>Additional Time Cost</th>
+                <th>Reschedule Cost</th>
+                <th>Used Wallet Money</th>
+                <th>Total Cost</th>
+              </thead>
+              <tbody>
+                <tr
+                  *ngFor="
+                    let areaWiseList of areaWiseData
+                      | paginate : { itemsPerPage: perPage, currentPage: page };
+                    let i = index
+                  "
+                >
+                  <td>{{ areaWiseList.booking_job_no }}</td>
+                  <td *ngIf="areaWiseList.booking_time !=''">{{ areaWiseList.booking_date + " "+ areaWiseList.booking_time | date: "dd-MM-yyyy h:mm a"}}</td>
+                  <td *ngIf="areaWiseList.booking_time ==''">{{ areaWiseList.booking_date | date: "dd-MM-yyyy"}}</td>
+                  <td>{{ areaWiseList.cat_subcat_name }}</td>
+                  <td>{{ areaWiseList.provider_name }}</td>
+                  <td>{{ areaWiseList.requester_name }}</td>
+                  <td>
+                    <span style="font-size: small"
+                      >Country - {{ areaWiseList.country }}</span
+                    ><br />
+                    <span style="font-size: small"
+                      >State - {{ areaWiseList.state }}</span
+                    ><br />
+                    <span style="font-size: small"
+                      >City - {{ areaWiseList.city }}</span
+                    >
+                  </td>
+                  <td>{{ areaWiseList.before_tax_cost }} {{ areaWiseList.currency }}</td>
+                  <td>{{ areaWiseList.tax }} {{ areaWiseList.currency }}</td>
+                  <td>{{ areaWiseList.after_tax_cost }} {{ areaWiseList.currency }}</td>
+                  <td>{{ areaWiseList.additional_part_cost }} {{ areaWiseList.currency }}</td>
+                  <td>{{ areaWiseList.additional_time_cost }} {{ areaWiseList.currency }}</td>
+                  <td>{{ areaWiseList.reschedule_cost }} {{ areaWiseList.currency }}</td>
+                  <td>{{ areaWiseList.wallet_pay_status == 1 ? areaWiseList.used_wallet_money : 0 }} {{ areaWiseList.currency }}</td>
+                  <td>{{ areaWiseList.total_cost + areaWiseList.additional_part_cost + areaWiseList.additional_time_cost +  areaWiseList.reschedule_cost }} {{ areaWiseList.currency }}</td>
+                </tr>
+                <tr *ngIf="areaWiseData?.length == 0">
+                  <td colspan="12">Data not found.</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="has-text-centered">
+              <pagination-controls
+                (pageChange)="page = $event"
+              ></pagination-controls>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

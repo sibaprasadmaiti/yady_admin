@@ -1,0 +1,157 @@
+<div class="content_box">
+  <form class="inner_form" [formGroup]="searchForm" (ngSubmit)="searchData()">
+    <div>
+      <mat-form-field class="newDatepick" appearance="fill">
+        <mat-label>Select Country</mat-label>
+        <mat-select (selectionChange)="onChangeCountry($event.value)" formControlName="country_id">
+          <mat-option *ngFor="let country of countryData" [value]="country.id">{{country.name}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="searchForm.controls['country_id'].hasError('required') && searchForm.controls['country_id'].touched">
+          Please select country.
+          </mat-error>
+      </mat-form-field>
+      &nbsp;&nbsp;
+      <mat-form-field class="newDatepick" appearance="fill">
+        <mat-label>Select State</mat-label>
+        <mat-select  (selectionChange)="onChangeState($event.value)" formControlName="state_id">
+          <mat-option *ngFor="let state of stateData" [value]="state.id">{{state.name}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="searchForm.controls['state_id'].hasError('required') && searchForm.controls['state_id'].touched">
+          Please select state.
+          </mat-error>
+      </mat-form-field>
+      &nbsp;&nbsp;
+      <mat-form-field class="newDatepick" appearance="fill">
+        <mat-label>Select City</mat-label>
+        <mat-select formControlName="city_id">
+          <mat-option *ngFor="let city of cityData" [value]="city.id"
+            attr.data="city.name">{{city.name}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="searchForm.controls['city_id'].hasError('required') && searchForm.controls['city_id'].touched">
+          Please select city.
+          </mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field class="newDatepick" appearance="fill">
+        <mat-label>From Date</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="from_date" readonly>
+        <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
+        <mat-datepicker-toggle matSuffix [for]="picker">
+          <!-- <mat-icon>keyboard_arrow_down</mat-icon> -->
+        </mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="searchForm.controls['from_date'].hasError('required') && searchForm.controls['from_date'].touched">
+        From date is required.
+          </mat-error>
+      </mat-form-field>
+      &nbsp;&nbsp;
+      <mat-form-field class="newDatepick" appearance="fill" >
+        <mat-label>To Date</mat-label>
+        <input matInput [matDatepicker]="picker1" formControlName="to_date" readonly>
+        <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
+        <mat-datepicker-toggle matSuffix [for]="picker1">
+        </mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+        <mat-error *ngIf="searchForm.controls['to_date'].hasError('required') && searchForm.controls['to_date'].touched">
+          To date is required.
+          </mat-error>
+      </mat-form-field>
+      &nbsp;&nbsp;
+      <mat-form-field class="pageltd" appearance="fill">
+        <mat-label>Limit</mat-label>
+        <mat-select formControlName="per_page">
+          <mat-option [value]="10">10</mat-option>
+          <mat-option [value]="50">50</mat-option>
+          <mat-option [value]="100">100</mat-option>
+          <mat-option [value]="200">200</mat-option>
+          <mat-option [value]="500">500</mat-option>
+        </mat-select>
+      </mat-form-field>
+      &nbsp;&nbsp;
+      <button mat-flat-button color="accent" type="submit" [disabled]="!searchForm.valid">Search</button>
+      <!-- &nbsp;&nbsp;
+      <button mat-flat-button type="button" color="warn">Reset</button> -->
+    </div>
+</form>
+
+  <div class="card">
+    <div class="card-header card-header-danger">
+      <div class="row">
+        <div class="col-md-6">
+          <h4 class="card-title">Platform Earning Report</h4>
+          <p class="card-category">Platform Earning Report List</p>
+        </div>
+        <div class="col-md-6" style="text-align: end" *ngIf="platformEarningData?.length > 0">
+          <button class="btn btn-primary" (click)="exportCsv()">
+            Export CSV <i class="fa fa-file-excel-o"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="tab-content dbTabContent" id="myTabContent">
+        <div
+          class="tab-pane fade show active"
+          id="all"
+          role="tabpanel"
+          aria-labelledby="all-report"
+        >
+          <div class="table-responsive">
+            <table class="table">
+              <thead class="text-primary">
+                <th>Booking No</th>
+                <th>Booking Date Time</th>
+                <th>Service Name</th>
+                <th>Provider Name</th>
+                <th>Requester Name</th>
+                <th>Location</th>
+                <th>Tax</th>
+                <th>Total Earning</th>
+                <th>Platform Fee</th>
+              </thead>
+              <tbody>
+                <tr
+                  *ngFor="
+                    let platformEarning of platformEarningData
+                      | paginate : { itemsPerPage: perPage, currentPage: page };
+                    let i = index
+                  "
+                >
+                  <td>{{ platformEarning.booking_job_no }}</td>
+                  <td *ngIf="platformEarning.booking_time !=''">{{ platformEarning.booking_date + " "+ platformEarning.booking_time | date: "dd-MM-yyyy h:mm a"}}</td>
+                  <td *ngIf="platformEarning.booking_time ==''">{{ platformEarning.booking_date | date: "dd-MM-yyyy"}}</td>
+                  <td>{{ platformEarning.cat_subcat_name }}</td>
+                  <td>{{ platformEarning.provider_name }}</td>
+                  <td>{{ platformEarning.requester_name }}</td>
+                  <td>
+                    <span style="font-size: small"
+                      >Country - {{ platformEarning.country }}</span
+                    ><br />
+                    <span style="font-size: small"
+                      >State - {{ platformEarning.state }}</span
+                    ><br />
+                    <span style="font-size: small"
+                      >City - {{ platformEarning.city }}</span
+                    >
+                  </td>
+                  <td>{{ platformEarning.tax }} {{ platformEarning.currency }}</td>
+                  <td>{{ platformEarning.total_earning }} {{ platformEarning.currency }}</td>
+                  <td>{{ platformEarning.platform_fee }} {{ platformEarning.currency }}</td>
+                </tr>
+                <tr *ngIf="platformEarningData?.length == 0">
+                  <td colspan="6">Data not found.</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="has-text-centered">
+              <pagination-controls
+                (pageChange)="page = $event"
+              ></pagination-controls>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

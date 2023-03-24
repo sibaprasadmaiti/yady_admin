@@ -1,0 +1,32 @@
+<div class="content_box">
+	<div class="card">
+		<div class="card-header card-header-danger">
+			<h4 class="card-title">Work Radius</h4>
+			<p class="card-category">Work Radius List</p>
+		</div>
+		<div class="card-body">
+			<div class="table-responsive">
+				<table class="table">
+					<thead class="text-primary">
+						<th>Radius</th>
+						<th>Action</th>
+					</thead>
+					<tbody>
+						<tr *ngFor="let radius of radiusData  | paginate: { itemsPerPage: 5, currentPage: page } ;let i = index" [ngClass]="{'brown':showColor}">
+							<td>{{radius.radius}} {{radius.radius_unit}}</td>
+							<td>
+							<button _ngcontent-eva-c5="" class="btn btn-primary btn-link btn-sm btn-just-icon mat-raised-button" mat-raised-button="" mattooltip="Edit driver" type="button" aria-describedby="cdk-describedby-message-2" cdk-describedby-host=""><span class="mat-button-wrapper"><i _ngcontent-eva-c5="" class="material-icons" (click)="editRadius(radius._id)">edit</i></span></button>
+							</td>
+						</tr>
+						<tr *ngIf="radiusData?.length == 0">
+							<td text-align="center" colspan="2">No Record found</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="has-text-centered">
+					<pagination-controls (pageChange)="page = $event"></pagination-controls>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

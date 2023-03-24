@@ -1,0 +1,239 @@
+<div class="content_box">
+  <div class="row">
+    <div class="col-md-3">
+      <span class="bmd-form-group col-lg-2 col-sm-12 col-md-12">
+        <div class="input-group no-border">
+          <select class="form-select" name="type" id="type" [(ngModel)]="type">
+            <option value="">Select an Option</option>
+            <option value="1">Invoice Number</option>
+            <option value="2">Service Name</option>
+          </select>
+        </div>
+      </span>
+    </div>
+    <div class="col-md-3">
+      <span class="bmd-form-group col-lg-3 col-sm-12 col-md-12">
+        <div class="input-group no-border">
+          <input
+            type="text"
+            name="input_text"
+            id="input_text"
+            placeholder="Search"
+            class="form-control"
+            [(ngModel)]="input_text"
+          />
+        </div>
+      </span>
+    </div>
+    <div class="col-md-3">
+      <span class="bmd-form-group col-lg-2 col-sm-12 col-md-12">
+        <label for="from_date">From Date</label>
+        <div class="input-group no-border">
+          <input
+            type="date"
+            name="from_date"
+            id="from_date"
+            [(ngModel)]="from_date"
+          />
+        </div>
+      </span>
+    </div>
+    <div class="col-md-3">
+      <span class="bmd-form-group col-lg-2 col-sm-12 col-md-12">
+        <label for="from_date">To Date</label>
+        <div class="input-group no-border">
+          <input
+            type="date"
+            name="to_date"
+            id="from_date"
+            [(ngModel)]="to_date"
+          />
+        </div>
+      </span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-2">
+      <span class="bmd-form-group col-lg-3 col-sm-12 col-md-12">
+        <mat-form-field>
+          <mat-label>Limit</mat-label>
+          <mat-select name="perPage" [(ngModel)]="perPage">
+            <mat-option [value]="10">10</mat-option>
+            <mat-option [value]="50">50</mat-option>
+            <mat-option [value]="100">100</mat-option>
+            <mat-option [value]="200">200</mat-option>
+            <mat-option [value]="500">500</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </span>
+    </div>
+    <div class="col-md-3">
+      <span class="bmd-form-group col-lg-3 col-sm-12 col-md-12">
+        <div class="input-group no-border">
+          <input
+            type="submit"
+            name="search"
+            id="btn_data_search"
+            class="btn btn-success btn-sm"
+            value="Search"
+            (click)="searchTransaction()"
+          />&nbsp;
+          <input
+            type="submit"
+            class="btn btn-danger btn-sm"
+            (click)="reset_page()"
+            value="Reset"
+          />
+        </div>
+      </span>
+    </div>
+  </div>
+  <h5>
+    Total Earnings - <strong>{{ total_earning }} {{ currency }}</strong>
+  </h5>
+  <div class="card">
+    <div class="card-header card-header-danger">
+      <div class="row">
+        <div class="col-md-6">
+          <h4 class="card-title">SP Transactions</h4>
+          <p class="card-category">SP Transaction List</p>
+        </div>
+        <div class="col-md-6" style="text-align: end" *ngIf="transactionList?.length > 0">
+          <button class="btn btn-primary" (click)="exportCsv()">
+            Export CSV <i class="fa fa-file-excel-o"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <ul class="nav nav-tabs nav-fill dbTabHeading" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link active"
+            id="all-transactions"
+            data-bs-toggle="tab"
+            data-bs-target="#all"
+            type="button"
+            role="tab"
+            aria-controls="all-transactions"
+            aria-selected="true"
+            (click)="searchTransactionByStatus(0)"
+          >
+            All Transactions
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link"
+            id="paid-transactions"
+            data-bs-toggle="tab"
+            data-bs-target="#paid"
+            type="button"
+            role="tab"
+            aria-controls="paid-transactions"
+            aria-selected="false"
+            (click)="searchTransactionByStatus(1)"
+          >
+            Paid Transactions
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link"
+            id="unpaid-transactions"
+            data-bs-toggle="tab"
+            data-bs-target="#unpaid"
+            type="button"
+            role="tab"
+            aria-controls="unpaid-transactions"
+            aria-selected="false"
+            (click)="searchTransactionByStatus(2)"
+          >
+            Unpaid Transactions
+          </button>
+        </li>
+      </ul>
+
+      <div class="tab-content dbTabContent" id="myTabContent">
+        <div
+          class="tab-pane fade show active"
+          id="all"
+          role="tabpanel"
+          aria-labelledby="all-transactions"
+        >
+          <div class="table-responsive">
+            <table class="table">
+              <thead class="text-primary">
+                <th>Booking No</th>
+                <th>Location</th>
+                <th>Cost</th>
+                <th>Additional Time Cost</th>
+                <th>Additional Part Cost</th>
+                <th>Reschedule Cost</th>
+                <th>Additional Cost</th>
+                <th>Total Cost</th>
+                <th>Platform Fee</th>
+                <th>SP Net Earning</th>
+                <th>Currency</th>
+                <th>Service Payment Method</th>
+                <th>SP Payment Status</th>
+              </thead>
+              <tbody>
+                <tr
+                  *ngFor="
+                    let transactions of transactionList
+                      | paginate : { itemsPerPage: perPage, currentPage: page };
+                    let i = index
+                  "
+                >
+                  <td>{{ transactions.booking_job_no }}</td>
+                  <td>
+                    <span style="font-size: small"
+                      >Country - {{ transactions.country }}</span
+                    ><br />
+                    <span style="font-size: small"
+                      >State - {{ transactions.state }}</span
+                    ><br />
+                    <span style="font-size: small"
+                      >City - {{ transactions.city }}</span
+                    >
+                  </td>
+                  <td>{{ transactions.total_cost }}</td>
+                  <td>{{ transactions.additional_time_cost }}</td>
+                  <td>{{ transactions.additional_part_cost }}</td>
+                  <td>{{ transactions.reschedule_cost }}</td>
+                  <td>{{ transactions.addtional_total_cost }}</td>
+                  <td>
+                    {{
+                      transactions.total_cost +
+                        transactions.addtional_total_cost
+                    }}
+                  </td>
+                  <td>{{ transactions.platform_fee }}</td>
+                  <td>{{ transactions.sp_net_earning }}</td>
+                  <td>{{ transactions.currency }}</td>
+                  <td style="text-align:center">
+					<span *ngIf="transactions.paid_medium == 2">Cash</span>
+					<span *ngIf="transactions.paid_medium == 1">Card</span>
+				  </td>
+                  <td>
+					<span *ngIf="transactions.settlement_status == 0">Not Settled</span>
+					<span *ngIf="transactions.settlement_status == 1">Settlement Done</span>
+				  </td>
+                </tr>
+                <tr *ngIf="transactionList?.length == 0">
+                  <td colspan="13">Data not found.</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="has-text-centered">
+              <pagination-controls
+                (pageChange)="page = $event"
+              ></pagination-controls>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,133 @@
+<div class="content_box">
+
+<div class="col-md-12">
+	<div class="card">
+		<div class="card-header card-header-danger">
+			<!-- <div class="card-icon">
+				<i class="material-icons">assignment</i>
+			</div>
+            <h4 class="card-title"> Regular Table with Colors</h4> -->
+            <!-- 1->Active | normal ,2->Process table-info,0->In active | table-warning,3->Completed | table-success,4->cancel by buyer | table-danger        -->
+    <h4  class="card-title ">Order History Management</h4>
+      <p  class="card-category">
+        Order  list details 
+      </p>
+		</div>
+		<div class="card-body table-full-width">
+			<div class="table-responsive">
+				<table class="table table-hover">
+				<thead>
+				<tr>
+					<th style="width:5%">SL#</th> 
+					<th style="width:25%">Delivery Address</th>
+					<th style="width:20%">Transaction ID</th>
+					<th style="width:10%">Amount</th>
+					<th style="width:15%">Order Date</th>
+					<th style="width:5%">Items</th>
+					<th style="width:10%">Status</th>
+					<th style="width:10%">Action</th>
+				</tr>
+				</thead>
+				<tbody  *ngIf="transactionListData?.length==0">
+					<tr><td colspan="8" style="text-align: center;">No record found</td></tr>
+				</tbody>
+				<tbody *ngIf="transactionListData?.length>0">
+				<tr class="" *ngFor="let transaction of transactionListData  | paginate: { itemsPerPage: 5, currentPage: page } ;let i = index" 
+				[ngClass]="{'': transaction.status==1,'table-info': transaction.status==2,'table-warning': transaction.status==0,'table-success': transaction.status==3,'table-danger': transaction.status==4}" 
+				
+				>
+					<td>{{i+1}}</td>
+					<td>
+						{{transaction.address_1}}<br>
+						{{transaction.city}}<br>
+						{{transaction.pincode}}
+					</td>
+					<td>{{transaction.stripe_transaction_id}}</td>
+					<td>${{transaction.amount}}</td>
+					<td>{{transaction.created_on|date:'longDate'}} </td>
+					<td><a [routerLink]="" (click)="viewItems(transaction.orderid)">View</a></td>
+					<td *ngIf="transaction.OrderStatus==1">Active</td>
+					<td *ngIf="transaction.OrderStatus==0">Inactive</td>
+					<td *ngIf="transaction.OrderStatus==2">Process</td>
+					<td *ngIf="transaction.OrderStatus==3">Completed</td>
+					<td *ngIf="transaction.OrderStatus==4">Cancel </td>
+					<!---->
+					<td *ngIf="transaction.alreadyAssigned==0">
+						<div >  
+						 <img src="assets/delivery.png" alt="Active user" title="Active user" class="img-rounded img" (click)="assignDriver(transaction.orderid)">  
+						<!-- <input  type="button" value="Active{{i}}{{user.id}}{{user.status}}" (click)="changeStatus(i,user.id,user.status)"/>   -->
+						</div>
+					</td>
+					<td *ngIf="transaction.alreadyAssigned==1">
+						<div >  
+						<img src="assets/cross.png" alt="Active user" title="Active user" class="img-rounded img" (click)="removeDriver(transaction.assignid)">  
+						<!-- <input  type="button" value="Active{{i}}{{user.id}}{{user.status}}" (click)="changeStatus(i,user.id,user.status)"/>   -->
+						</div>
+					</td>
+				</tr>
+				</tbody>
+				</table>
+				<div class="has-text-centered"  *ngIf="transactionListData?.length>0">
+					<pagination-controls (pageChange)="page = $event"></pagination-controls>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+
+
+  <div [ngClass] ="custom">
+	<div class="custom-model-body">
+		<div class="close" (click)="closeModal()">x</div>
+		<p>Choose Driver</p>
+		<div class="ng-autocomplete">
+			<ng-autocomplete 
+			  [data]="driverData"
+			  [searchKeyword]="keyword"
+			  (selected)='selectEvent($event)'
+			  (inputChanged)='onChangeSearch($event)'
+			  (inputFocused)='onFocused($event)'
+			  [itemTemplate]="itemTemplate"
+			  (opened)='onClosedAuto()'			  
+			  [notFoundTemplate]="notFoundTemplate">                                 
+			</ng-autocomplete>
+			
+			<ng-template #itemTemplate let-item>
+			<a [innerHTML]="item.name"></a>
+			</ng-template>
+			
+			<ng-template #notFoundTemplate let-notFound>
+			<div [innerHTML]="notFound"></div>
+			</ng-template>
+			</div>
+		 <div class="addorderbtn"><input  type="button" value="Add"  (click)="addorder()"/></div>
+	</div>
+  </div>
+  
+  <div [ngClass] ="custom2">
+	<div class="custom2-model-body">
+		<div class="close2" (click)="closeModal2()">x</div>
+		<p>Items</p>
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>Iteam(E)</th>
+					<th>Iteam(D)</th>
+					<th>Qty</th>
+				</tr>
+			</thead>
+			<tbody *ngIf="itemListData?.length==0">
+				<tr><td colspan="3" style="text-align: center;">No record found</td></tr>
+			</tbody>
+			<tbody *ngIf="itemListData?.length>0">
+				<tr class="" *ngFor="let item of itemListData;let i = index" 
+				[ngClass]="{'': item.status==1,'table-info': item.status==2,'table-warning': item.status==0,'table-success': item.status==3,'table-danger': item.status==4}">
+					<td>{{item.menu_name}}</td>
+					<td>{{item.menu_name_dutch}}</td>
+					<td>{{item.quantity}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+  </div>

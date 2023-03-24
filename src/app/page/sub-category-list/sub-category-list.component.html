@@ -1,0 +1,99 @@
+   <div class="content_box">
+   <div class="row">
+		<div class="col-md-4">
+			<span class="bmd-form-group col-lg-3 col-sm-12 col-md-12">
+				<div class="input-group no-border ">
+					<input type="text" name="sub_category_name" id="sub_category_name" placeholder="Sub Category Name" class="form-control" [(ngModel)]="sub_category_name" />
+				</div>
+			</span>
+		</div>
+		<div class="col-md-3">
+			<span class="bmd-form-group col-lg-3 col-sm-12 col-md-12">
+				<div class="input-group no-border ">
+					<input type="submit" name="search" id="btn_data_search" class="btn btn-success" value="Search" (click)='searchSubCategory(sub_category_name)' />&nbsp;
+					<input type="submit" class="btn btn-danger" (click)="reset_page()" value="Reset">
+				</div>
+			</span>
+		</div>
+	</div>
+    <div class="card">
+     <div class="card-header card-header-danger">
+       <h4 class="card-title">Sub Category Management</h4>
+       <p class="card-category">
+         Sub Category List
+       </p>
+       <div>
+			<button *ngIf="adminType != 3" (click)="addNew()" class="option_btn">Add Sub Category</button>&nbsp;
+			<button mat-raised-button color="primary" (click)="backtolist()">Back To Category List</button>
+		</div>
+     </div>
+     <div  class="card-body">
+       <div  class="table-responsive">
+         <table  class="table">
+         <thead  class=" text-primary">
+			<th>Sub Category</th>
+			<th>Category</th>
+			<th>Image</th>
+			<th>Price</th>
+			<th>Location</th>
+			<th>Status</th>
+			<th>Action</th>
+         </thead>
+         <tbody>
+           <tr *ngFor="let subCategory of subCategoryData  | paginate: { itemsPerPage: 5, currentPage: page } ;let i = index" [ngClass]="{'brown':showColor}">
+
+             <td>{{subCategory.sub_category_name}}</td>
+             <td>{{subCategory.category_name}}</td>
+             <td *ngIf="subCategory.sub_category_image">
+              <img [src]="imgpath+subCategory.sub_category_image" height="100px">
+              </td>
+              <td *ngIf="!subCategory.sub_category_image">
+                <img [src]="defaultimg" height="100px">
+                </td>
+				<td><button mat-raised-button (click)="openSubPrice(subCategory._id)">View</button></td>
+				<td>
+					<span style="font-size:small" *ngIf="subCategory.area_docs!=null">Country - {{subCategory.area_docs.country}}</span><br>
+					<span style="font-size:small" *ngIf="subCategory.area_docs!=null">State - {{subCategory.area_docs.state}}</span><br>
+					<span style="font-size:small" *ngIf="subCategory.area_docs!=null">City - {{subCategory.area_docs.city}}</span><br>
+					<button *ngIf="subCategory.area_docs != null && adminType != 3" class="btn btn-primary btn-sm" (click)="viewPlaces(subCategory.area_docs._id)">Places</button>
+				</td>
+
+             <td style="cursor:pointer" *ngIf="subCategory.status == 1" (click)="changeStatus(i,subCategory._id,subCategory.status)" [ngClass]="{'status_active': subCategory.status==1}">Active</td>
+             <td style="cursor:pointer" *ngIf="subCategory.status == 0" (click)="changeStatus(i,subCategory._id,subCategory.status)" [ngClass]="{'status_inactive': subCategory.status==0}">Inactive</td>
+
+             <td>
+				<button *ngIf="adminType != 3" _ngcontent-eva-c5="" class="btn btn-primary btn-link btn-sm btn-just-icon mat-raised-button" mat-raised-button="" mattooltip="Edit driver" type="button" aria-describedby="cdk-describedby-message-2" cdk-describedby-host="">
+					<span class="mat-button-wrapper" >
+						<i _ngcontent-eva-c5="" class="material-icons" title="Edit Sub Category" (click)="editMenu(subCategory._id)">
+						edit
+						</i>
+					</span>
+				</button>
+				<i style="cursor:pointer" *ngIf="subCategory.aq_status==1" title="Add Ons" class="fa fa-puzzle-piece" (click)="openAddOns(subCategory._id)"></i>&nbsp;
+				<i style="cursor:pointer" *ngIf="subCategory.aq_status==2" title="Question" class="fa fa-question-circle" (click)="openQuestion(subCategory._id)"></i>
+
+				&nbsp;<i *ngIf="adminType != 3" style="cursor:pointer; color: #dc143c;" title="Edit Area" class="fa fa-map-marker" (click)="editArea(subCategory.categoryId,subCategory._id)"></i>
+
+				<!--<div *ngIf="subCategory.status==1" >
+					<img src="./assets/tick.png" (click)="changeStatus(i,subCategory._id,subCategory.status)">
+				</div>
+				<div *ngIf="subCategory.status==0">
+					<img src="./assets/cross.png" (click)="changeStatus(i,subCategory._id,subCategory.status)">
+				</div>-->
+        </td>
+
+           </tr>
+           <tr *ngIf="subCategoryData?.length == 0">
+               <td text-align="center" colspan="5">No Record found</td>
+           </tr>
+         </tbody>
+         </table>
+         <div class="has-text-centered">
+           <pagination-controls (pageChange)="page = $event"></pagination-controls>
+       </div>
+       </div>
+     </div>
+   </div>
+
+
+   </div>

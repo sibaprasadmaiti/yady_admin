@@ -1,0 +1,62 @@
+<div class="content_box">   
+    <div  class="card">
+      <div  class="card-header card-header-danger">
+        <h4  class="card-title ">Driver Management</h4>
+        <p  class="card-category">
+          Add Driver
+        </p>       
+      </div>
+      <div  class="card-body"> 
+    <div class="edit_form">
+      <form class="inner_form"  [formGroup]="addForm" (ngSubmit)="addData()">
+      <mat-form-field>
+        <input matInput type="text" placeholder="Driver Name" formControlName="name">
+        <mat-error *ngIf="addForm.controls['name'].hasError('required') && addForm.controls['name'].touched">
+            Please enter a Driver Name.
+          </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput type="text" placeholder="Driver Email" formControlName="email">
+        <mat-error *ngIf="addForm.controls['email'].hasError('required') && addForm.controls['email'].touched">
+            Please enter a Driver email.
+          </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput type="text" placeholder="Driver Contact Number" formControlName="contact">
+        <mat-error *ngIf="addForm.controls['contact'].hasError('required') && addForm.controls['contact'].touched">
+            Please enter a Driver Contact Number.
+          </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput type="text" placeholder="Driver Username" formControlName="username">
+        <mat-error *ngIf="addForm.controls['username'].hasError('required') && addForm.controls['username'].touched">
+            Please enter a Driver Username.
+          </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput type="password" placeholder="Driver Password" formControlName="password">
+        <mat-error *ngIf="addForm.controls['password'].hasError('required') && addForm.controls['password'].touched">
+            Please enter a Driver Password.
+          </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput type="password" placeholder="Driver Confirm Password" formControlName="cpassword">
+        <mat-error *ngIf="addForm.controls['cpassword'].hasError('required') && addForm.controls['cpassword'].touched">
+            Please enter a Driver Confirm Password.
+          </mat-error>
+          <mat-error *ngIf="addForm.controls['cpassword'].errors && addForm.controls['cpassword'].errors.confirmedValidator">
+            Password and Confirm Password must be match.
+          </mat-error> 
+      </mat-form-field>
+   
+      
+    <!-- <angular-editor [placeholder]="'Enter text here...'" [(ngModel)]="htmlContent"></angular-editor> -->
+  
+    <div class="btn_name">
+    <button mat-button class="option_btn" [disabled]="addForm.invalid">Add Driver</button>
+    </div> 
+    </form>
+  </div>
+    </div>
+  </div>

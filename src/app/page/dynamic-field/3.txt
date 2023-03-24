@@ -1,0 +1,30 @@
+<div class="row">
+		<div class="col-sm-12 table-responsive" formArrayName="itemRows">
+		<table class="table">
+		<thead>
+		<tr>
+		<th style="white-space: nowrap;padding-right: 4em;float:center"><span class="required-field"></span>Time Range </th>
+		<th style="white-space: nowrap;padding-right: 4em;float:center">Learn </th>
+		<th style="white-space: nowrap;padding-right: 4em;float:center">Descripition </th>
+		<th style="white-space: nowrap;padding-right: 4em;float:center">Suggestion</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr *ngFor="let itemrow of addForm.controls.itemRows['controls']; let i=index" [formGroupName]="i">
+
+		<td style="white-space: nowrap;"> <input id="timeRange{{i}}" formControlName="timeRange" class="form-control"></td>
+
+
+		<td> <textarea id="learn{{i}}" formControlName="learn" class="form-control reset"></textarea></td>
+		<td> <textarea formControlName="descripition" class="form-control reset"></textarea></td>
+		<td> <textarea formControlName="suggestion" class="form-control reset"></textarea></td>
+		<td> <button *ngIf="addForm.controls.itemRows.controls.length > 1" (click)="deleteRow(i)" class="btn btn-danger"><i class="fa fa-minus-circle" aria-hidden="true"></i></button></td>
+		</tr>
+		</tbody>
+		<tfoot>
+		<tr><td> <button type="button" (click)="addNewRow()" class="btn btn-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i></button></td></tr>
+		</tfoot>
+		</table>
+		</div>
+
+		</div>

@@ -1,0 +1,60 @@
+<div class="content_box">   
+    <div class="card">
+      <div class="card-header card-header-danger">
+        <h4 class="card-title">Question Management</h4>
+        <p class="card-category">
+          Question Add
+        </p>       
+      </div>
+      <div class="card-body"> 
+    <div class="edit_form">
+		<form class="inner_form" [formGroup]="addForm" (ngSubmit)="addData()">
+			<mat-form-field>
+				<input matInput type="text" placeholder="Question" formControlName="question">
+				<mat-error *ngIf="addForm.controls['question'].hasError('required') && addForm.controls['question'].touched">
+				Please enter a question.
+				</mat-error>
+			</mat-form-field>
+			<input type="hidden" placeholder="Sub Category Id" formControlName="cat_subcat_id">
+			<input type="hidden" placeholder="Question added from" formControlName="question_added_from">
+			<br>
+				<div *ngIf="price_type == '1'">
+				<label>Question Type</label><br>
+					Multiply (Price will be multiply with hours) - <input type="radio" name="question_type" formControlName="question_type" value=1><br>
+					Add (Fixed cost. Will not multiply with hours) - <input type="radio" name="question_type" formControlName="question_type" value=2>
+				</div>
+			<br><br>
+			<label style="font-weight: bold;color: black;">Options (Answers)</label><br>
+			<sub style="text-decoration: underline;font-weight: bold;">In case the price will multiple with hour, then no need to put price value. If it is fixed price then put a value.</sub>
+			<div class="row">
+				<div class="col-sm-12 table-responsive" formArrayName="optionRows">
+					<table class="table">
+						<thead>
+							<tr>
+								<th>Option</th>
+								<th>Price</th>
+							<tr>
+						</thead>
+						<tbody>
+							<tr *ngFor="let optionrow of addForm['controls'].optionRows['controls']; let i=index" [formGroupName]="i">
+								<td><input id="option{{i}}" formControlName="option" class="form-control"></td>
+								<td><input id="price{{i}}" formControlName="price" class="form-control"></td>
+								<td><button *ngIf="addForm['controls'].optionRows['controls'].length > 1" (click)="deleteRow(i)" class="btn btn-danger btn-sm"><i class="fa fa-minus-circle" aria-hidden="true"></i></button></td>
+							<tr>
+						</tbody>
+						<tfoot>
+							<button type="button" (click)="addNewRow()" class="btn btn-primary">Add More Options</button>
+						</tfoot>
+					</table>
+				</div>
+			</div>
+			
+			<br><br>
+
+			<div class="btn_name">
+				<button mat-button class="option_btn" [disabled]="addForm.invalid">Add Question</button>
+			</div> 
+		</form>
+  </div>
+    </div>
+  </div>

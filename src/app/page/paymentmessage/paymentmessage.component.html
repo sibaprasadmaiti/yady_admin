@@ -1,0 +1,75 @@
+
+ <div class="content_box">
+    
+  <div  class="card">
+    <div  class="card-header card-header-danger">
+      <h4  class="card-title ">Payment Form Message Management</h4>
+      <p  class="card-category">
+        Message  list details
+      </p>
+      <div><button class="option_btn" (click)="addNew()">Add New!</button></div>
+    </div>
+    <div  class="card-body">
+      <div  class="table-responsive">
+        <table  class="table">
+        <thead  class=" text-primary">
+          <th></th>
+          <th>Name</th>  
+          <th>Content</th>             
+          <th>Action</th>
+        </thead>
+        <tbody >
+          <tr *ngFor="let msg of msgData ; let i = index">
+            <td>{{i+1}}</td>
+            <td>{{msg.name}}</td>
+            <td>{{msg.value}}</td>       
+                           
+            <td>
+             <!-- <div class="option_b">
+               <p href="#" class="option_btn">Option</p>
+               <div class="dropdown_a">
+                   <ul>
+                       <li [routerLink]="['/main/editfaq', faq.id]">Edit</li>
+                        <li (click)="checkStatus(cms.id,cms.status)">Remove</li> 
+                   </ul>
+                 
+               </div>
+           </div> -->
+           <button _ngcontent-eva-c5="" class="btn btn-primary btn-link btn-sm btn-just-icon mat-raised-button" mat-raised-button="" mattooltip="Edit Task" type="button" aria-describedby="cdk-describedby-message-2" cdk-describedby-host="">
+            <span class="mat-button-wrapper" >
+                <i _ngcontent-eva-c5="" class="material-icons" (click)="editfaq(msg.id)">
+                    edit
+                </i>
+            </span>
+        <div class="mat-button-ripple mat-ripple" matripple="">
+        </div>
+        <div class="mat-button-focus-overlay">
+        </div>
+        </button>
+        <!--<button _ngcontent-eva-c5="" class="btn btn-primary btn-link btn-sm btn-just-icon mat-raised-button" mat-raised-button="" mattooltip="Edit Task" type="button" aria-describedby="cdk-describedby-message-2" cdk-describedby-host="">
+          <span class="mat-button-wrapper" >
+              <i _ngcontent-eva-c5="" class="material-icons" (click)="clickMethod(msg.id,i)">
+                remove_circle_outline
+              </i>
+          </span>          
+      
+      </button>-->
+        
+       
+            </td>
+          </tr>
+        </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+
+  </div>
+
+
+
+
+
+
+  

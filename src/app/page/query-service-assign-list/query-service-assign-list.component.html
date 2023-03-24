@@ -1,0 +1,51 @@
+<div class="content_box">
+	<div class="card">
+		<div class="card-header card-header-danger">
+			<h4 class="card-title">Query Service</h4>
+			<p class="card-category">Query Service Assign List</p>
+			<div>
+				<button (click)="back()" class="option_btn">Back</button>&nbsp;
+			</div>
+		</div>
+		<div class="card-body">
+			<div class="table-responsive">
+				<table class="table">
+					<thead class="text-primary">
+						<th>SR Name</th>
+						<th>SP Name</th>
+						<th>Service Type</th>
+						<th>Description</th>
+						<th>Action</th>
+					</thead>
+					<tbody>
+						<tr *ngFor="let serviceAssign of serviceAssignList  | paginate: { itemsPerPage: 5, currentPage: page } ;let i = index">
+							<td>{{serviceAssign.service_requester_name}}</td>
+							<td>{{serviceAssign.service_provider_name}}</td>
+							<td>{{serviceAssign.service_type}}</td>
+							<td>{{serviceAssign.sp_description}}</td>
+							<td>
+							<!-- <button _ngcontent-eva-c5="" class="btn btn-primary btn-link btn-sm btn-just-icon mat-raised-button" mat-raised-button="" mattooltip="View Details" type="button" aria-describedby="cdk-describedby-message-2" cdk-describedby-host="">
+                <span class="mat-button-wrapper">
+                  <i class="fa fa-eye" title="View Details" (click)="viewDetails(serviceAssign._id)" aria-hidden="true"></i>
+                </span>
+              </button> -->
+
+              <button *ngIf="serviceAssign.sp_reply_status" mat-raised-button color="primary" [matMenuTriggerFor]="menu">Action</button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="viewDetails(serviceAssign._id)">View Details</button>
+              </mat-menu>
+
+							</td>
+						</tr>
+						<tr *ngIf="serviceAssignList?.length == 0">
+							<td text-align="center" colspan="5">No Record found</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="has-text-centered">
+					<pagination-controls (pageChange)="page = $event"></pagination-controls>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

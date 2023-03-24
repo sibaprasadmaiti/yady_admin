@@ -1,0 +1,531 @@
+<div class="content_box" id="bookingDetails">
+  <h2 class="bookingDetlHdn">Query Booking Details</h2>
+  <div><button (click)="back()" class="option_btn">Back</button>&nbsp;</div>
+  <div class="row">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="bkHdn">Booking Status</h5>
+          <div class="bookingStatus">
+            <div
+              class="bookingstInn"
+              *ngIf="bookingData?.booking_status == '1'"
+            >
+              <span class="bookstcircle"
+                ><img
+                  class="status-logo"
+                  src="./assets/img/logo.png"
+                  alt="" /></span
+              ><span class="donecircle"> Upcomming</span>
+              <span class="bookstcircle"
+                ><img class="status-logo" src="./assets/img/logo.png" alt=""
+              /></span>
+              Ongoing
+              <span class="bookstcircle"
+                ><img class="status-logo" src="./assets/img/logo.png" alt=""
+              /></span>
+              Completed
+            </div>
+            <div
+              class="bookingstInn"
+              *ngIf="bookingData?.booking_status == '2'"
+            >
+              <span class="bookstcircle"
+                ><img class="status-logo" src="./assets/img/logo.png" alt=""
+              /></span>
+              Upcomming
+              <span class="bookstcircle"
+                ><img
+                  class="status-logo"
+                  src="./assets/img/logo.png"
+                  alt="" /></span
+              ><span class="donecircle"> Ongoing</span>
+              <span class="bookstcircle"
+                ><img class="status-logo" src="./assets/img/logo.png" alt=""
+              /></span>
+              Completed
+            </div>
+            <div
+              class="bookingstInn"
+              *ngIf="bookingData?.booking_status == '3'"
+            >
+              <span class="bookstcircle"
+                ><img class="status-logo" src="./assets/img/logo.png" alt=""
+              /></span>
+              Upcomming
+              <span class="bookstcircle"
+                ><img class="status-logo" src="./assets/img/logo.png" alt=""
+              /></span>
+              Ongoing
+              <span class="bookstcircle"
+                ><img
+                  class="status-logo"
+                  src="./assets/img/logo.png"
+                  alt="" /></span
+              ><span class="donecircle"> Completed</span>
+            </div>
+          </div>
+          <!-- <h5 class="bkHdn">0 to 40</h5> -->
+          <div class="bkdetlB">
+            <div class="bkdImg">
+              <img
+                src="{{ bookingData?.query_images[0].q_booking_img }}"
+                onerror="this.onerror=null;this.src='./assets/no-image.png'"
+                height="100px"
+              />
+              <div>
+                <p>
+                  <strong>Service Type: </strong>{{ bookingData?.service_type }}
+                </p>
+                <p>
+                  <strong>Description: </strong>{{ bookingData?.description }}
+                </p>
+              </div>
+            </div>
+            <!-- <div class="subscriptn">
+            <span>Subscription</span>
+            <p>1.5month</p>
+          </div> -->
+            <!-- <div class="perHour">20.00$ / Hour</div> -->
+          </div>
+          <div class="card">
+            <div class="card-body">
+              <h5 class="bkHdn" style="border-bottom: 1px solid #ccc">
+                Service Provider Reply
+              </h5>
+              <div class="">
+                <p>
+                  <strong class="bkHdn">Description: </strong
+                  >{{ bookingData?.sp_assign_doc?.description }}
+                </p>
+                <p>
+                  <strong class="bkHdn">Days: </strong
+                  >{{ bookingData?.sp_assign_doc?.days }}
+                </p>
+                <p>
+                  <strong class="bkHdn">Cost: </strong
+                  >{{ bookingData?.sp_assign_doc?.cost }}
+                  {{ bookingData?.sp_assign_doc?.currency }}
+                </p>
+                <p>
+                  <strong class="bkHdn">Reply Date Time: </strong
+                  >{{ bookingData?.sp_assign_doc?.submitted_date_time }}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="card" *ngIf="bookingData?.extra_part.length > 0">
+            <div
+              class="card-body"
+              *ngFor="let item of bookingData?.extra_part; let i = index"
+            >
+              <h5 class="bkHdn" style="border-bottom: 1px solid #ccc">
+                Extra Parts Request({{ i + 1 }})
+              </h5>
+              <div class="">
+                <p>
+                  <strong class="bkHdn">Part(s) Name: </strong
+                  >{{ item?.additional_parts }}
+                </p>
+                <p><strong class="bkHdn">Reason: </strong>{{ item?.reason }}</p>
+                <p>
+                  <strong class="bkHdn">Part(s) Cost: </strong
+                  >{{ item?.extra_part_cost }} {{ bookingData?.currency }}
+                </p>
+                <p><strong class="bkHdn">Part Image(s): </strong></p>
+                <div>
+                  <img
+                    *ngFor="let image of item.pause_image"
+                    src="{{ image.pause_image }}"
+                    alt="Document"
+                    width="150"
+                    height="150"
+                    style="object-fit: contain; padding: 5px"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card" *ngIf="bookingData?.extra_time.length > 0">
+            <div
+              class="card-body"
+              *ngFor="let item of bookingData?.extra_time; let i = index"
+            >
+              <h5
+                class="bkHdn"
+                style="border-bottom: 1px solid #ccc"
+                *ngIf="item.extra_day_confirm_status == 1"
+              >
+                Extra Time Request({{ i + 1 }})
+              </h5>
+              <div class="">
+                <p>
+                  <strong class="bkHdn"
+                    >Service Requester Request For Extra Time.</strong
+                  >
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <h5 class="bkHdn">Options</h5>
+          <div class="paymntbg">
+            <div class="payLft">
+              <h5 class="bkHdn">Payment</h5>
+              <div class="bookingRow">
+                <strong>Payment Status</strong
+                ><span *ngIf="bookingData?.paid_status == 0">Pending</span
+                ><span *ngIf="bookingData?.paid_status == 1">Done</span>
+              </div>
+              <div class="bookingRow">
+                <strong>Payment Method</strong
+                ><span *ngIf="bookingData?.paid_medium == 1">Online</span
+                ><span *ngIf="bookingData?.paid_medium == 2">Cash</span>
+              </div>
+            </div>
+            <div class="payRgt">
+              <h5 class="bkHdn">Service Charges</h5>
+              <div class="bookingRow">
+                <strong>Cost</strong
+                ><span
+                  >{{ bookingData?.before_tax_cost }} {{ bookingData?.currency }}</span
+                >
+              </div>
+              <div class="bookingRow">
+                <strong>Tax</strong><span>{{ bookingData?.tax }} {{ bookingData?.currency }}</span>
+              </div>
+              <div class="payBordr"></div>
+              <div class="bookingRow">
+                <strong>After Tax Total</strong
+                ><span
+                  >{{ bookingData?.after_tax_cost }} {{ bookingData?.currency }}</span
+                >
+              </div>
+              <div class="bookingRow" *ngIf="bookingData?.wallet_pay_status == 1">
+                <strong>Wallet Amount Used</strong><span>{{ bookingData?.used_wallet_money }} {{ bookingData?.currency }}</span>
+              </div>
+              <div class="bookingRow" *ngIf="bookingData?.wallet_pay_status == 0">
+                <strong>Wallet Amount Used</strong><span>0 {{ bookingData?.currency }}</span>
+              </div>
+              <div class="payBordr"></div>
+              <div class="bookingRow">
+                <strong>Order Total</strong>
+                <span class="totalFont">{{ bookingData?.cost }}
+                  {{ bookingData?.currency }}</span>
+              </div>
+              <div class="bookingRow">
+                <strong>Additional Cost</strong
+                ><span
+                  >{{ bookingData?.extra_part_total_cost }}
+                  {{ bookingData?.currency }}</span
+                >
+              </div>
+              <div class="payBordr"></div>
+              <div class="bookingRow">
+                <strong>Total Pay</strong>
+                <span class="totalFont">{{ bookingData?.cost + bookingData?.extra_part_total_cost }} {{ bookingData?.currency }}</span>
+              </div>
+              <div class="bookingButton">
+                <button
+                  class="btn btn-success btn-sm"
+                  (click)="onPrint('bookingDetails')"
+                >
+                  Print
+                </button>
+                <!-- <button *ngIf="bookingData?.pause_docs?.length > 0" class="btn btn-success btn-sm"
+                  (click)="view_pause_details(bookingData?._id)">Extra Payment Details</button> -->
+              </div>
+            </div>
+          </div>
+
+          <a
+            *ngIf="bookingData?.invoice != ''"
+            class="btn btn-success btn-sm"
+            style="float: right"
+            href="{{ bookingData?.invoice }}"
+            target="_blank"
+            >Invoice</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="bkHdn" style="border-bottom: 1px solid #ccc">
+            Customer Details
+          </h5>
+          <div class="profileTp">
+            <div class="profImgbg">
+              <!-- <img src="./assets/bookingusr.png" height="100px" /> -->
+              <div>
+                <h6>{{ bookingData?.service_requester_name }}</h6>
+                <p>{{ bookingData?.sr_email }}</p>
+                <p>{{ bookingData?.sr_mobile_no }}</p>
+                <h6 class="bkHdn">Address</h6>
+                <p>{{ bookingData?.sr_address }}</p>
+              </div>
+            </div>
+            <!-- <button class="btn btn-success">Profile</button> -->
+          </div>
+          <div
+            class="bookingRow"
+            *ngIf="
+              bookingData?.booking_status == '2' &&
+              bookingData?.tracking_status == '1'
+            "
+          >
+            <!-- <strong>Open with</strong> -->
+            <span>
+              <!-- <button class="btn btn-success" (click)="startTracking(bookingData?._id)">Start Tracking</button> -->
+              <!-- &nbsp;&nbsp;&nbsp;<button class="btn btn-primary" (click)="stopTrackingConfirm()">Stop Tracking</button> -->
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <h5 class="bkHdn" style="border-bottom: 1px solid #ccc">
+            Service Provider Details
+          </h5>
+          <div class="profImgbg">
+            <div>
+              <h6>{{ bookingData?.provider_name }}</h6>
+              <p>{{ bookingData?.sp_email }}</p>
+              <p>{{ bookingData?.sp_mobile_no }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <h5 class="bkHdn">Booking Date and Time</h5>
+          <div class="bookingRow">
+            <strong>Booking at</strong
+            ><span>{{ bookingData?.booking_date }}</span>
+          </div>
+          <!--<div class="bookingRow">
+                      <strong>End Time</strong><span>{{bookingData?.end_time}}</span>
+                  </div>-->
+          <div class="bookingRow">
+            <strong>Start at</strong
+            ><span>{{ bookingData?.start_date_time }}</span>
+          </div>
+          <div class="bookingRow">
+            <strong>End at</strong><span>{{ bookingData?.end_date_time }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="card">
+        <div class="card-body">
+          <h5 class="bkHdn" style="border-bottom: 1px solid #ccc;">Notes</h5>
+          <div class="profImgbg">
+            <div>
+              <h6>{{bookingData?.note}}</h6>
+            </div>
+          </div>
+        </div>
+      </div> -->
+
+      <div class="card">
+        <div class="card-body">
+          <h5 class="bkHdn">SR Review(Given By SP)</h5>
+          <div class="bookingRow">
+            <strong>Ratings</strong
+            ><span>
+              <i
+                class="fa fa-star"
+                style="color: orange"
+                *ngIf="
+                  bookingData?.sp_rating == 1 ||
+                  bookingData?.sp_rating == 2 ||
+                  bookingData?.sp_rating == 3 ||
+                  bookingData?.sp_rating == 4 ||
+                  bookingData?.sp_rating == 5
+                "
+              ></i>
+              <i
+                class="fa fa-star"
+                style="color: orange"
+                *ngIf="
+                  bookingData?.sp_rating == 2 ||
+                  bookingData?.sp_rating == 3 ||
+                  bookingData?.sp_rating == 4 ||
+                  bookingData?.sp_rating == 5
+                "
+              ></i>
+              <i
+                class="fa fa-star"
+                style="color: orange"
+                *ngIf="
+                  bookingData?.sp_rating == 3 ||
+                  bookingData?.sp_rating == 4 ||
+                  bookingData?.sp_rating == 5
+                "
+              ></i>
+              <i
+                class="fa fa-star"
+                style="color: orange"
+                *ngIf="
+                  bookingData?.sp_rating == 4 || bookingData?.sp_rating == 5
+                "
+              ></i>
+              <i
+                class="fa fa-star"
+                style="color: orange"
+                *ngIf="bookingData?.sp_rating == 5"
+              ></i>
+            </span>
+          </div>
+          <div class="bookingRow">
+            <strong>Review</strong><span>{{ bookingData?.sp_review }}</span>
+          </div>
+          <div class="bookingRow">
+            <strong>Review Date</strong
+            ><span>{{ bookingData?.sp_review_date }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <h5 class="bkHdn">SP Review(Given By SP)</h5>
+          <div class="bookingRow">
+            <strong>Ratings</strong
+            ><span>
+              <i
+                class="fa fa-star"
+                style="color: orange"
+                *ngIf="
+                  bookingData?.sr_rating == 1 ||
+                  bookingData?.sr_rating == 2 ||
+                  bookingData?.sr_rating == 3 ||
+                  bookingData?.sr_rating == 4 ||
+                  bookingData?.sr_rating == 5
+                "
+              ></i>
+              <i
+                class="fa fa-star"
+                style="color: orange"
+                *ngIf="
+                  bookingData?.sr_rating == 2 ||
+                  bookingData?.sr_rating == 3 ||
+                  bookingData?.sr_rating == 4 ||
+                  bookingData?.sr_rating == 5
+                "
+              ></i>
+              <i
+                class="fa fa-star"
+                style="color: orange"
+                *ngIf="
+                  bookingData?.sr_rating == 3 ||
+                  bookingData?.sr_rating == 4 ||
+                  bookingData?.sr_rating == 5
+                "
+              ></i>
+              <i
+                class="fa fa-star"
+                style="color: orange"
+                *ngIf="
+                  bookingData?.sr_rating == 4 || bookingData?.sr_rating == 5
+                "
+              ></i>
+              <i
+                class="fa fa-star"
+                style="color: orange"
+                *ngIf="bookingData?.sr_rating == 5"
+              ></i>
+            </span>
+          </div>
+          <div class="bookingRow">
+            <strong>Review</strong><span>{{ bookingData?.sr_review }}</span>
+          </div>
+          <div class="bookingRow">
+            <strong>Review Date</strong
+            ><span>{{ bookingData?.sr_review_date }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade loginModal quotModal" id="extraPartsImage" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h5>Extra Parts Image(s)</h5>
+        <br />
+        <div
+          id="carouselExampleControls3"
+          class="carousel slide"
+          data-ride="carousel"
+        >
+          <div
+            class="carousel-inner"
+            *ngIf="bookingData?.extra_parts_pause_image.length > 0"
+          >
+            <div
+              class="carousel-item"
+              [ngClass]="{ active: isFirst }"
+              *ngFor="
+                let image of bookingData?.extra_parts_pause_image;
+                index as i;
+                first as isFirst
+              "
+            >
+              <img
+                class="d-block w-100"
+                src="{{ image.pause_image }}"
+                alt="Document"
+                width="460"
+                height="345"
+              />
+            </div>
+          </div>
+          <a
+            class="carousel-control-prev"
+            href="#carouselExampleControls3"
+            *ngIf="bookingData?.extra_parts_pause_image > 1"
+            role="button"
+            data-slide="prev"
+          >
+            <span
+              class="carousel-control-prev-icon"
+              aria-hidden="true"
+              style="background-color: #00b2b2"
+            ></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a
+            class="carousel-control-next"
+            href="#carouselExampleControls3"
+            *ngIf="bookingData?.extra_parts_pause_image > 1"
+            role="button"
+            data-slide="next"
+          >
+            <span
+              class="carousel-control-next-icon"
+              aria-hidden="true"
+              style="background-color: #00b2b2"
+            ></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

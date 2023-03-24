@@ -1,0 +1,90 @@
+<!-- <div id="modal-content-wrapper">
+    <header id="modal-header">
+        <h1 id="modal-title">{{ modalData.title }}</h1>
+    </header>
+    <section id="modal-body">
+        <p>{{ modalData.actionButtonText }}</p>
+    </section>
+    <footer id="modal-footer">
+        <button mat-raised-button id="modal-action-button" (click)="actionFunction()">
+            Send
+        </button>
+        <button mat-raised-button id="modal-cancel-button" (click)="closeModal()">
+            Go back
+        </button>
+    </footer>
+</div> -->
+<!--modal-content-wrapper-->
+<div id="modal-content-wrapper" *ngIf="this.fromflag==1">
+<!-- <h2 mat-dialog-title>{{description}}</h2> -->
+<header id="modal-header">
+    <h1 id="modal-title">Notification : {{ modalData.name }}</h1>
+</header>
+
+    <mat-dialog-content [formGroup]="form">
+        <mat-form-field>
+            <input  matInput placeholder="To" formControlName="to" readonly>
+        </mat-form-field>
+           
+        
+        <mat-form-field>
+            <input matInput placeholder="Email Subject" formControlName="subject">
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput placeholder="Email Description" formControlName="description">
+        </mat-form-field>
+        <input hidden matInput placeholder="Name" formControlName="name" >  
+     
+    </mat-dialog-content>
+
+
+
+<!-- <mat-dialog-actions>
+    <button class="mat-raised-button"(click)="close()">Close</button>
+    <button class="mat-raised-button mat-primary"(click)="save()">Save</button>
+</mat-dialog-actions> -->
+<footer id="modal-footer">
+    <button mat-raised-button id="modal-action-button" (click)="actionFunction()">
+        Send
+    </button>
+    <button mat-raised-button id="modal-cancel-button" (click)="closeModal()">
+        Go back
+    </button>
+</footer>
+
+</div>
+
+<div id="modal-content-wrapper" *ngIf="this.fromflag==2">
+    
+    <header id="modal-header">
+        <h1 id="modal-title">Reset Password : {{ modalData.name }}</h1>
+    </header>
+
+    <mat-dialog-content [formGroup]="form">
+        <!-- <mat-form-field>
+            <input hidden  matInput placeholder="To" formControlName="to" readonly>
+        </mat-form-field> -->
+           
+        
+        <mat-form-field>
+            <input type="password" matInput placeholder="New Password" formControlName="password">
+        </mat-form-field>
+
+        <mat-form-field>
+            <input type="password" matInput placeholder="Confirm New Password" formControlName="confirmnewpassword">
+        </mat-form-field>
+        <input hidden matInput placeholder="Name" formControlName="name" >  
+     
+    </mat-dialog-content>
+
+    <footer id="modal-footer">
+        <button mat-raised-button id="modal-action-button" (click)="actionFunctionUpdate()">
+            Update
+        </button>
+        <button mat-raised-button id="modal-cancel-button" (click)="closeModal()">
+            Go back
+        </button>
+    </footer>
+
+</div>

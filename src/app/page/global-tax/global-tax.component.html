@@ -1,0 +1,50 @@
+<div class="content_box">
+  <div class="card">
+    <div class="card-header card-header-danger">
+      <h4 class="card-title">Tax Management</h4>
+      <p class="card-category">
+        Add Tax
+      </p>
+      <div>
+        <button mat-raised-button color="primary" (click)="backtolist()">Back To Tax List</button>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="edit_form">
+        <form class="inner_form" [formGroup]="addForm" (ngSubmit)="addTax()">
+		  <mat-form-field style="width:48%; display: inline-block !important;">
+            <mat-label>Select Country</mat-label>
+            <mat-select formControlName="country_id" (selectionChange)="onChangeCountry($event.value)">
+              <mat-option *ngFor="let country of countryData" [value]="country.id">{{country.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          &nbsp;&nbsp;
+          <mat-form-field style="width:48%; display: inline-block !important;">
+            <mat-label>Select State</mat-label>
+            <mat-select formControlName="state_id" (selectionChange)="onChangeState($event.value)">
+              <mat-option *ngFor="let state of stateData" [value]="state.id">{{state.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field style="width:48%; display: inline-block !important;">
+            <mat-label>Select City</mat-label>
+            <mat-select formControlName="city_id">
+              <mat-option *ngFor="let city of cityData" [value]="city.id" attr.data="city.name">{{city.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          &nbsp;&nbsp;
+          <mat-form-field>
+            <input matInput type="text" placeholder="Tax Percentage" formControlName="tax_percentage">
+            <mat-error *ngIf="addForm.controls['tax_percentage'].hasError('required') && addForm.controls['tax_percentage'].touched">
+              Please enter tax percentage.
+            </mat-error>
+          </mat-form-field>
+          <br />
+          <div class="btn_name">
+            <button mat-button class="option_btn">Save Tax</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

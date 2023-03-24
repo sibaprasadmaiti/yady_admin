@@ -1,0 +1,34 @@
+<div class="content_box">
+	<div class="card">
+		<div class="card-header card-header-danger">
+			<h4 class="card-title">Approve Change Request</h4>
+      <button mat-raised-button color="primary" (click)="backtolist()">Back</button>
+		</div>
+		<div class="card-body">
+			<div class="edit_form">
+				<div class="edit_form">
+					<form class="inner_form" [formGroup]="changeForm" (ngSubmit)="approveChangeRequest()">
+						<mat-form-field style="width:48%; display: inline-block !important;">
+							<input matInput type="text" placeholder="Given amount" formControlName="user_given_amount" readonly>
+              <mat-error *ngIf="changeForm.controls['user_given_amount'].hasError('required') && changeForm.controls['user_given_amount'].touched">
+                Please enter user given amount.
+                </mat-error>
+						</mat-form-field>
+            &nbsp;&nbsp;&nbsp;
+						<mat-form-field style="width:48%; display: inline-block !important;">
+							<input matInput type="text" placeholder="Change amount" formControlName="change_amount" readonly>
+							<mat-error *ngIf="changeForm.controls['change_amount'].hasError('required') && changeForm.controls['change_amount'].touched">
+							Please enter change amount.
+							</mat-error>
+						</mat-form-field>
+						<br>
+						<div class="btn_name">
+							<button mat-flat-button color="primary" [disabled]="changeForm.invalid">Approve</button>
+						</div>
+					</form>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

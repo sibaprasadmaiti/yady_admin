@@ -1,0 +1,83 @@
+<div class="content_box">
+	<div class="card">
+		<div class="card-header card-header-danger">
+			<h4 class="card-title">Subcategory Price Management</h4>
+			<p class="card-category">Subcategory Price List</p>
+			<div>
+				<button mat-raised-button color="primary" (click)="backtolist()">Back To Sub Category List</button>
+			</div>
+		</div>
+		<div class="card-body">
+			<div class="table-responsive">
+				<table class="table">
+					<thead  class=" text-primary">
+						<th>Hour</th>
+						<th>Value</th>
+						<th>Action</th>
+					</thead>
+					<tbody>
+						<tr *ngFor="let prices of priceData  | paginate: { itemsPerPage: 5, currentPage: page } ;let i = index" [ngClass]="{'brown':showColor}">
+							<td>{{prices.hour}}</td>
+							<td>{{prices.price}}</td>
+							<td><i *ngIf="adminType != 3" class="fa fa-trash-o" (click)="deleteOption(prices.hour)"></i></td>
+						</tr>
+						<tr *ngIf="priceData?.length == 0">
+							<td text-align="center" colspan="3">No Record found</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="has-text-centered">
+					<pagination-controls (pageChange)="page = $event"></pagination-controls>
+				</div>
+			</div>
+		</div>
+	</div>
+
+  <div *ngIf="adminType != 3">
+    <div class="card-body">
+      <div class="edit_form">
+        <form class="inner_form" [formGroup]="EditForm" (ngSubmit)="updateData()">
+          <mat-form-field>
+            <input matInput type="text" placeholder="Price Structure Question" formControlName="price_structure_question">
+            <mat-error *ngIf="EditForm.controls['price_structure_question'].hasError('required') && EditForm.controls['price_structure_question'].touched">
+            Please enter price structure question.
+            </mat-error>
+          </mat-form-field>
+          <div class="btn_name">
+            <button mat-button class="option_btn" [disabled]="EditForm.invalid">Update Price Structure Question</button>
+          </div>
+        </form>
+      </div>
+     </div>
+    <h3>Add New Price</h3>
+    <form class="inner_form" [formGroup]="addForm" (ngSubmit)="addData()">
+      <div class="row">
+        <div class="col-sm-12 table-responsive" formArrayName="optionRows">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Label</th>
+                <th>Price</th>
+              <tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let optionrow of addForm['controls'].optionRows['controls']; let i=index" [formGroupName]="i">
+                <td><input id="label{{i}}" formControlName="hour" class="form-control"></td>
+                <td><input id="price{{i}}" formControlName="price" class="form-control"></td>
+                <td><button *ngIf="addForm['controls'].optionRows['controls'].length > 1" (click)="deleteRow(i)" class="btn btn-danger btn-sm"><i class="fa fa-minus-circle" aria-hidden="true"></i></button></td>
+              <tr>
+            </tbody>
+            <tfoot>
+              <button type="button" (click)="addNewRow()" class="btn btn-primary">Add More Options</button>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+      <br><br>
+      <div class="btn_name">
+        <button mat-button class="btn btn-success" [disabled]="addForm.invalid">Add Question</button>
+      </div>
+    </form>
+  </div>
+
+</div>

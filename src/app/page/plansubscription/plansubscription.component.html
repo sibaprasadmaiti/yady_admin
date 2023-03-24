@@ -1,0 +1,74 @@
+<div class="content_box">
+    <div  class="card">
+      <div  class="card-header card-header-danger">
+        <h4  class="card-title ">Subscription Plan Management</h4>
+        <p  class="card-category">
+            Subscription list details
+        </p>
+        <div><button class="option_btn" (click)="addNew()">Add New!</button></div>
+      </div>
+      <div  class="card-body">
+        <div  class="table-responsive">
+          <table  class="table">
+          <thead  class=" text-primary">
+            <th>Name</th> 
+            <th>Currency</th> 
+            <th>Price</th>
+            <th>Specifies billing</th>
+            <th>Specifies plan </th>
+            <th>Trial periods(day)</th>
+            <th>Subscription for</th>  
+            <th>Plan id</th>  
+            <th>Status</th>     
+            <th>Action</th>
+          </thead>
+          <tbody >
+            <tr *ngFor="let plan of planSubscriptionListData">
+              <td>{{plan.pname}}</td> 
+              <td>{{plan.currency | uppercase}}</td>  
+              <td>{{plan.price_per_month}}</td> 
+              <td>{{plan.inter_val|titlecase}}</td>
+              <td>{{plan.plantype | uppercase}}</td> 
+              <td>{{plan.trial_periods }}</td> 
+              <td *ngIf="plan.type=='S'" [ngClass]="{'type_seller': plan.type=='S'}">seller</td>   
+              <td *ngIf="plan.type=='B'" [ngClass]="{'type_buyer': plan.type=='B'}">Buyer</td> 
+              <td>{{plan.plan}}</td>    
+              <td *ngIf="plan.status=='Y'" [ngClass]="{'status_active': plan.status=='Y'}">Active</td>
+              <td *ngIf="plan.status=='N'" [ngClass]="{'status_inactive': plan.status=='N'}">Inactive</td>               
+              <td>
+               <!-- <div class="option_b">
+                 <p href="#" class="option_btn">Option</p>
+                 <div class="dropdown_a">
+                     <ul>
+                         <li [routerLink]="['/main/editfaqcategory', faqcate.id]">Edit</li>
+                         
+                     </ul>
+                   
+                 </div>
+             </div> -->
+
+             <button _ngcontent-eva-c5="" class="btn btn-primary btn-link btn-sm btn-just-icon mat-raised-button" mat-raised-button="" mattooltip="Edit Task" type="button" aria-describedby="cdk-describedby-message-2" cdk-describedby-host="">
+              <span class="mat-button-wrapper" >
+                  <i _ngcontent-eva-c5="" class="material-icons" (click)="editplan(plan.id)">
+                      edit
+                  </i>
+              </span>
+          <div class="mat-button-ripple mat-ripple" matripple="">
+          </div>
+          <div class="mat-button-focus-overlay">
+          </div>
+          </button>
+          <!-- <button _ngcontent-eva-c5="" class="btn btn-danger btn-link btn-sm btn-just-icon mat-raised-button" mat-raised-button="" mattooltip="Remove" type="button" aria-describedby="cdk-describedby-message-3" cdk-describedby-host=""><span class="mat-button-wrapper"><i _ngcontent-eva-c5="" class="material-icons">close</i></span>
+          <div class="mat-button-ripple mat-ripple" matripple="">
+          </div>
+          <div class="mat-button-focus-overlay">
+          </div>
+          </button> -->
+
+              </td>
+            </tr>
+          </tbody>
+          </table>
+        </div>
+      </div>
+    </div>

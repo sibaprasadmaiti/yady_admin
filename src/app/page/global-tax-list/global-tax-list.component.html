@@ -1,0 +1,75 @@
+<div class="content_box">
+  <div *ngIf="adminType == 0">
+    <form class="inner_form" [formGroup]="searchForm" (ngSubmit)="bannerList()">
+      <mat-form-field style="width:48%; display: inline-block !important;">
+        <mat-label>Select Country</mat-label>
+        <mat-select formControlName="country_id" (selectionChange)="onChangeCountry($event.value)">
+          <mat-option *ngFor="let country of countryData" [value]="country.id">{{country.name}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="searchForm.controls['country_id'].hasError('required') && searchForm.controls['country_id'].touched">
+          Please select country.
+        </mat-error>
+      </mat-form-field>
+      &nbsp;&nbsp;
+      <mat-form-field style="width:48%; display: inline-block !important;">
+        <mat-label>Select State</mat-label>
+        <mat-select formControlName="state_id" (selectionChange)="onChangeState($event.value)">
+          <mat-option *ngFor="let state of stateData" [value]="state.id">{{state.name}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="searchForm.controls['state_id'].hasError('required') && searchForm.controls['state_id'].touched">
+          Please select state.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field style="width:48%; display: inline-block !important;">
+        <mat-label>Select City</mat-label>
+        <mat-select formControlName="city_id">
+          <mat-option *ngFor="let city of cityData" [value]="city.id" attr.data="city.name">{{city.name}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="searchForm.controls['city_id'].hasError('required') && searchForm.controls['city_id'].touched">
+          Please select city.
+        </mat-error>
+      </mat-form-field>&nbsp;&nbsp;
+      <input type="submit" name="search" id="btn_data_search" class="btn btn-success" value="Search" />&nbsp;
+    </form>
+  </div>
+
+  <div class="card">
+    <div class="card-header card-header-danger">
+      <h4 class="card-title ">Tax Management</h4>
+      <p class="card-category">
+        Tax list
+      </p>
+      <div *ngIf="adminType != 3"><button (click)="addtax()" class="option_btn">Add Tax</button></div>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table">
+
+          <thead class=" text-primary">
+            <th>Tax Percentage</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Country</th>
+            <th>Action</th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let taxList of tax_list | paginate: { itemsPerPage: 10, currentPage: page }; let i = index">
+              <td>{{taxList.tax_percentage}} %</td>
+              <td>{{taxList.city}}</td>
+              <td>{{taxList.state}}</td>
+              <td>{{taxList.country}}</td>
+              <td _ngcontent-eva-c5="" class="td-actions">
+                <i style="cursor: pointer;" class="fa fa-edit" title="Edit" (click)="editTax(taxList._id)"></i>
+              </td>
+            </tr>
+			<tr *ngIf="tax_list?.length == 0">
+				<td text-align="center" colspan="7">Data not found.</td>
+			</tr>
+          </tbody>
+        </table>
+		<div class="has-text-centered">
+			<pagination-controls (pageChange)="page = $event"></pagination-controls>
+		</div>
+      </div>
+    </div>
+  </div>

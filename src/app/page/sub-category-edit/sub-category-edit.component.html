@@ -1,0 +1,86 @@
+<div class="content_box">
+    <div  class="card">
+      <div  class="card-header card-header-danger">
+        <h4  class="card-title ">Sub Category Management</h4>
+        <p class="card-category">
+          Edit Sub Category
+        </p>
+      </div>
+      <div  class="card-body">
+    <div class="edit_form">
+      <form class="inner_form" [formGroup]="EditForm" (ngSubmit)="updateData()">
+      <mat-form-field>
+        <input matInput type="text" placeholder="Sub Category Name" formControlName="sub_category_name">
+        <mat-error *ngIf="EditForm.controls['sub_category_name'].hasError('required') && EditForm.controls['sub_category_name'].touched">
+            Please enter sub category name.
+          </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <textarea matInput placeholder="Description" formControlName="description"></textarea>
+        <mat-error *ngIf="EditForm.controls['description'].hasError('required') && EditForm.controls['description'].touched">
+          Please enter description.
+          </mat-error>
+			</mat-form-field>
+		<mat-form-field style="width:32%; display: inline-block !important;">
+			<input matInput type="time" placeholder="Start Time" formControlName="start_time">
+		</mat-form-field>&nbsp;&nbsp;
+		<mat-form-field style="width:32%; display: inline-block !important;">
+			<input matInput type="time" placeholder="End Time" formControlName="end_time">
+		</mat-form-field>&nbsp;&nbsp;
+		<mat-form-field style="width:32%; display: inline-block !important;">
+			<mat-label>Select Timezone</mat-label>
+			<mat-select formControlName="timezone_id">
+				<mat-option *ngFor="let timezone of timezoneData" [value]="timezone._id">{{timezone.timezone}}</mat-option>
+			</mat-select>
+		</mat-form-field>
+	  <mat-form-field>
+		<input matInput type="text" placeholder="Material Cost" formControlName="material_cost">
+		<mat-error *ngIf="EditForm.controls['material_cost'].hasError('required') && EditForm.controls['material_cost'].touched">
+		Please enter material cost.
+		</mat-error>
+	</mat-form-field>
+	<mat-form-field>
+		<input matInput type="text" placeholder="Inspection Cost" formControlName="inspection_cost">
+		<mat-error *ngIf="EditForm.controls['inspection_cost'].hasError('required') && EditForm.controls['inspection_cost'].touched">
+		Please enter inspection cost.
+		</mat-error>
+	</mat-form-field>
+	<label style="color: black;font-weight: bold;">If it is under fixed cost then fill it. Otherwise left it blank</label>
+	<mat-form-field>
+		<input matInput type="text" placeholder="Approx Time(Put the value in minutes)" formControlName="fixed_price_hour">
+	</mat-form-field>
+
+      <label>Upload Sub Category Image </label>
+      <input type="file" placeholder="Upload Sub Category Image" (change)="onFileChoose($event)" />
+      <div>
+        <img src= "{{imgpath }}{{imgsrc}}"  height="150">
+      </div>
+
+	<div class="form-group">
+		<label for="language">Status</label>
+		<select class="form-control" formControlName="status" [(ngModel)]="status">
+			<option value="1">Active</option>
+			<option value="0">In Active</option>
+		</select>
+	</div>
+
+	<br>
+		<label style="font-weight: bold;color: black;">Add-ons / Questionnaire</label><br>
+		Add-ons - <input type="radio" name="aq_status" [checked]="aq_status === 1" formControlName="aq_status" value="1">&nbsp;&nbsp;&nbsp;
+		Questionnaire - <input type="radio" name="aq_status" [checked]="aq_status === 2" formControlName="aq_status" value="2">
+		<br><br>
+		<div *ngIf="price_status == 1">
+			<label style="font-weight: bold;color:black">Time lapses</label><br>
+				30 Mins - <input type="radio" name="time_interval" formControlName="time_interval" [value]=30>&nbsp;&nbsp;&nbsp;
+				1 Hour - <input type="radio" name="time_interval" formControlName="time_interval" [value]=60>
+				<br><br>
+		</div>
+
+
+    <div class="btn_name">
+		<button mat-button class="option_btn" [disabled]="EditForm.invalid">Update</button>
+    </div>
+    </form>
+  </div>
+    </div>
+  </div>

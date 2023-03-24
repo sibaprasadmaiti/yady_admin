@@ -1,0 +1,85 @@
+<div class="content_box">
+	<div class="row">
+		<div class="col-md-3">
+			<span class="bmd-form-group col-lg-3 col-sm-12 col-md-12">
+				<div class="input-group no-border ">
+					<input type="text" name="name" id="name" placeholder="Name" class="form-control" [(ngModel)]="name" />
+				</div>
+			</span>
+		</div>
+		<div class="col-md-3">
+			<span class="bmd-form-group col-lg-3 col-sm-12 col-md-12">
+				<div class="input-group no-border ">
+					<input type="text" name="email" id="email" placeholder="Email" class="form-control" [(ngModel)]="email" />
+				</div>
+			</span>
+		</div>
+		<div class="col-md-3">
+			<span class="bmd-form-group col-lg-3 col-sm-12 col-md-12">
+				<div class="input-group no-border ">
+					<input type="submit" name="search" id="btn_data_search" class="btn btn-success" value="Search" (click)='searchUser(name,email)' />&nbsp;
+					<input type="submit" class="btn btn-danger" (click)="reset_page()" value="Reset">
+				</div>
+			</span>
+		</div>
+	</div>
+   <div class="card">
+		<div class="card-header card-header-danger">
+			<h4 class="card-title ">User Management</h4>
+			<p class="card-category">Service Dispatcher List</p>
+			<div *ngIf="adminType != 3"><button (click)="addNew()" class="option_btn">Add Service Dispatcher</button></div>
+		</div>
+    <div  class="card-body">
+		<div  class="table-responsive">
+			<table class="table">
+				<thead class="text-primary">
+					<th>Name</th>
+					<th>Email</th>
+					<th>Contact No</th>
+					<th>Location</th>
+          <th>Type</th>
+					<th>Status</th>
+					<th>Action</th>
+				</thead>
+				<tbody >
+					<tr *ngFor="let serviceDispatcher of serviceDispatcherList  | paginate: { itemsPerPage: 5, currentPage: page } ;let i = index" [ngClass]="{'brown':showColor}">
+						<td>{{serviceDispatcher.name}}</td>
+						<td>{{serviceDispatcher.email}}</td>
+						<td>{{serviceDispatcher.mobile_no}}</td>
+						<td>
+							<span style="font-size:small">Country - {{serviceDispatcher.country}}</span><br>
+							<span style="font-size:small" *ngIf="serviceDispatcher.admin_type != 1">State - {{serviceDispatcher.state}}</span><br>
+							<span style="font-size:small" *ngIf="serviceDispatcher.admin_type == 3">City - {{serviceDispatcher.city}}</span>
+						</td>
+            <td>
+              <span *ngIf="serviceDispatcher.admin_type == 1">Admin</span>
+              <span *ngIf="serviceDispatcher.admin_type == 2">Sub-admin</span>
+              <span *ngIf="serviceDispatcher.admin_type == 3">Service Dispatcher</span>
+            </td>
+						<td *ngIf="serviceDispatcher.status==1" [ngClass]="{'status_active': serviceDispatcher.status==1}">Active</td>
+						<td *ngIf="serviceDispatcher.status==0" [ngClass]="{'status_inactive': serviceDispatcher.status==0}">Inactive</td>
+						<td>
+							<!--<div *ngIf="serviceDispatcher.status==1" >
+								<img src="assets/tick.png" alt="Active user" title="Active user" class="img-rounded img" (click)="changeStatus(i,serviceDispatcher._id,serviceDispatcher.status)">
+							</div>
+							<div *ngIf="serviceDispatcher.status==0">
+								<img src="assets/cross.png" alt="Inactive User" title="Inactive User" class="img-rounded img" (click)="changeStatus(i,serviceDispatcher._id,serviceDispatcher.status)">
+							</div>-->
+
+							<i *ngIf="serviceDispatcher.status == 1 && adminType != 3" class="fa fa-check" style="cursor: pointer; color: #45b70a;" title="Active user" (click)="changeStatus(i,serviceDispatcher._id,serviceDispatcher.status)"></i>
+
+							<i *ngIf="serviceDispatcher.status == 0 && adminType != 3" class="fa fa-times" style="cursor: pointer; color: #f00c0c;" title="Inactive User" aria-hidden="true" (click)="changeStatus(i,serviceDispatcher._id,serviceDispatcher.status)"></i>
+
+							&nbsp;<i *ngIf="adminType != 3" class="fa fa-pencil" style="cursor: pointer; color: #ac09ac;" title="Edit" (click)="editSD(serviceDispatcher._id)"></i>
+
+						</td>
+					</tr>
+				</tbody>
+			</table>
+        <div class="has-text-centered">
+          <pagination-controls (pageChange)="page = $event"></pagination-controls>
+		</div>
+      </div>
+    </div>
+  </div>
+</div>

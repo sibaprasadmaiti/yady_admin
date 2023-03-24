@@ -1,0 +1,61 @@
+<div class="content_box">
+	<div class="card">
+		<div class="card-header card-header-danger">
+			<h4 class="card-title">Zone Management</h4>
+				<p class="card-category">
+					Create Zone
+				</p>
+				<div>
+				<button (click)="zoneList()" class="option_btn">Back</button>&nbsp;
+			</div>
+		</div>
+		<div class="card-body">
+			<div class="edit_form">
+				<form class="inner_form" [formGroup]="zoneAddForm" (ngSubmit)="addZone()">
+					<mat-form-field>
+						<input matInput type="text" placeholder="Zone Name" formControlName="zone_name">
+						<mat-error *ngIf="zoneAddForm.controls['zone_name'].hasError('required') && zoneAddForm.controls['zone_name'].touched">
+						Please enter zone name.
+						</mat-error>
+					</mat-form-field>
+					
+					<mat-form-field style="width:48%; display: inline-block !important;">
+						<mat-label>Select Country</mat-label>
+						<mat-select formControlName="country_id" (selectionChange)="onChangeCountry($event.value)">
+							<mat-option *ngFor="let country of countryData" [value]="country.id">{{country.name}}</mat-option>
+						</mat-select>
+					</mat-form-field>
+					&nbsp;&nbsp;
+					<mat-form-field style="width:48%; display: inline-block !important;">
+						<mat-label>Select State</mat-label>
+						<mat-select formControlName="state_id" (selectionChange)="onChangeState($event.value)">
+							<mat-option *ngFor="let state of stateData" [value]="state.id">{{state.name}}</mat-option>
+						</mat-select>
+					</mat-form-field>
+					<mat-form-field style="width:50%; display: inline-block !important;">
+						<mat-label>Select City</mat-label>
+						<mat-select formControlName="city_id" (selectionChange)="onChangeCity($event.value)">
+							<mat-option *ngFor="let city of cityData" [value]="city.id" attr.data="city.name">{{city.name}}</mat-option>
+						</mat-select>
+					</mat-form-field>
+					<input type="hidden" id="lat" value="{{lattitude}}">
+					<input type="hidden" id="long" value="{{longitude}}">
+					
+					<input type="hidden" id="view_port_northeast_lat" value="{{view_port_northeast_lat}}">
+					<input type="hidden" id="view_port_northeast_lng" value="{{view_port_northeast_lng}}">
+					<input type="hidden" id="view_port_southwest_lat" value="{{view_port_southwest_lat}}">
+					<input type="hidden" id="view_port_southwest_lng" value="{{view_port_southwest_lng}}">
+					<!--<mat-form-field style="width:85%; display: inline-block !important;">
+						<input matInput type="text" placeholder="Area" formControlName="area" id="area" autocomplete="off">
+						<input type="hidden" id="place_id">
+					</mat-form-field> &nbsp;&nbsp;
+					<button type="button" class="btn btn-primary" (click)="addPlaces(area)">Add</button>
+					<span *ngFor="let areaDetails of unique_area_arr"><input type="text" value="{{areaDetails}}" class="form-control"></span>-->
+					<div class="btn_name">
+						<button mat-button class="option_btn" [disabled]="zoneAddForm.invalid">Save and Next</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

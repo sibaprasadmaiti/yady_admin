@@ -1,0 +1,75 @@
+   <div class="content_box">
+    <div *ngIf="adminType == 0">
+      <form class="inner_form" [formGroup]="searchForm" (ngSubmit)="holidayList()">
+        <mat-form-field style="width:48%; display: inline-block !important;">
+          <mat-label>Select Country</mat-label>
+          <mat-select formControlName="country_id" (selectionChange)="onChangeCountry($event.value)">
+            <mat-option *ngFor="let country of countryData" [value]="country.id">{{country.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        &nbsp;&nbsp;
+        <mat-form-field style="width:48%; display: inline-block !important;">
+          <mat-label>Select State</mat-label>
+          <mat-select formControlName="state_id" (selectionChange)="onChangeState($event.value)">
+            <mat-option *ngFor="let state of stateData" [value]="state.id">{{state.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field style="width:48%; display: inline-block !important;">
+          <mat-label>Select City</mat-label>
+          <mat-select formControlName="city_id">
+            <mat-option *ngFor="let city of cityData" [value]="city.id" attr.data="city.name">{{city.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>&nbsp;&nbsp;
+        <input type="submit" name="search" id="btn_data_search" class="btn btn-success" value="Search" />&nbsp;
+        <!--<input type="submit" class="btn btn-danger" (click)="reset_page()" value="Reset">-->
+      </form>
+    </div>
+
+
+
+
+		<div class="card">
+			<div class="card-header card-header-danger">
+				<h4 class="card-title">Holidays</h4>
+				<p class="card-category">
+					Holiday List
+				</p>
+				<div *ngIf="adminType != 3"><button (click)="addNew()" class="option_btn">Add Holiday</button></div>
+			</div>
+			<div class="card-body">
+				<div class="table-responsive">
+					<table class="table">
+						<thead class="text-primary">
+							<th>Holiday</th>
+							<th>Location</th>
+							<th>Date</th>
+							<th style="text-align: center">Action</th>
+						</thead>
+						<tbody>
+							<tr *ngFor="let holiday of holidayData  | paginate: { itemsPerPage: 5, currentPage: page } ;let i = index">
+								<td>{{holiday.holiday_name}}</td>
+								<td>
+									<span style="font-size:small">Country - {{holiday.country}}</span><br>
+									<span style="font-size:small">State - {{holiday.state}}</span><br>
+									<span style="font-size:small">City - {{holiday.city}}</span>
+								</td>
+								<td>Date - {{holiday.holiday_date | date: 'dd/MM/yyyy' }}</td>
+								<td style="text-align: center">
+									<i *ngIf="adminType != 3" style="cursor: pointer;" class="fa fa-trash" title="Delete" (click)="deleteHoliday(holiday._id)"></i>&nbsp;
+									<i *ngIf="adminType != 3" style="cursor: pointer;" class="fa fa-edit" title="Edit" (click)="editHoliday(holiday._id)"></i>
+								</td>
+							</tr>
+							<tr *ngIf="holidayData?.length == 0">
+								<td text-align="center" colspan="4">No Record found</td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="has-text-centered">
+						<pagination-controls (pageChange)="page = $event"></pagination-controls>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+   </div>

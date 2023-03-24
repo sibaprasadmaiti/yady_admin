@@ -1,0 +1,54 @@
+<div class="content_box">
+    <div  class="card">
+      <div  class="card-header card-header-danger">
+        <h4  class="card-title ">Email Template Management</h4>
+        <p  class="card-category">
+            Template list details
+        </p>
+        <!-- <div><button class="option_btn" (click)="addNew()">Add New!</button></div> -->
+      </div>
+      <div  class="card-body">
+        <div  class="table-responsive">
+          <table  class="table">
+          <thead  class=" text-primary">         
+            <th>Title</th>
+            <th>Slug</th>  
+            <th>Subject</th>          
+            <th>Description</th>
+            <th>Action</th>
+          </thead>
+          <tbody >
+            <tr *ngFor="let plan of emailTempData">
+              <td>{{plan.template_title}}</td>  
+              <td>{{plan.template_slug}}</td> 
+              <td>{{plan.email_subject}}</td> 
+              <td innerHtml="{{plan.template_description}}"></td> 
+                           
+              <td>
+               
+
+             <button _ngcontent-eva-c5="" class="btn btn-primary btn-link btn-sm btn-just-icon mat-raised-button" mat-raised-button="" mattooltip="Edit Task" type="button" aria-describedby="cdk-describedby-message-2" cdk-describedby-host="">
+              <span class="mat-button-wrapper" >
+                  <i _ngcontent-eva-c5="" class="material-icons" (click)="editplan(plan.id)">
+                      edit
+                  </i>
+              </span>
+          <div class="mat-button-ripple mat-ripple" matripple="">
+          </div>
+          <div class="mat-button-focus-overlay">
+          </div>
+          </button>
+          <!-- <button _ngcontent-eva-c5="" class="btn btn-danger btn-link btn-sm btn-just-icon mat-raised-button" mat-raised-button="" mattooltip="Remove" type="button" aria-describedby="cdk-describedby-message-3" cdk-describedby-host=""><span class="mat-button-wrapper"><i _ngcontent-eva-c5="" class="material-icons">close</i></span>
+          <div class="mat-button-ripple mat-ripple" matripple="">
+          </div>
+          <div class="mat-button-focus-overlay">
+          </div>
+          </button> -->
+
+              </td>
+            </tr>
+          </tbody>
+          </table>
+        </div>
+      </div>
+    </div>

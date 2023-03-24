@@ -1,0 +1,53 @@
+<div class="content_box">
+  <h2 class="bookingDetlHdn">Booking Quotation Approval</h2>
+  <div class="row">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-body">
+          <div class="paymntbg">
+            <div class="payLft">
+              <div class="bookingRow">
+                <strong>Additional Parts</strong><span *ngIf="pauseData?.additional_parts != ''">{{
+                  pauseData?.additional_parts }}</span>
+              </div>
+              <div class="bookingRow">
+                <strong>Additional Time</strong><span *ngIf="pauseData?.additional_time != ''">{{
+                  pauseData?.additional_time }}</span>
+              </div>
+              <div class="bookingRow">
+                <strong>Reson</strong><span *ngIf="pauseData?.reason != ''">{{ pauseData?.reason }}</span>
+              </div>
+              <div class="bookingRow">
+                <strong>Price</strong>
+				<span *ngIf="pauseData?.cost != '' && showhide == 'non_edit'">{{ pauseData?.cost }} {{ pauseData?.currency
+                  }}&nbsp;<i class="fa fa-pencil" (click)="editCost(pauseData.cost)"></i></span>
+				  <span *ngIf="pauseData?.cost != '' && showhide == 'edit'">
+					<input type="text" value={{price}} [(ngModel)]="valueId">&nbsp;
+					<button type="button" class="btn btn-primary btn-sm" (click)="updateCost(valueId)">Update</button>
+					<i class="fa fa-times" (click)="cancelEdit()"></i>
+				  </span>
+              </div>
+              <div class="bookingRow">
+                <strong>Payment Status</strong><span *ngIf="pauseData?.paid_status == 0">Pending</span><span
+                  *ngIf="pauseData?.paid_status == 1">Done</span>
+              </div>
+              <div class="bookingRow">
+                <strong>Payment Method</strong><span *ngIf="pauseData?.paid_medium == 0">Pending</span><span
+                  *ngIf="pauseData?.paid_medium == 1">Online</span><span *ngIf="pauseData?.paid_medium == 2">Cash</span>
+              </div>
+              <div class="bookingRow" *ngIf="pauseData?.pause_type == 2">
+                <strong>Pause Image</strong>
+                <div class="pause-img" *ngFor="let pauseImg of pauseData?.pause_image">
+                  <img src="{{ pauseImg?.pause_image }}" alt="Pause Image" width="100">
+                </div>
+              </div>
+              <div class="bookingRow" *ngIf="pauseData?.admin_approval_status == 0">
+                <button mat-raised-button color="primary" (click)="approveQuotation()">Approve</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

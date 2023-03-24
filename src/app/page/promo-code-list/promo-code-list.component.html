@@ -1,0 +1,47 @@
+<div class="content_box">
+	<div class="card">
+		<div class="card-header card-header-danger">
+			<h4 class="card-title">Promo Code</h4>
+			<p class="card-category">Promo Code List</p>
+			<div *ngIf="adminType != 3">
+				<button (click)="addNew()" class="option_btn">Add Promo Code</button>&nbsp;
+			</div>
+		</div>
+		<div class="card-body">
+			<div class="table-responsive">
+				<table class="table">
+					<thead class="text-primary">
+						<th>Promo Code</th>
+						<th>Discount Type</th>
+						<th>Amount</th>
+						<th>Dates</th>
+						<th>Location</th>
+						<th>Action</th>
+					</thead>
+					<tbody>
+						<tr *ngFor="let promotion of promotionData  | paginate: { itemsPerPage: 5, currentPage: page } ;let i = index" [ngClass]="{'brown':showColor}">
+							<td>{{promotion.promo_code}}</td>
+							<td *ngIf="promotion.discount_type == 1">Fixed Amount</td><td *ngIf="promotion.discount_type == 2">Percentage</td>
+							<td>{{promotion.amount}}<span *ngIf="promotion.discount_type == 2">%</span></td>
+							<td>Start Date - {{promotion.start_date | date: 'dd/MM/yyyy' }} <br> End Date - {{promotion.end_date | date: 'dd/MM/yyyy' }}</td>
+							<td>
+								<span style="font-size:small">Country - {{promotion.country}}</span><br>
+								<span style="font-size:small">State - {{promotion.state}}</span><br>
+								<span style="font-size:small">City - {{promotion.city}}</span>
+							</td>
+							<td>
+							<button *ngIf="adminType != 3" _ngcontent-eva-c5="" class="btn btn-primary btn-link btn-sm btn-just-icon mat-raised-button" mat-raised-button="" mattooltip="Edit driver" type="button" aria-describedby="cdk-describedby-message-2" cdk-describedby-host=""><span class="mat-button-wrapper"><i _ngcontent-eva-c5="" class="material-icons" (click)="editPromoCode(promotion._id)">edit</i></span></button>
+							</td>
+						</tr>
+						<tr *ngIf="promotionData?.length == 0">
+							<td text-align="center" colspan="5">No Record found</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="has-text-centered">
+					<pagination-controls (pageChange)="page = $event"></pagination-controls>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

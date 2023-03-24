@@ -1,0 +1,111 @@
+<div class="content_box">
+    <div  class="card">
+     <div  class="card-header card-header-danger">
+       <h4  class="card-title ">Product Management</h4>
+       <p  class="card-category">
+         Product list details
+       </p>
+     </div>
+     <div class="col-sm-12 col-md-6">
+        <div id="datatables_filter" class="dataTables_filter">
+            <label class="form-group">
+                <!-- <input type="search"  (input)="onSearchChange($event.target.value)" class="form-control form-control-sm" placeholder="Search records" aria-controls="datatables"> -->
+				<!-- <button mat-raised-button="" type="submit" class="btn btn-white btn-round btn-just-icon"><i class="material-icons">search</i> -->
+					<input type="text" class="form-control form-control-sm" (input)="onSearchChange($event.target.value)" placeholder="Search products">
+            </label>
+        </div>
+    </div>
+
+<div class="card-body">
+	<div class="card-header card-header-rose card-header-icon">
+		
+	<div class="card-body">
+		<div class="table-responsive">
+			<table class="table table-shopping">
+			<thead>
+			<tr>
+				<th class="text-center">
+				</th>
+				<th>
+					Product
+				</th>
+				
+				<th class="th-description">
+					Category
+				</th>
+				<th class="text-right">
+					Price
+                </th>
+               
+				<th class="text-right">
+					Qty
+				</th>
+				<!-- <th class="text-right">
+					AMOUNT
+				</th> -->
+				<th>
+					
+				</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr class="ng-star-inserted" *ngFor="let product of product | paginate: { itemsPerPage: 5, currentPage: page }">
+				<td>
+					
+					<div class="img-container" *ngIf="product.image">
+                        <!-- <img alt="..." src="./assets/img/product1.jpg"> -->
+                        <img [src]="imgpath+product.image[0].name" height="200">
+                    </div>
+                    <div class="img-container" *ngIf="!product.image">
+                        <!-- <img alt="..." src="./assets/img/product1.jpg"> -->
+                        <img [src]="defaultimg" height="200">
+					</div>
+				</td>
+				<td class="td-name">
+					{{product.name}}<br>
+					<small>by {{product.uname}}</small>
+					
+                </td>
+                <td>
+					{{product.categoryname}}
+					
+				</td>				
+				
+				<td class="td-number text-right">
+					<small>€</small> {{product.price}}
+				</td>
+				<td class="td-number">
+					{{product.qty}}
+					
+				</td>
+				<!-- <td class="td-number">
+					<small>€</small>549
+				</td> -->
+				<td class="td-actions">
+					<!-- <button mat-button="" type="button" mattooltip="Remove item" class="btn btn-link mat-button mat-button-base" aria-describedby="cdk-describedby-message-4" cdk-describedby-host="">
+						<span class="mat-button-wrapper"><i class="material-icons">close</i>
+						</span>
+					<div matripple="" class="mat-ripple mat-button-ripple">
+					</div>
+					<div class="mat-button-focus-overlay">
+					</div>
+					</button> -->
+
+					<div *ngIf="product.sale_type =='auction'"><img src="assets/bid.png" title="Bidding List"></div>
+					<div *ngIf="product.sale_type =='direct_offer'"><img src="assets/auction.png" title="Auction List"></div>
+					<!---->
+				</td>
+			</tr>
+						
+			<!---->
+						
+			</tbody>
+            </table>
+            <div class="has-text-centered">
+                <pagination-controls (pageChange)="page = $event"></pagination-controls>
+            </div>
+		</div>
+	</div>
+</div>
+</div>
+</div>

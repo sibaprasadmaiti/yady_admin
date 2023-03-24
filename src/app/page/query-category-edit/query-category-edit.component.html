@@ -1,0 +1,38 @@
+<div class="content_box">
+	<div class="card">
+		<div class="card-header card-header-danger">
+			<h4 class="card-title ">Query Category Management</h4>
+			<p class="card-category">
+				Edit Query Category
+			</p>
+			<div>
+				<button mat-raised-button color="primary" (click)="backtolist()">Back To Query Category List</button>
+			</div>
+		</div>
+		<div class="card-body">
+			<div class="edit_form">
+				<form class="inner_form" [formGroup]="EditForm" (ngSubmit)="updateData()">
+					<mat-form-field>
+						<input matInput readonly type="text" placeholder="Query Category Name" formControlName="category_name">
+					</mat-form-field>
+					<mat-form-field style="width:50%; display: inline-block !important;">
+						<mat-label>Select Timezone</mat-label>
+						<mat-select formControlName="timezone_id">
+							<mat-option *ngFor="let timezone of timezoneData" [value]="timezone._id">{{timezone.timezone}}</mat-option>
+						</mat-select>
+					</mat-form-field>
+					<div class="form-group">
+						<label for="language">Status</label>
+						<select class="form-control" formControlName="status" [(ngModel)]="status">
+							<option value="1">Active</option>
+							<option value="0">In Active</option>
+						</select>
+					</div>
+					<div class="btn_name">
+						<button mat-button class="option_btn" [disabled]="EditForm.invalid">Update</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

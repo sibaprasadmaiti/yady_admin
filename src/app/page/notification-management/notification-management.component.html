@@ -1,0 +1,79 @@
+<div class="content_box">
+  <div>
+    <mat-form-field style="width:48%; display: inline-block !important;">
+      <mat-label>Select Country</mat-label>
+      <mat-select (selectionChange)="onChangeCountry($event.value)" [(ngModel)]="country_id">
+        <mat-option *ngFor="let country of countryData" [value]="country.id">{{country.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    &nbsp;&nbsp;
+    <mat-form-field style="width:48%; display: inline-block !important;">
+      <mat-label>Select State</mat-label>
+      <mat-select  (selectionChange)="onChangeState($event.value)" [(ngModel)]="state_id">
+        <mat-option *ngFor="let state of stateData" [value]="state.id">{{state.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field style="width:35%; display: inline-block !important;">
+      <mat-label>Select City</mat-label>
+      <mat-select [(ngModel)]="city_id">
+        <mat-option *ngFor="let city of cityData" [value]="city.id"
+          attr.data="city.name">{{city.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    &nbsp;&nbsp;
+    <mat-radio-group style="width:35%; display: inline-block !important;" aria-label="Select an option" [(ngModel)]="user_type">
+      <mat-radio-button value="1">Service Requester</mat-radio-button>
+      <mat-radio-button value="2">Service Provider</mat-radio-button>
+    </mat-radio-group>
+    &nbsp;&nbsp;
+    <button mat-raised-button color="primary" (click)="searchSrSp()">Search</button>
+  </div>
+
+  <div class="card">
+    <div class="card-header card-header-danger">
+      <h4 class="card-title">Notification Management</h4>
+      <p class="card-category">
+        Send Notification
+      </p>
+      <!-- <div>
+				<button (click)="back()" class="option_btn">Back</button>&nbsp;
+			</div> -->
+    </div>
+    <div class="card-body">
+
+      <div class="edit_form">
+        <form class="inner_form" [formGroup]="sendForm" (ngSubmit)="sendNotification()">
+          <mat-form-field>
+            <mat-label>Select User</mat-label>
+            <mat-select formControlName="service_requester_array" multiple>
+              <mat-option *ngFor="let sr of srList" [value]="sr._id">{{sr.first_name}} {{sr.last_name}}
+                ({{sr.mobile_no}})</mat-option>
+            </mat-select>
+            <mat-error *ngIf="sendForm.controls['service_requester_array'].hasError('required') && sendForm.controls['service_requester_array'].touched">
+              Please select service requester.
+              </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Title</mat-label>
+            <input matInput type="text" placeholder="Title" formControlName="title" autocomplete="off" >
+            <mat-error *ngIf="sendForm.controls['title'].hasError('required') && sendForm.controls['title'].touched">
+              Please enter title.
+              </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Message</mat-label>
+            <textarea matInput formControlName="message"></textarea>
+            <mat-error *ngIf="sendForm.controls['message'].hasError('required') && sendForm.controls['message'].touched">
+              Please enter message.
+              </mat-error>
+          </mat-form-field>
+          <div><span style="color: red;">{{error_msg}}</span></div>
+          <br />
+          <div class="btn_name">
+            <button mat-button class="option_btn" [disabled]="sendForm.invalid">Send</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

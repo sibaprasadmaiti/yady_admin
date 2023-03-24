@@ -1,0 +1,47 @@
+<div class="content_box">
+	<div class="card">
+		<div class="card-header card-header-danger">
+			<h4 class="card-title">Zone Management</h4>
+			<p class="card-category">Zone List</p>
+			<div *ngIf="adminType != 3">
+				<button (click)="addNewZone()" class="option_btn">Add Zone</button>&nbsp;
+			</div>
+		</div>
+		<div class="card-body">
+			<div class="table-responsive">
+				<table class="table">
+					<thead class="text-primary">
+						<th>Zone</th>
+						<th>Country</th>
+						<th>State</th>
+						<th>City</th>
+						<th>Places</th>
+						<th>Action</th>
+					</thead>
+					<tbody>
+						<tr *ngFor="let zone of zoneData  | paginate: { itemsPerPage: 5, currentPage: page } ;let i = index">
+							<td>{{zone.zone_name}}</td>
+							<td>{{zone.country}}</td>
+							<td>{{zone.state}}</td>
+							<td>{{zone.city}}</td>
+							<td><button mat-raised-button (click)="viewPlaces(zone._id)">View Places</button></td>
+							<td>
+								<i *ngIf="adminType != 3" style="cursor: pointer;" class="fa fa-trash" title="Delete" (click)="deleteZone(zone._id)"></i>&nbsp;
+								<i *ngIf="adminType != 3" style="cursor: pointer;" class="fa fa-list" title="Add Category/Sub Category" (click)="zonePriceList(zone._id)"></i>
+							</td>
+							<!--<td>
+							<button _ngcontent-eva-c5="" class="btn btn-primary btn-link btn-sm btn-just-icon mat-raised-button" mat-raised-button="" mattooltip="Edit driver" type="button" aria-describedby="cdk-describedby-message-2" cdk-describedby-host=""><span class="mat-button-wrapper"><i _ngcontent-eva-c5="" class="material-icons" (click)="editRadius(radius._id)">edit</i></span></button>
+							</td>-->
+						</tr>
+						<tr *ngIf="zoneData?.length == 0">
+							<td text-align="center" colspan="2">No Record found</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="has-text-centered">
+					<pagination-controls (pageChange)="page = $event"></pagination-controls>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

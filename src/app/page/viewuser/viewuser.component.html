@@ -1,0 +1,88 @@
+<div class="content_box">
+    
+    <div  class="card">
+      <div  class="card-header card-header-danger">
+        <h4  class="card-title ">User Management</h4>
+        <p  class="card-category">
+          View User
+        </p>
+      </div>
+      <div  class="card-body">  
+    <div class="edit_form">
+      <form class="inner_form"  [formGroup]="updateUserForm" (ngSubmit)="updateUserStatusData()">
+        
+        <mat-form-field>
+        <input matInput type="text" placeholder="Name" formControlName="name">
+        <mat-error *ngIf="updateUserForm.controls['name'].hasError('required') && updateUserForm.controls['name'].touched">
+            Please enter a Name.
+          </mat-error>
+      </mat-form-field>
+      <!-- <mat-form-field>
+        <input hidden matInput type="text" placeholder="" >
+        <img [src]="user_imgpath+obj.image" height="200">
+      </mat-form-field> -->
+     
+      
+      <mat-form-field>
+        <input matInput type="text" placeholder="Email" formControlName="email">
+        <mat-error *ngIf="updateUserForm.controls['email'].hasError('required') && updateUserForm.controls['email'].touched">
+            Please enter a email.
+          </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput type="text" placeholder="Mobile" formControlName="mobile_number">
+        <mat-error *ngIf="updateUserForm.controls['mobile_number'].hasError('required') && updateUserForm.controls['mobile_number'].touched">
+            Please enter a Mobile.
+          </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput type="text" placeholder="Streetname" formControlName="streetname">
+        <mat-error *ngIf="updateUserForm.controls['streetname'].hasError('required') && updateUserForm.controls['streetname'].touched">
+            Please enter a Streetname.
+          </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput type="text" placeholder="House Number" formControlName="house_number">
+        <mat-error *ngIf="updateUserForm.controls['house_number'].hasError('required') && updateUserForm.controls['house_number'].touched">
+            Please enter a House Number.
+          </mat-error>
+      </mat-form-field>
+	  
+	  <mat-form-field>
+        <input matInput type="text" placeholder="Post Code" formControlName="postcode">
+        <mat-error *ngIf="updateUserForm.controls['postcode'].hasError('required') && updateUserForm.controls['postcode'].touched">
+            Please enter a Post Code.
+          </mat-error>
+      </mat-form-field>
+      
+     
+      <mat-form-field>   <input  hidden matInput type="text" placeholder="Register On" formControlName="registered_on">
+
+        <span>
+            <!-- {{obj.registered_on|date:'medium'}} -->
+            {{obj.registered_on|date:'medium'}}
+        </span>
+      </mat-form-field>
+     
+      
+      <mat-form-field>
+        <mat-select formControlName="status">
+          <mat-option value="1">Active</mat-option>
+          <mat-option value="0">Inactive</mat-option>
+        </mat-select>
+      </mat-form-field>  
+         
+  <div class="btn_name">
+    <button mat-button class="option_btn">Update Status</button>
+   </div> 
+   <div class="btn_name">
+    <button mat-button class="option_btn" (click)="backClicked()">Back</button>
+  </div>
+    
+      
+    </form>
+  
+    </div>
+  </div>
+  </div>

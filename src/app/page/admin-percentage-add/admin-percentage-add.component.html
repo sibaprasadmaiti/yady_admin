@@ -1,0 +1,58 @@
+<div class="content_box">
+	<div class="card">
+		<div class="card-header card-header-danger">
+			<h4 class="card-title">Admin Percentage</h4>
+			<p class="card-category">
+				Admin Percentage Add
+			</p>
+		</div>
+		<div class="card-body">
+			<div class="edit_form">
+				<form class="inner_form" [formGroup]="addForm" (ngSubmit)="addData()">
+					<mat-form-field style="width:48%; display: inline-block !important;">
+						<mat-label>Select Country</mat-label>
+						<mat-select formControlName="country_id" (selectionChange)="onChangeCountry($event.value)">
+							<mat-option *ngFor="let country of countryData" [value]="country.id">{{country.name}}</mat-option>
+						</mat-select>
+					</mat-form-field>
+					&nbsp;&nbsp;
+					<mat-form-field style="width:48%; display: inline-block !important;">
+						<mat-label>Select State</mat-label>
+						<mat-select formControlName="state_id" (selectionChange)="onChangeState($event.value)">
+							<mat-option *ngFor="let state of stateData" [value]="state.id">{{state.name}}</mat-option>
+						</mat-select>
+					</mat-form-field>
+					<mat-form-field style="width:48%; display: inline-block !important;">
+						<mat-label>Select City</mat-label>
+						<mat-select formControlName="city_id">
+							<mat-option *ngFor="let city of cityData" [value]="city.id" attr.data="city.name">{{city.name}}</mat-option>
+						</mat-select>
+					</mat-form-field>
+					<br>
+					<mat-form-field>
+						<input matInput type="text" placeholder="Hourly Service Percentage" formControlName="hourly_service_percentage">
+						<mat-error *ngIf="addForm.controls['hourly_service_percentage'].hasError('required') && addForm.controls['hourly_service_percentage'].touched">
+						Please enter hourly service percentage.
+						</mat-error>
+					</mat-form-field>
+					<mat-form-field>
+						<input matInput type="text" placeholder="Fixed Service Percentage" formControlName="fixed_service_percentage">
+						<mat-error *ngIf="addForm.controls['fixed_service_percentage'].hasError('required') && addForm.controls['fixed_service_percentage'].touched">
+						Please enter fixed service percentage.
+						</mat-error>
+					</mat-form-field>
+					<mat-form-field>
+						<input matInput type="text" placeholder="Query Service Percentage" formControlName="query_service_percentage">
+						<mat-error *ngIf="addForm.controls['query_service_percentage'].hasError('required') && addForm.controls['query_service_percentage'].touched">
+						Please enter query service percentage.
+						</mat-error>
+					</mat-form-field>
+					
+					<div class="btn_name">
+						<button mat-button class="option_btn" [disabled]="addForm.invalid">Save</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

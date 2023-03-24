@@ -1,0 +1,96 @@
+<div class="content_box">
+  <div *ngIf="adminType == 0">
+    <form class="inner_form" [formGroup]="searchForm" (ngSubmit)="bannerList()">
+      <mat-form-field style="width:48%; display: inline-block !important;">
+        <mat-label>Select Country</mat-label>
+        <mat-select formControlName="country_id" (selectionChange)="onChangeCountry($event.value)">
+          <mat-option *ngFor="let country of countryData" [value]="country.id">{{country.name}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="searchForm.controls['country_id'].hasError('required') && searchForm.controls['country_id'].touched">
+          Please select country.
+        </mat-error>
+      </mat-form-field>
+      &nbsp;&nbsp;
+      <mat-form-field style="width:48%; display: inline-block !important;">
+        <mat-label>Select State</mat-label>
+        <mat-select formControlName="state_id" (selectionChange)="onChangeState($event.value)">
+          <mat-option *ngFor="let state of stateData" [value]="state.id">{{state.name}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="searchForm.controls['state_id'].hasError('required') && searchForm.controls['state_id'].touched">
+          Please select state.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field style="width:48%; display: inline-block !important;">
+        <mat-label>Select City</mat-label>
+        <mat-select formControlName="city_id">
+          <mat-option *ngFor="let city of cityData" [value]="city.id" attr.data="city.name">{{city.name}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="searchForm.controls['city_id'].hasError('required') && searchForm.controls['city_id'].touched">
+          Please select city.
+        </mat-error>
+      </mat-form-field>&nbsp;&nbsp;
+      <input type="submit" name="search" id="btn_data_search" class="btn btn-success" value="Search" />&nbsp;
+      <!-- <input type="submit" class="btn btn-danger" (click)="reset_page()" value="Reset"> -->
+    </form>
+  </div>
+
+  <div class="card">
+    <div class="card-header card-header-danger">
+      <h4 class="card-title ">Banner Management</h4>
+      <p class="card-category">
+        Banner list
+      </p>
+      <div *ngIf="adminType != 3"><button (click)="addBanner()" class="option_btn">Add Banner</button></div>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table">
+
+          <thead class=" text-primary">
+            <th></th>
+            <th>Title</th>
+            <th>Banner Image</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Country</th>
+			<th>Postion</th>
+            <th>Action</th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let bannerList of banner_list | paginate: { itemsPerPage: 10, currentPage: page }; let i = index">
+              <td>{{i+1}}</td>
+              <td>{{bannerList.title}}</td>
+              <td>
+                <img [src]="bannerList.banner" height="100" width="100">
+              </td>
+              <td>{{bannerList.city}}</td>
+              <td>{{bannerList.state}}</td>
+              <td>{{bannerList.country}}</td>
+			  <td>
+				<span *ngIf="bannerList.position_status == 1">Top</span>
+				<span *ngIf="bannerList.position_status == 2">Bottom</span>
+			  </td>
+              <td _ngcontent-eva-c5="" class="td-actions">
+                <button *ngIf="adminType != 3" _ngcontent-eva-c5="" class="btn btn-danger btn-link btn-sm btn-just-icon mat-raised-button"
+                  mat-raised-button="" mattooltip="Remove" type="button" aria-describedby="cdk-describedby-message-3"
+                  cdk-describedby-host="">
+                  <span class="mat-button-wrapper"><i _ngcontent-eva-c5="" title="Delete Banner" class="material-icons"
+                      (click)="deleteBanner(bannerList._id)">close</i></span>
+                  <div class="mat-button-ripple mat-ripple" matripple="">
+                  </div>
+                  <div class="mat-button-focus-overlay">
+                  </div>
+                </button>
+              </td>
+            </tr>
+            <tr *ngIf="banner_list?.length == 0">
+							<td text-align="center" colspan="7">Data not found.</td>
+						</tr>
+          </tbody>
+        </table>
+        <div class="has-text-centered">
+					<pagination-controls (pageChange)="page = $event"></pagination-controls>
+				</div>
+      </div>
+    </div>
+  </div>

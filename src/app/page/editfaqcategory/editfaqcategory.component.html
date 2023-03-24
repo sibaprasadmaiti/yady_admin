@@ -1,0 +1,33 @@
+<div class="content_box">
+    
+    <div  class="card">
+      <div  class="card-header card-header-danger">
+        <h4  class="card-title ">FAQ Category Management</h4>
+        <p  class="card-category">
+          Edit FAQ Category
+        </p>
+      </div>
+      <div  class="card-body"> 
+    <div class="edit_form">
+      <form class="inner_form"  [formGroup]="updateFaqCatForm" (ngSubmit)="updatefaqcategoryData()">
+      <mat-form-field>
+        <input matInput type="text" placeholder="name" formControlName="name">
+        <mat-error *ngIf="updateFaqCatForm.controls['name'].hasError('required') && updateFaqCatForm.controls['name'].touched">
+            Please enter a  name.
+          </mat-error>
+      </mat-form-field>
+             
+      <mat-form-field>
+          <mat-select formControlName="status">
+            <mat-option value="Y">Active</mat-option>
+            <mat-option value="N">Inactive</mat-option>
+          </mat-select>
+        </mat-form-field>  
+  
+  
+    <button mat-button class="update_btn" [disabled]="updateFaqCatForm.invalid">Update</button>
+      
+    </form>
+  </div>
+    </div>
+  </div>

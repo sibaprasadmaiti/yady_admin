@@ -1,0 +1,70 @@
+<div class="content_box">   
+    <div class="card">
+      <div class="card-header card-header-danger">
+        <h4 class="card-title">Query Category Management</h4>
+        <p class="card-category">
+          Add Query Category
+        </p>
+			<div>
+				<button mat-raised-button color="primary" (click)="backtolist()">Back To Query Category List</button>
+			</div>
+      </div>
+      <div class="card-body"> 
+    <div class="edit_form">
+		<form class="inner_form" [formGroup]="addForm" (ngSubmit)="addData()">
+			<mat-form-field style="width:48%; display: inline-block !important;">
+				<mat-label>Select Country</mat-label>
+				<mat-select formControlName="country_id" (selectionChange)="onChangeCountry($event.value)">
+					<mat-option *ngFor="let country of countryData" [value]="country.id">{{country.name}}</mat-option>
+				</mat-select>
+			</mat-form-field>
+			&nbsp;&nbsp;
+			<mat-form-field style="width:48%; display: inline-block !important;">
+				<mat-label>Select State</mat-label>
+				<mat-select formControlName="state_id" (selectionChange)="onChangeState($event.value)">
+					<mat-option *ngFor="let state of stateData" [value]="state.id">{{state.name}}</mat-option>
+				</mat-select>
+			</mat-form-field>
+			<mat-form-field style="width:48%; display: inline-block !important;">
+				<mat-label>Select City</mat-label>
+				<mat-select formControlName="city_id" (selectionChange)="onChangeCity($event.value)">
+					<mat-option *ngFor="let city of cityData" [value]="city.id" attr.data="city.name">{{city.name}}</mat-option>
+				</mat-select>
+			</mat-form-field>
+			&nbsp;&nbsp;
+			<mat-form-field style="width:48%; display: inline-block !important;">
+				<input matInput type="text" placeholder="Currecny" formControlName="currency" autocomplete="off" readonly >
+			</mat-form-field>
+			<br>
+			<mat-form-field style="width:85%; display: inline-block !important;">
+				<input matInput type="text" placeholder="Area" formControlName="area" id="area" autocomplete="off" #area>
+				<input type="hidden" id="place_id">
+				<input type="hidden" id="lattitude"> 
+				<input type="hidden" id="longitude">
+			</mat-form-field> &nbsp;&nbsp;
+			<button type="button" class="btn btn-primary" (click)="addPlaces()">Add</button>
+			<span *ngFor="let areaDetails of unique_area_arr; let i = index">
+				<input type="text" value="{{areaDetails}}" class="form-control" style="width:85%; display: inline-block !important;" readonly>&nbsp;
+				<button type="button" class="btn btn-danger" (click)="removePlace(i,areaDetails,unique_googlePlaceIdArr[i],unique_lat_array[i],unique_lng_array[i])">Delete</button>
+			</span>
+			
+			<mat-form-field>
+				<input matInput type="text" placeholder="Category Name" readonly formControlName="category_name" value="Query Category">
+			</mat-form-field>
+			
+			<mat-form-field style="width:32%; display: inline-block !important;">
+				<mat-label>Select Timezone</mat-label>
+				<mat-select formControlName="timezone_id" (selectionChange)="onChangeTimezone($event.value)">
+					<mat-option *ngFor="let timezone of timezoneData" [value]="timezone._id">{{timezone.timezone}}</mat-option>
+				</mat-select>
+			</mat-form-field>
+			
+		
+			
+			<div class="btn_name">
+				<button mat-button class="option_btn">Add Category</button>
+			</div> 
+		</form>
+    </div>
+    </div>
+  </div>

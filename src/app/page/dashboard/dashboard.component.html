@@ -1,0 +1,264 @@
+
+<div class="content_box">
+    <h2>Dashboard</h2>
+    <p><strong>Username: </strong>{{userName}}</p>
+    <p><strong>Email: </strong>{{userEmail}}</p>
+
+
+<div  class="container-fluid">
+	<div  class="row">
+		<div  class="col-lg-3 col-md-6 col-sm-6">
+			<div  class="card card-stats">
+				<div class="card-header card-header-warning card-header-icon">
+					<div class="card-icon">
+						<i class="material-icons">person</i>
+					</div>
+					<p class="card-category" style="font-size: 12px !important;">
+						Service Requester
+					</p>
+					<h3  class="card-title">{{this.totalServiceRequester}}</h3>
+				</div>
+				<div  class="card-footer">
+					<div  class="stats">
+						<!--<mat-icon (click)="myUser()">more...</mat-icon>-->
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-3 col-md-6 col-sm-6">
+			<div class="card card-stats">
+				<div class="card-header card-header-success card-header-icon">
+					<div class="card-icon">
+						<i class="material-icons">person_add</i>
+					</div>
+					<p class="card-category" style="font-size: 12px !important;">
+						Service Provider
+					</p>
+					<h3 class="card-title">{{this.totalServiceProvider}}</h3>
+				</div>
+				<div  class="card-footer">
+					<div  class="stats">
+						<!--<mat-icon (click)="myContent()">more...</mat-icon>-->
+					</div>
+				</div>
+			</div>
+		</div>
+		<div  class="col-lg-3 col-md-6 col-sm-6">
+			<div  class="card card-stats">
+				<div  class="card-header card-header-info card-header-icon">
+					<div  class="card-icon">
+						<i  class="material-icons">person_outline</i>
+					</div>
+					<p class="card-category" style="font-size: 12px !important;">
+						Service Dispatcher
+					</p>
+					<h3 class="card-title">{{this.totalServiceDispatcher}}</h3>
+				</div>
+				<div  class="card-footer">
+					<div  class="stats">
+						<!--<mat-icon (click)="myFaq()">more...</mat-icon>-->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div  class="col-lg-3 col-md-6 col-sm-6">
+			<div  class="card card-stats">
+				<div  class="card-header card-header-info card-header-icon">
+					<div  class="card-icon">
+						<i  class="material-icons">format_list_bulleted</i>
+					</div>
+					<p class="card-category" style="font-size: 12px !important;">
+						Category
+					</p>
+					<h3 class="card-title">{{this.totalCategory}}</h3>
+				</div>
+				<div  class="card-footer">
+					<div  class="stats">
+						<!--<mat-icon (click)="myFaq()">more...</mat-icon>-->
+					</div>
+				</div>
+			</div>
+		</div>
+		<div  class="col-lg-3 col-md-6 col-sm-6">
+			<div  class="card card-stats">
+				<div  class="card-header card-header-info card-header-icon">
+					<div  class="card-icon">
+						<i  class="material-icons">format_line_spacing</i>
+					</div>
+					<p class="card-category" style="font-size: 12px !important;">
+						Sub Category
+					</p>
+					<h3 class="card-title">{{this.totalSubCategory}}</h3>
+				</div>
+				<div  class="card-footer">
+					<div  class="stats">
+						<!--<mat-icon (click)="myFaq()">more...</mat-icon>-->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+<!--  -->
+<div>
+<!--<div _ngcontent-ycp-c5="" class="col-lg-6 col-md-12" style="float:left;">
+	<div _ngcontent-ycp-c5="" class="card">
+		<div _ngcontent-ycp-c5="" class="card-header card-header-warning">
+			<h4 _ngcontent-ycp-c5="" class="card-title">User Stats</h4>
+			<p _ngcontent-ycp-c5="" class="card-category">
+        Show Last 5 User Information	
+			</p>
+		</div>
+		<div _ngcontent-ycp-c5="" class="card-body table-responsive">
+			<table _ngcontent-ycp-c5="" class="table table-hover">
+			<thead _ngcontent-ycp-c5="" class="text-warning">
+			<th _ngcontent-ycp-c5="">
+				ID
+			</th>
+			<th _ngcontent-ycp-c5="">
+				Name
+			</th>
+			<th _ngcontent-ycp-c5="">
+				Email
+			</th>
+			<th _ngcontent-ycp-c5="">
+				Account Type 
+			</th>
+			</thead>
+			<tbody _ngcontent-ycp-c5="" *ngIf="latestUData?.length>0">
+			<tr _ngcontent-ycp-c5="" *ngFor="let latestUData of latestUData; let i = index" [ngClass]="{'content_box_seller': latestUData.type==1, 'content_box_buy':latestUData.type==2}">
+				<td _ngcontent-ycp-c5="">
+				{{i+1}}
+				</td>
+				<td _ngcontent-ycp-c5="">
+					{{latestUData.name}}
+				</td>
+				<td _ngcontent-ycp-c5="">
+          {{latestUData.email}}
+				</td>
+				<td _ngcontent-ycp-c5="" *ngIf="latestUData.type==1">
+					Sellers
+        </td>
+        <td _ngcontent-ycp-c5="" *ngIf="latestUData.type==2" >
+					Buyers
+        </td>
+       
+			</tr>	
+			
+			</tbody>
+			<tbody _ngcontent-ycp-c5=""  *ngIf="latestUData?.length==0">
+				<tr><td colspan="4">No Record Found</td></tr>
+			</tbody>
+			</table>
+		</div>
+	</div>
+</div>-->
+<!--<div _ngcontent-ycp-c5="" class="col-lg-6 col-md-12" style="float:right;">
+	<div _ngcontent-ycp-c5="" class="card">
+		<div _ngcontent-ycp-c5="" class="card-header card-header-warning">
+			<h4 _ngcontent-ycp-c5="" class="card-title">Currency Conversion</h4>
+			<p _ngcontent-ycp-c5="" class="card-category">
+        Show currency converter information	of amount 1
+			</p>
+		</div>
+		<div _ngcontent-ycp-c5="" class="card-body table-responsive">
+			<table _ngcontent-ycp-c5="" class="table table-hover">
+			<thead _ngcontent-ycp-c5="" class="text-warning">
+			<th _ngcontent-ycp-c5="">
+				ID
+			</th>
+			<th _ngcontent-ycp-c5="">
+				From
+			</th>
+			<th _ngcontent-ycp-c5="">
+				To
+			</th>
+			
+			</thead>
+			<tbody _ngcontent-ycp-c5="" *ngIf="getcurencyList?.length>0">
+			<tr _ngcontent-ycp-c5="" *ngFor="let getcurencyList of getcurencyList; let i = index" [ngClass]="{'content_box_seller': latestUData.type==1, 'content_box_buy':latestUData.type==2}">
+				<td _ngcontent-ycp-c5="">
+				{{i+1}}
+				</td>
+				<td _ngcontent-ycp-c5="">
+					{{1 | currency:getcurencyList.base }}
+				</td>
+				<td _ngcontent-ycp-c5="">	  
+		  {{ getcurencyList.value |  currency:getcurencyList.iso_code }} ({{getcurencyList.iso_code}})
+				</td>			
+       
+			</tr>	
+			
+			</tbody>
+			<tbody _ngcontent-ycp-c5=""  *ngIf="getcurencyList?.length==0">
+				<tr><td colspan="4">No Record Found</td></tr>
+			</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+</div>-->
+<!--<div _ngcontent-ycp-c5="" class="col-xl-8 stretch-card grid-margin" >
+	<div _ngcontent-ycp-c5="" class="card">
+		<div _ngcontent-ycp-c5="" class="card-header card-header-warning">
+			<h4 _ngcontent-ycp-c5="" class="card-title">Product Rating and Review</h4>
+			<p _ngcontent-ycp-c5="" class="card-category">
+        Show Rating and Review Information	
+			</p>
+		</div>
+		
+		<div class="card-body table-responsive">
+		<div class="card-body table-responsive">
+		  <table class="table custom-table text-dark" >
+			<thead>
+			  <tr>
+				<th> Product </th>
+				<th> Rate </th>
+				<th> Comment </th>
+				<th> By </th>
+				<th> On Date </th>
+			  </tr>
+			</thead>
+			<tbody *ngIf="reviewlist?.length>0">
+			  <tr *ngFor="let reviewlist of reviewlist; let i = index">
+				<td>
+					<img [src]="imgpath+reviewlist.image[0].name" class="mr-2" alt="image"> 
+					<p>{{reviewlist.pname}}</p> </td>
+				<td>
+				  <div class="d-flex">
+					<span class="pr-2 d-flex align-items-center"></span>
+					<div class="br-wrapper br-theme-css-stars">
+					
+					<div class="br-widget">
+						<a  data-rating-value="1" data-rating-text="1" class="br-selected"  *ngFor="let i of [].constructor(reviewlist.rating)"></a>
+						
+						<a data-rating-value="5" data-rating-text="5" class="" *ngFor="let i of [].constructor(5-reviewlist.rating)"></a>
+					</div>
+				</div>
+				  </div>
+				</td>
+				<td> {{reviewlist.content | slice:0:150}}... </td>
+				<td> {{reviewlist.name}} </td>
+				<td> {{reviewlist.updated_on | date:'mediumDate' }}</td>
+			  </tr>
+			 
+			</tbody>
+			<tbody _ngcontent-ycp-c5=""  *ngIf="reviewlist?.length==0">
+				<tr><td colspan="5">No Record Found</td></tr>
+			</tbody>
+		  </table>
+		</div>		
+	  </div>
+
+
+	</div>
+</div>-->
+
+<!--- -->
+
+  </div>
+  
+  

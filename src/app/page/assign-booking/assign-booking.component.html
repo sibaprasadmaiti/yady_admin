@@ -1,0 +1,359 @@
+<div class="content_box">
+  <div class="card">
+    <div class="card-header card-header-danger">
+      <h4 class="card-title">Bookings</h4>
+      <p class="card-category">
+        Assign Bookings
+      </p>
+      <div>
+				<button (click)="back()" class="option_btn">Back</button>&nbsp;
+			</div>
+    </div>
+    <div class="card-body">
+      <div class="edit_form">
+        <form class="inner_form" [formGroup]="addForm" (ngSubmit)="assignSP()">
+          <mat-form-field>
+            <mat-label>Select Service Provider</mat-label>
+            <mat-select formControlName="service_provider_id" (selectionChange)="getSPAssignDetails($event.value)">
+              <mat-option *ngFor="let sp of spDetails" [value]="sp._id">{{sp.first_name}} {{sp.last_name}}
+                ({{sp.mobile_no}})</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <div *ngIf="spAssignDetails">
+            <mat-card>
+              <mat-card-title>Booking Details</mat-card-title>
+              <mat-card-content>
+                <div class="select_info_catg" >
+                  <div class="catgopt" *ngFor="let item of spAssignDetails?.booking_details">
+                    <span>{{ item.booking_date_time }}</span>
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+            <br />
+            <mat-card>
+              <mat-card-title>Services</mat-card-title>
+              <mat-card-content>
+                <label class="label_opt">Categories</label>
+                <div class="select_info_catg" >
+                  <div class="catgopt" *ngFor="let item of spAssignDetails?.category">
+                    <span>{{ item.categories }}</span>
+                  </div>
+                </div>
+                <label class="label_opt">Sub Categories</label>
+                <div class="select_info_catg" >
+                  <div class="catgopt" *ngFor="let item of spAssignDetails?.sub_category">
+                    <span>{{ item.subcategories }}</span>
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+            <br />
+            <mat-card>
+              <mat-card-title>Services Timing</mat-card-title>
+              <mat-card-content>
+                <div class="row">
+                  <div class="col-md-6" *ngIf="spAssignDetails?.current_day == 'monday'">
+                    <div class="workingTimebg">
+                      <div class="radioInn hourDay">
+                        <div class="custom-checkbox">
+                          <label>{{spAssignDetails?.current_day.charAt(0).toUpperCase() + spAssignDetails?.current_day.slice(1)}}</label>
+                        </div>
+                      </div>
+
+                      <div class="formTobg">
+                        <div class="formCount">
+                          <p>From</p>
+                          <div class="formMain">
+                            <input type="text" value="{{spAssignDetails.timing.monday_from_hour}}" readonly />
+                            <div class="ampmBg" *ngIf="spAssignDetails.timing.monday_from_hour_unit == 'AM'">
+                              <span class="btnActv">AM</span>
+                              <span>PM</span>
+                            </div>
+                            <div class="ampmBg" *ngIf="spAssignDetails.timing.monday_from_hour_unit == 'PM'">
+                              <span >AM</span>
+                              <span class="btnActv">PM</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="formCount">
+                          <p>To</p>
+                          <div class="formMain">
+                            <input type="text" value="{{spAssignDetails.timing.monday_to_hour}}" readonly />
+                            <div class="ampmBg" *ngIf="spAssignDetails.timing.monday_to_hour_unit == 'AM'">
+                              <span class="btnActv">AM</span>
+                              <span>PM</span>
+                            </div>
+                            <div class="ampmBg" *ngIf="spAssignDetails.timing.monday_to_hour_unit == 'PM'">
+                              <span>AM</span>
+                              <span class="btnActv">PM</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6" *ngIf="spAssignDetails?.current_day == 'tuesday'">
+                    <div class="workingTimebg">
+                      <div class="radioInn hourDay">
+                        <div class="custom-checkbox">
+                          <label>{{spAssignDetails?.current_day.charAt(0).toUpperCase() + spAssignDetails?.current_day.slice(1)}}</label>
+                        </div>
+                      </div>
+
+                      <div class="formTobg">
+                        <div class="formCount">
+                          <p>From</p>
+                          <div class="formMain">
+                            <input type="text" value="{{spAssignDetails.timing.tuesday_from_hour}}" readonly />
+                            <div class="ampmBg" *ngIf="spAssignDetails.timing.tuesday_from_hour_unit == 'AM'">
+                              <span class="btnActv">AM</span>
+                              <span>PM</span>
+                            </div>
+                            <div class="ampmBg" *ngIf="spAssignDetails.timing.tuesday_from_hour_unit == 'PM'">
+                              <span >AM</span>
+                              <span class="btnActv">PM</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="formCount">
+                          <p>To</p>
+                          <div class="formMain">
+                            <input type="text" value="{{spAssignDetails.timing.tuesday_to_hour}}" readonly />
+                            <div class="ampmBg" *ngIf="spAssignDetails.timing.tuesday_to_hour_unit == 'AM'">
+                              <span class="btnActv">AM</span>
+                              <span>PM</span>
+                            </div>
+                            <div class="ampmBg" *ngIf="spAssignDetails.timing.tuesday_to_hour_unit == 'PM'">
+                              <span>AM</span>
+                              <span class="btnActv">PM</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6" *ngIf="spAssignDetails?.current_day == 'wednesday'">
+                    <div class="workingTimebg">
+                      <div class="radioInn hourDay">
+                        <div class="custom-checkbox">
+                          <label>{{spAssignDetails?.current_day.charAt(0).toUpperCase() + spAssignDetails?.current_day.slice(1)}}</label>
+                        </div>
+                      </div>
+
+                      <div class="formTobg">
+                        <div class="formCount">
+                          <p>From</p>
+                          <div class="formMain">
+                            <input type="text" value="{{spAssignDetails.timing.wednesday_from_hour}}" readonly />
+                            <div class="ampmBg" *ngIf="spAssignDetails.timing.wednesday_from_hour_unit == 'AM'">
+                              <span class="btnActv">AM</span>
+                              <span>PM</span>
+                            </div>
+                            <div class="ampmBg" *ngIf="spAssignDetails.timing.wednesday_from_hour_unit == 'PM'">
+                              <span >AM</span>
+                              <span class="btnActv">PM</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="formCount">
+                          <p>To</p>
+                          <div class="formMain">
+                            <input type="text" value="{{spAssignDetails.timing.wednesday_to_hour}}" readonly />
+                            <div class="ampmBg" *ngIf="spAssignDetails.timing.wednesday_to_hour_unit == 'AM'">
+                              <span class="btnActv">AM</span>
+                              <span>PM</span>
+                            </div>
+                            <div class="ampmBg" *ngIf="spAssignDetails.timing.wednesday_to_hour_unit == 'PM'">
+                              <span>AM</span>
+                              <span class="btnActv">PM</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6" *ngIf="spAssignDetails?.current_day == 'thursday'">
+                    <div class="workingTimebg">
+                      <div class="radioInn hourDay">
+                        <div class="custom-checkbox">
+                          <label>{{spAssignDetails?.current_day.charAt(0).toUpperCase() + spAssignDetails?.current_day.slice(1)}}</label>
+                        </div>
+                      </div>
+
+                      <div class="formTobg">
+                        <div class="formCount">
+                          <p>From</p>
+                          <div class="formMain">
+                            <input type="text" value="{{spAssignDetails.timing.thursday_from_hour}}" readonly />
+                            <div class="ampmBg" *ngIf="spAssignDetails.timing.thursday_from_hour_unit == 'AM'">
+                              <span class="btnActv">AM</span>
+                              <span>PM</span>
+                            </div>
+                            <div class="ampmBg" *ngIf="spAssignDetails.timing.thursday_from_hour_unit == 'PM'">
+                              <span >AM</span>
+                              <span class="btnActv">PM</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="formCount">
+                          <p>To</p>
+                          <div class="formMain">
+                            <input type="text" value="{{spAssignDetails.timing.thursday_to_hour}}" readonly />
+                            <div class="ampmBg" *ngIf="spAssignDetails.timing.thursday_to_hour_unit == 'AM'">
+                              <span class="btnActv">AM</span>
+                              <span>PM</span>
+                            </div>
+                            <div class="ampmBg" *ngIf="spAssignDetails.timing.thursday_to_hour_unit == 'PM'">
+                              <span>AM</span>
+                              <span class="btnActv">PM</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6" *ngIf="spAssignDetails?.current_day == 'friday'">
+                    <div class="workingTimebg">
+                      <div class="radioInn hourDay">
+                        <div class="custom-checkbox">
+                          <label>{{spAssignDetails?.current_day.charAt(0).toUpperCase() + spAssignDetails?.current_day.slice(1)}}</label>
+                        </div>
+                      </div>
+
+                      <div class="formTobg">
+                        <div class="formCount">
+                          <p>From</p>
+                          <div class="formMain">
+                            <input type="text" value="{{spAssignDetails.timing.friday_from_hour}}" readonly />
+                            <div class="ampmBg" *ngIf="spAssignDetails.timing.friday_from_hour_unit == 'AM'">
+                              <span class="btnActv">AM</span>
+                              <span>PM</span>
+                            </div>
+                            <div class="ampmBg" *ngIf="spAssignDetails.timing.friday_from_hour_unit == 'PM'">
+                              <span >AM</span>
+                              <span class="btnActv">PM</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="formCount">
+                          <p>To</p>
+                          <div class="formMain">
+                            <input type="text" value="{{spAssignDetails.timing.friday_to_hour}}" readonly />
+                            <div class="ampmBg" *ngIf="spAssignDetails.timing.friday_to_hour_unit == 'AM'">
+                              <span class="btnActv">AM</span>
+                              <span>PM</span>
+                            </div>
+                            <div class="ampmBg" *ngIf="spAssignDetails.timing.friday_to_hour_unit == 'PM'">
+                              <span>AM</span>
+                              <span class="btnActv">PM</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6" *ngIf="spAssignDetails?.current_day == 'saturday'">
+                    <div class="workingTimebg">
+                      <div class="radioInn hourDay">
+                        <div class="custom-checkbox">
+                          <label>{{spAssignDetails?.current_day.charAt(0).toUpperCase() + spAssignDetails?.current_day.slice(1)}}</label>
+                        </div>
+                      </div>
+
+                      <div class="formTobg">
+                        <div class="formCount">
+                          <p>From</p>
+                          <div class="formMain">
+                            <input type="text" value="{{spAssignDetails.timing.saturday_from_hour}}" readonly />
+                            <div class="ampmBg" *ngIf="spAssignDetails.timing.saturday_from_hour_unit == 'AM'">
+                              <span class="btnActv">AM</span>
+                              <span>PM</span>
+                            </div>
+                            <div class="ampmBg" *ngIf="spAssignDetails.timing.saturday_from_hour_unit == 'PM'">
+                              <span >AM</span>
+                              <span class="btnActv">PM</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="formCount">
+                          <p>To</p>
+                          <div class="formMain">
+                            <input type="text" value="{{spAssignDetails.timing.saturday_to_hour}}" readonly />
+                            <div class="ampmBg" *ngIf="spAssignDetails.timing.saturday_to_hour_unit == 'AM'">
+                              <span class="btnActv">AM</span>
+                              <span>PM</span>
+                            </div>
+                            <div class="ampmBg" *ngIf="spAssignDetails.timing.saturday_to_hour_unit == 'PM'">
+                              <span>AM</span>
+                              <span class="btnActv">PM</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6" *ngIf="spAssignDetails?.current_day == 'sunday'">
+                    <div class="workingTimebg">
+                      <div class="radioInn hourDay">
+                        <div class="custom-checkbox">
+                          <label>{{spAssignDetails?.current_day.charAt(0).toUpperCase() + spAssignDetails?.current_day.slice(1)}}</label>
+                        </div>
+                      </div>
+
+                      <div class="formTobg">
+                        <div class="formCount">
+                          <p>From</p>
+                          <div class="formMain">
+                            <input type="text" value="{{spAssignDetails.timing.sunday_from_hour}}" readonly />
+                            <div class="ampmBg" *ngIf="spAssignDetails.timing.sunday_from_hour_unit == 'AM'">
+                              <span class="btnActv">AM</span>
+                              <span>PM</span>
+                            </div>
+                            <div class="ampmBg" *ngIf="spAssignDetails.timing.sunday_from_hour_unit == 'PM'">
+                              <span >AM</span>
+                              <span class="btnActv">PM</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="formCount">
+                          <p>To</p>
+                          <div class="formMain">
+                            <input type="text" value="{{spAssignDetails.timing.sunday_to_hour}}" readonly />
+                            <div class="ampmBg" *ngIf="spAssignDetails.timing.sunday_to_hour_unit == 'AM'">
+                              <span class="btnActv">AM</span>
+                              <span>PM</span>
+                            </div>
+                            <div class="ampmBg" *ngIf="spAssignDetails.timing.sunday_to_hour_unit == 'PM'">
+                              <span>AM</span>
+                              <span class="btnActv">PM</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+            <br />
+            <mat-card>
+              <mat-card-title>Working Area</mat-card-title>
+              <mat-card-content>
+                <div class="select_info_catg" >
+                  <div class="catgopt" *ngFor="let item of spAssignDetails?.working_area">
+                    <span>{{ item.locations }}</span>
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+          <br />
+          <div class="btn_name">
+            <button mat-button class="option_btn" [disabled]="addForm.invalid">Assign</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

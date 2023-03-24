@@ -1,0 +1,110 @@
+<!-- 
+<div class="content_box">
+    <h2>Faq category list details</h2>
+    <table>
+    <div><button mat-button (click)="addNew()">Add New!</button></div>
+      <tr>
+        <th>Name</th>    
+        <th>Status</th>     
+        <th>Action</th>
+      </tr>
+    
+      <tr *ngFor="let faqcate of faqCategoryListData">
+        <td>{{faqcate.name}}</td>         
+        <td *ngIf="faqcate.status=='Y'" [ngClass]="{'status_active': faqcate.status=='Y'}">Active</td>
+        <td *ngIf="faqcate.status=='N'" [ngClass]="{'status_inactive': faqcate.status=='N'}">Inactive</td>               
+        <td>
+         <div class="option_b">
+           <p href="#" class="option_btn">Option</p>
+           <div class="dropdown_a">
+               <ul>
+                   <li [routerLink]="['/main/editfaqcategory', faqcate.id]">Edit</li>
+                   
+               </ul>
+             
+           </div>
+       </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+   -->
+   <div class="content_box">
+    <div  class="card">
+      <div  class="card-header card-header-danger">
+        <h4  class="card-title ">FAQ category Management</h4>
+        <p  class="card-category">
+          FAQ category list details
+        </p>
+        <div><button class="option_btn" (click)="addNew()">Add New!</button></div>
+      </div>
+      <div  class="card-body">
+        <div  class="table-responsive">
+          <table  class="table">
+          <thead  class=" text-primary">
+            <th></th>
+            <th>Name</th>    
+            <th>Status</th>     
+            <th>Action</th>
+          </thead>
+          <tbody >
+            <tr *ngFor="let faqcate of faqCategoryListData ; let i = index">
+              <td>{{i+1}}</td>
+              <td>{{faqcate.name}}</td>         
+              <td *ngIf="faqcate.status=='Y'" [ngClass]="{'status_active': faqcate.status=='Y'}">Active</td>
+              <td *ngIf="faqcate.status=='N'" [ngClass]="{'status_inactive': faqcate.status=='N'}">Inactive</td>               
+              <td>
+               <!-- <div class="option_b">
+                 <p href="#" class="option_btn">Option</p>
+                 <div class="dropdown_a">
+                     <ul>
+                         <li [routerLink]="['/main/editfaqcategory', faqcate.id]">Edit</li>
+                         
+                     </ul>
+                   
+                 </div>
+             </div> -->
+
+             <button _ngcontent-eva-c5="" class="btn btn-primary btn-link btn-sm btn-just-icon mat-raised-button" mat-raised-button="" mattooltip="Edit Task" type="button" aria-describedby="cdk-describedby-message-2" cdk-describedby-host="">
+              <span class="mat-button-wrapper" >
+                  <i _ngcontent-eva-c5="" class="material-icons" (click)="editfaqcategory(faqcate.id)">
+                      edit
+                  </i>
+              </span>
+          <div class="mat-button-ripple mat-ripple" matripple="">
+          </div>
+          <div class="mat-button-focus-overlay">
+          </div>
+          </button>
+          <button _ngcontent-eva-c5="" class="btn btn-primary btn-link btn-sm btn-just-icon mat-raised-button" mat-raised-button="" mattooltip="Edit Task" type="button" aria-describedby="cdk-describedby-message-2" cdk-describedby-host="">
+            <span class="mat-button-wrapper" >
+                <i _ngcontent-eva-c5="" class="material-icons"  (click)="clickMethod(faqcate.id,i)" >
+                  remove_circle_outline
+                </i>
+            </span>          
+        
+        </button>
+        <div *ngIf="faqcate.status=='Y'" >  
+          <img src="assets/tick.png" (click)="changeStatus(i,faqcate.id,faqcate.status)"> 
+          <!-- <input  type="button" value="Active{{i}}{{user.id}}{{user.status}}" (click)="changeStatus(i,user.id,user.status)"/>   -->
+                 
+      </div> 
+      <div *ngIf="faqcate.status=='N'">  
+        <img src="assets/cross.png" (click)="changeStatus(i,faqcate.id,faqcate.status)"> 
+        <!-- <input  type="button" value="Active{{i}}{{user.id}}{{user.status}}" (click)="changeStatus(i,user.id,user.status)"/>   -->
+               
+    </div> 
+          <!-- <button _ngcontent-eva-c5="" class="btn btn-danger btn-link btn-sm btn-just-icon mat-raised-button" mat-raised-button="" mattooltip="Remove" type="button" aria-describedby="cdk-describedby-message-3" cdk-describedby-host=""><span class="mat-button-wrapper"><i _ngcontent-eva-c5="" class="material-icons">close</i></span>
+          <div class="mat-button-ripple mat-ripple" matripple="">
+          </div>
+          <div class="mat-button-focus-overlay">
+          </div>
+          </button> -->
+
+              </td>
+            </tr>
+          </tbody>
+          </table>
+        </div>
+      </div>
+    </div>

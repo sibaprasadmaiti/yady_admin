@@ -1,0 +1,70 @@
+
+<div class="content_box">   
+    <div  class="card">
+      <div  class="card-header card-header-danger">
+        <h4  class="card-title ">Menu Management</h4>
+        <p  class="card-category">
+          Add Recipe
+        </p>       
+      </div>
+      <div  class="card-body"> 
+    <div class="edit_form">
+      <form class="inner_form" [formGroup]="addForm" (ngSubmit)="addData()">
+      <mat-form-field>
+        <input matInput type="text" placeholder="Recipe Name (English)" formControlName="name">
+        <mat-error *ngIf="addForm.controls['name'].hasError('required') && addForm.controls['name'].touched">
+            Please enter a Recipe Name in English.
+          </mat-error>
+      </mat-form-field>
+	  
+	  <mat-form-field>
+        <input matInput type="text" placeholder="Recipe Name (Dutch)" formControlName="name_dutch">
+        <mat-error *ngIf="addForm.controls['name_dutch'].hasError('required') && addForm.controls['name_dutch'].touched">
+            Please enter a Recipe Name in Dutch.
+          </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <textarea  matInput type="text" placeholder="Recipe Description (English)" formControlName="description"></textarea >
+        <mat-error *ngIf="addForm.controls['description'].hasError('required') && addForm.controls['description'].touched">
+            Please enter a Recipe Description in English.
+          </mat-error>
+      </mat-form-field>
+	  
+	  <mat-form-field>
+        <textarea  matInput type="text" placeholder="Recipe Description (Dutch)" formControlName="description_dutch"></textarea >
+        <mat-error *ngIf="addForm.controls['description_dutch'].hasError('required') && addForm.controls['description_dutch'].touched">
+            Please enter a Recipe Description in Dutch.
+          </mat-error>
+      </mat-form-field>
+      
+      
+      <label >Upload Recipe Image</label>
+      <input  type="file" placeholder="Upload Recipe Image"   (change)="onFileChoose($event)" />
+      
+  
+      <!-- <label for="singleFile">Upload file</label>
+      <input id="singleFile" type="file" [fileUploadInputFor]= "menu_img"/> -->
+
+
+<!-- <mat-file-upload-queue #fileUploadQueue
+    [fileAlias]="'file'"
+    [httpUrl]="'http://localhost:8180/jax-rs-jersey-application-sample'">
+
+    <mat-file-upload [file]="file" [id]="i" *ngFor="let file of fileUploadQueue.files; let i = index"></mat-file-upload>
+</mat-file-upload-queue> -->
+     
+<!--<div class="form-group">
+  <label for="language">language</label>
+  <select class="form-control" formControlName="language" [(ngModel)]="language">
+     <option value="E">English</option>
+     <option value="D" selected>Dutch</option>
+  </select>
+</div>-->
+    <div class="btn_name">
+    <button mat-button class="option_btn" [disabled]="addForm.invalid">Add Recipe</button>
+    </div> 
+    </form>
+  </div>
+    </div>
+  </div>

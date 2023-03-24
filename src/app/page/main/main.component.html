@@ -1,0 +1,115 @@
+
+<mat-toolbar class="app-toolbar header">
+    <mat-icon (click)="drawer.toggle()" class="menu_btn">menu</mat-icon>
+    Yady Admin
+<div class="right_toggle">
+    <mat-icon [matMenuTriggerFor]="menu">account_circle</mat-icon>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item routerLink="my-account">My account</button>
+      <button mat-menu-item routerLink="change-password">Change password</button>
+      <button *ngIf="adminType == 3" mat-menu-item routerLink="edit-profile/{{adminId}}">Edit Profile</button>
+      <button mat-menu-item (click)="logOut()">Logout</button>
+    </mat-menu>
+  </div>
+</mat-toolbar>
+
+
+<mat-sidenav-container class="example-container">
+    <mat-sidenav color="primary" #drawer [mode]="isLargeScreen() ? 'side' : 'over'" [opened]="isLargeScreen()">
+        <mat-list role="list"(click)="isSmallScreen()">
+            <mat-list-item role="listitem" routerLink="dashboard" routerLinkActive="active">Dashboard</mat-list-item>
+            <mat-divider></mat-divider>
+            <!--<mat-list-item role="listitem" routerLink="user-management" routerLinkActive="active">User Management</mat-list-item>-->
+            <mat-divider></mat-divider>
+
+			<mat-list-item role="listitem" [matMenuTriggerFor]="user_management" *ngIf="admin_type == 'all' || (admin_type == 'sub' && service_requester_permission === 1) || (admin_type == 'sub' && service_provider_permission === 1) || (admin_type == 'sub' && service_dispatcher_permission === 1)">User Management</mat-list-item>
+			<mat-menu #user_management="matMenu">
+				<button mat-menu-item *ngIf="admin_type == 'all' || (admin_type == 'sub' && service_requester_permission === 1)" routerLink="service-requester-management" routerLinkActive="active">Service Requester</button>
+				<button mat-menu-item *ngIf="admin_type == 'all' || (admin_type == 'sub' && service_provider_permission === 1)" routerLink="service-provider-management" routerLinkActive="active">Service Provider</button>
+				<button mat-menu-item *ngIf="admin_type == 'all' || (admin_type == 'sub' && service_dispatcher_permission === 1)" routerLink="service-dispatcher-management" routerLinkActive="active">Service Dispatcher</button>
+				<!--<button mat-menu-item [matMenuTriggerFor]="invertebrates">Invertebrates</button>-->
+			</mat-menu>
+			<mat-divider></mat-divider>
+
+			<mat-list-item *ngIf="admin_type == 'all' || (admin_type == 'sub' && category_permission == 1)" role="listitem" routerLink="category-list" routerLinkActive="active">Category</mat-list-item>
+			<mat-divider></mat-divider>
+			<mat-list-item *ngIf="admin_type == 'all' || (admin_type == 'sub' && category_permission == 1)" role="listitem" routerLink="query-category-list" routerLinkActive="active">Query Category</mat-list-item>
+			<mat-divider></mat-divider>
+
+			<mat-list-item *ngIf="admin_type == 'all' || (admin_type == 'sub' && bookings_permission == 1)" role="listitem" routerLink="booking-list" routerLinkActive="active">Bookings</mat-list-item>
+
+			<mat-list-item *ngIf="admin_type == 'all' || (admin_type == 'sub' && query_service_permission == 1)" role="listitem" routerLink="query-service-list" routerLinkActive="active">Query Request</mat-list-item>
+
+			<mat-list-item role="listitem" routerLink="query-booking-list" routerLinkActive="active">Query Bookings</mat-list-item>
+
+			<mat-list-item *ngIf="admin_type == 'all'" role="listitem" routerLink="payment-processing" routerLinkActive="active">Payment Processing</mat-list-item>
+
+			<mat-list-item *ngIf="admin_type == 'all' || (admin_type == 'sub' && promotion_permission == 1)" role="listitem" routerLink="promo-code-list" routerLinkActive="active">Promotion</mat-list-item>
+
+			<mat-list-item *ngIf="admin_type == 'all' || (admin_type == 'sub' && zone_permission == 1)" role="listitem" routerLink="zone-list" routerLinkActive="active">Zone</mat-list-item>
+
+			<mat-list-item *ngIf="admin_type == 'all' || (admin_type == 'sub' && holidays_permission == 1)" role="listitem" routerLink="holiday-list" routerLinkActive="active">Holidays</mat-list-item>
+
+
+
+      <mat-list-item *ngIf="admin_type == 'all' || (admin_type == 'sub' && banner_management_permission == 1)" role="listitem" routerLink="banner-management-list" routerLinkActive="active">Banner Management</mat-list-item>
+      <mat-list-item *ngIf="admin_type == 'all'" role="listitem" routerLink="service-provider-location" routerLinkActive="active">Service Provider Location</mat-list-item>
+
+      <mat-list-item *ngIf="admin_type == 'all' || (admin_type == 'sub' && notification_management_permission == 1)" role="listitem" routerLink="notification-management" routerLinkActive="active">Notification Management</mat-list-item>
+	  <mat-list-item *ngIf="admin_type == 'all'" role="listitem" routerLink="admin-percentage-list" routerLinkActive="active">Admin Percentage Set</mat-list-item>
+	  <mat-list-item *ngIf="admin_type == 'all'" role="listitem" routerLink="tax-list" routerLinkActive="active">Global Tax</mat-list-item>
+
+			<mat-list-item role="listitem" [matMenuTriggerFor]="settings" *ngIf="admin_type == 'all'">Settings</mat-list-item>
+			<mat-menu #settings="matMenu">
+				<button style="width: 200px;" mat-menu-item *ngIf="admin_type == 'all' " routerLink="work-radius-list" routerLinkActive="active">Work Radius</button>
+			</mat-menu>
+      <mat-list-item role="listitem" [matMenuTriggerFor]="reports" *ngIf="admin_type == 'all'">Reports</mat-list-item>
+			<mat-menu #reports="matMenu">
+				<button style="width: 200px;" mat-menu-item *ngIf="admin_type == 'all'" routerLink="area-wise-report" routerLinkActive="active">Area Wise Report</button>
+        <button style="width: 200px;" mat-menu-item *ngIf="admin_type == 'all'" routerLink="sr-wise-report" routerLinkActive="active">SR Wise Report</button>
+        <button style="width: 200px;" mat-menu-item *ngIf="admin_type == 'all'" routerLink="sp-wise-report" routerLinkActive="active">SP Wise Report</button>
+        <button style="width: 200px;" mat-menu-item *ngIf="admin_type == 'all'" routerLink="platform-earning-report" routerLinkActive="active">Platform Earning Report</button>
+			</mat-menu>
+			<mat-list-item role="listitem" [matMenuTriggerFor]="rule_management" *ngIf="admin_type == 'all' || (admin_type == 'sub' && sr_reschedule_permission === 1)">Rules</mat-list-item>
+			<mat-menu #rule_management="matMenu">
+				<button mat-menu-item *ngIf="admin_type == 'all' || (admin_type == 'sub' && sr_reschedule_permission === 1)" routerLink="sr-reschedule-rule-list"  routerLinkActive="active">SR Reschedule</button>
+				<!--<button mat-menu-item (click)="ruleRoute('62b074f70545dc53641124c8')" routerLinkActive="active">SR Cancel</button>-->
+			</mat-menu>
+
+
+            <!-- <mat-list-item role="listitem" routerLink="Job-management" routerLinkActive="active">Job Management</mat-list-item> -->
+            <!--<mat-list-item role="listitem" routerLink="managecontent" routerLinkActive="active">Content Management</mat-list-item>
+            <mat-list-item role="listitem" routerLink="driver" routerLinkActive="active">Driver Management</mat-list-item>
+            <mat-list-item role="listitem" routerLink="faq" routerLinkActive="active">FAQ Management</mat-list-item>
+            <mat-list-item role="listitem" routerLink="menulist" routerLinkActive="active">MenuList Management</mat-list-item>
+            <mat-list-item role="listitem" routerLink="recipelist" routerLinkActive="active">RecipeList Management</mat-list-item>
+            <mat-list-item role="listitem" routerLink="videolist" routerLinkActive="active">SpotlLght Video Management</mat-list-item>
+            <mat-list-item role="listitem" routerLink="orderlist" routerLinkActive="active">OrderList Management</mat-list-item>
+            <mat-list-item role="listitem" routerLink="ratingreviewlist" routerLinkActive="active">RatingReview Management</mat-list-item>
+            <mat-list-item role="listitem" routerLink="bannerlist" routerLinkActive="active">Banner Management</mat-list-item>-->
+
+            <!-- <mat-list-item role="listitem" routerLink="homecategory" routerLinkActive="active">Home Category Management</mat-list-item>
+            <mat-list-item role="listitem" routerLink="faqcategory" routerLinkActive="active">FAQ Category Management</mat-list-item> -->
+            <!--
+            <mat-list-item role="listitem" routerLink="bannerlist" routerLinkActive="active">Banner Management</mat-list-item>
+            <mat-list-item role="listitem" routerLink="emailnotification" routerLinkActive="active">Email Notification Management</mat-list-item>
+            <mat-list-item role="listitem" routerLink="viewcustomermessage" routerLinkActive="active">Customer Message Management</mat-list-item>
+            <mat-list-item role="listitem" routerLink="subscriptionplan" routerLinkActive="active">Subscription Plan</mat-list-item>
+            <mat-list-item role="listitem" routerLink="productlist" routerLinkActive="active">Product List</mat-list-item>
+            <mat-list-item role="listitem" routerLink="emailmanagement" routerLinkActive="active">Email  Management</mat-list-item>
+            <mat-list-item role="listitem" routerLink="orderlist" routerLinkActive="active">Transaction History  Management</mat-list-item> -->
+            <!-- <mat-list-item role="listitem" routerLink="paymentmessagesettinglist" routerLinkActive="active"> Payment Message Setting </mat-list-item>
+            <mat-list-item role="listitem" routerLink="sellerpaymentlist" routerLinkActive="active">Seller Payment List </mat-list-item> -->
+
+            <mat-divider></mat-divider>
+        </mat-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+
+  </mat-sidenav-container>
+
+
+
+

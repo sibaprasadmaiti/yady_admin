@@ -1,0 +1,44 @@
+<div class="content_box">   
+    <div class="card">
+      <div class="card-header card-header-danger">
+        <h4 class="card-title">Add On Management</h4>
+        <p class="card-category">
+          Create Add Ons
+        </p>       
+      </div>
+      <div class="card-body"> 
+    <div class="edit_form">
+		<form class="inner_form" [formGroup]="EditForm" (ngSubmit)="updateData()">
+			<mat-form-field>
+				<input matInput type="text" placeholder="Add On Tile" formControlName="add_on_title">
+				<mat-error *ngIf="EditForm.controls['add_on_title'].hasError('required') && EditForm.controls['add_on_title'].touched">
+				Please enter add on title.
+				</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<textarea matInput type="text" placeholder="Description" formControlName="add_on_description"></textarea >
+				<mat-error *ngIf="EditForm.controls['add_on_description'].hasError('required') && EditForm.controls['add_on_description'].touched">
+				Please enter Add On Description.
+				</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput type="text" placeholder="Price" formControlName="price">
+				<mat-error *ngIf="EditForm.controls['price'].hasError('required') && EditForm.controls['price'].touched">
+				Please enter price.
+				</mat-error>
+			</mat-form-field>
+			
+			<div *ngIf="price_type == 1">
+				<label>Per Hour Status (Will this add on price depend on hour or is it fixed cost?)</label><br>
+				Yes - <input type="radio" name="per_hour_status" formControlName="per_hour_status" value="true">&nbsp;&nbsp;&nbsp;
+				No - <input type="radio" name="per_hour_status" formControlName="per_hour_status" value="false">
+				</div>
+			<br>
+			
+			<div class="btn_name">
+				<button mat-button class="option_btn" [disabled]="EditForm.invalid">Update Add On</button>
+			</div> 
+		</form>
+  </div>
+    </div>
+  </div>
